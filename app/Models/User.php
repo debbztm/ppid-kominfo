@@ -19,8 +19,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'username',
         'password',
+        'last_login',
+        'is_active',
+        'role_id',
+        'hall_id'
     ];
 
     /**
@@ -42,4 +46,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function hall()
+    {
+        return $this->belongsTo(Hall::class);
+    }
+
+    public function maCategories()
+    {
+        return $this->hasMany(MaCategory::class);
+    }
 }

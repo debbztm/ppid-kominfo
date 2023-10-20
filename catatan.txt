@@ -1,0 +1,61 @@
+Refactor Database :
+
+balai -> ok (halls)
+contact -> ok (contacts)
+infografis -> ok (infographics)
+ma_agenda -> ok (ma_agendas)
+ma_contact -> ok (ma_contacts)
+ma_download -> ok (ma_downloads)
+ma_galery -> ok (ma_galleries)
+ma_imggalery -> ok (ma_image_galleries)
+ma_kategori
+ma_katperaturan -> ok (ma_regulation_categories)
+ma_ihkpn -> ok (ma_ihkpns)
+ma_link -> ok (ma_links)
+ma_menu_balai -> ok (ma_hall_menus)
+ma_options -> ok (ma_options)
+ma_pengguna -> ok (users)
+ma_peraturan -> ok (ma_regulations)
+ma_pooling -> ok (ma_pollings)
+ma_post -> ok (ma_posts)
+ma_profile -> ok (ma_profiles)
+ma_profilpejabat -> ok (ma_official_profiles)
+ma_profilpejabatlist -> ok (ma_official_profile_lists)
+ma_profilpejabatppid -> ok (ma_official_ppid_profiles)
+ma_regulasi -> ok (ma_regulations)
+ma_regulasifile -> ok (ma_regulation_files)
+ma_setting
+ma_slide
+ma_video
+pages
+portaldata
+
+
+
+refactor name
+ma_agenda -> ma_agendas
+ma_contact -> ma_contacts
+ma_download -> ma_downloads
+ma_galery -> ma_galleries
+ma_imggalery -> ma_image_galleries
+ma_kategori -> ma_categories
+ma_katperaturan -> ma_regulation_categories
+ma_ihkpn -> ma_ihkpns
+ma_link -> ma_links
+ma_menu_balai -> ma_hall_menus
+ma_options -> ma_options
+ma_pengguna -> ma_users
+ma_peraturan -> ma_regulations
+ma_pooling -> ma_pollings
+ma_post -> ma_posts
+ma_profile -> ma_profiles
+ma_profilpejabat -> ma_official_profiles
+ma_profilpejabatlist -> ma_official_profile_lists
+ma_profilpejabatppid -> ma_official_ppid_profiles
+ma_regulasi -> ma_regulations
+ma_regulasifile -> ma_regulation_files
+ma_setting -> ma_settings
+ma_slide -> ma_slides
+ma_video -> ma_videos
+pages -> pages
+portaldata -> portal_data
