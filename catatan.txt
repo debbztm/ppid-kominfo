@@ -59,3 +59,40 @@ ma_slide -> ma_slides
 ma_video -> ma_videos
 pages -> pages
 portaldata -> portal_data
+
+
+
+//striktur menu
+
+-> Master
+  -> slide
+  -> berita
+  -> home anggaran
+  -> infografis
+  -> jumlah informasi
+  -> portal data
+  -> pejabat ppid
+  -> foto
+  -> video
+  -> agenda
+  -> download
+  -> regulasi
+  -> link terkait
+  -> hubungi kami
+  -> pengguna
+
+-> Management
+  -> profile
+  -> sejarah
+  -> visi misi
+  -> tupoksi
+  -> struktur organisasi
+  -> profile pebajat
+
+-> Setting
+  -> pecah layout di settings menjadi sub menu
+  -> info website
+  -> profile
+  -> sosial media
+  -> image
+  -> maps
