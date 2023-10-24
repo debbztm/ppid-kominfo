@@ -16,7 +16,7 @@
 
     @include('partials.dashboard.styles')
     <title>@yield('title')</title>
-    @stack('style')
+    @stack('styles')
 </head>
 
 <body data-background-color="{{ $bgColor }}">
@@ -60,7 +60,7 @@
         @include('partials.dashboard.custom-template')
     </div>
     @include('partials.dashboard.scripts')
-    @stack('script')
+    @stack('scripts')
 </body>
 
 </html>

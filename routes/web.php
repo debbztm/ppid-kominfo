@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SlideController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,7 @@ Route::get('/', function () {
 // Dashboard
 Route::prefix('admin')->namespace('admin')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // MASTER
+    Route::get('slide', [SlideController::class, 'index'])->name('slide');
 });

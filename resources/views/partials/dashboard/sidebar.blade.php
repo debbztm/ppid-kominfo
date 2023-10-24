@@ -1,10 +1,15 @@
 <!-- Sidebar -->
+@php
+    $routename = request()
+        ->route()
+        ->getName();
+@endphp
 <div class="sidebar sidebar-style-2" data-background-color="{{ $sidebarColor }}">
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-primary">
-                <li class="nav-item ml-3">
-                    <a data-toggle="collapse" href="{{ route('dashboard') }}" class="collapsed" aria-expanded="false">
+                <li class="nav-item ml-3 {{ $routename == 'dashboard' ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" aria-expanded="false">
                         <i class="fas fa-home"></i>
                         <p>Dashboard</p>
                     </a>
@@ -15,8 +20,8 @@
                     </span>
                     <h4 class="text-section">Master</h4>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li class="nav-item ml-3 {{ $routename == 'slide' ? 'active' : '' }}">
+                    <a href="{{ route('slide') }}">
                         <i class="fas fa-images"></i>
                         <p>Slide</p>
                     </a>
