@@ -104,3 +104,7 @@ CATATAN PENTING
   menu berita (kurang validasi role id )
   -> MaHallMenu tidak ada controller dan view nya di existing (tolong tambahkan)
   -> Rombak alur crud balai + tambah menunya (sudah)
+
+
+CATATAN KURANG RELATE
+  -> existing tabel pages digunakan untuk menu home anggaran. field table non use (seo_pages, image, type )

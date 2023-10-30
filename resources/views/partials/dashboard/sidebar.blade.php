@@ -38,8 +38,8 @@
                         <p>Berita</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li class="nav-item ml-3 {{ $routename == 'pages' ? 'active' : '' }}">
+                    <a href="{{ route('pages') }}">
                         <i class="fas fa-money-bill-alt"></i>
                         <p>Home Anggaran</p>
                     </a>

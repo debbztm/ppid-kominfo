@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HallController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\AuthController;
@@ -29,7 +30,8 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // MASTER
-    Route::get('hall', [HallController::class, 'index'])->name('hall');
-    Route::get('slide', [SlideController::class, 'index'])->name('slide');
-    Route::get('news', [PostController::class, 'index'])->name('news');
+    Route::get('hall', [HallController::class, 'index'])->name('hall'); // balai
+    Route::get('slide', [SlideController::class, 'index'])->name('slide'); // slide
+    Route::get('news', [PostController::class, 'index'])->name('news'); // berita
+    Route::get('pages', [PageController::class, 'index'])->name('pages'); // home anggaran
 });

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CustomTemplateController;
 use App\Http\Controllers\Admin\HallController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\AuthController;
@@ -59,5 +60,15 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/update", [PostController::class, "update"]);
         Route::post("/update-status", [PostController::class, "updateStatus"]);
         Route::delete("/", [PostController::class, "destroy"]);
+    });
+
+    // PAGE/HOME ANGGARAN
+    Route::group(["prefix" => "pages"], function () {
+        Route::get("datatable", [PageController::class, "dataTable"]);
+        Route::get("{id}/detail", [PageController::class, "getDetail"]);
+        Route::post("/create", [PageController::class, "create"]);
+        Route::post("/update", [PageController::class, "update"]);
+        Route::post("/update-status", [PageController::class, "updateStatus"]);
+        Route::delete("/", [PageController::class, "destroy"]);
     });
 });

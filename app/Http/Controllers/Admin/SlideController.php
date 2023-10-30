@@ -25,7 +25,7 @@ class SlideController extends Controller
                 "order" => "required|integer",
                 "title" => "required|string",
                 "link" => "required|string",
-                "is_publish" => "required|string",
+                "is_publish" => "required|string|in:Y,N",
                 "image" => "required|image|max:10240|mimes:jpeg,png,jpg"
             ];
 
@@ -34,6 +34,7 @@ class SlideController extends Controller
                 "title.required" => "Judul harus diisi",
                 "link.required" => "Link harus diisi",
                 "is_publish.required" => "Status harus diisi",
+                "is_publish.in" => "Status tidak sesuai",
                 "image.required" => "Gambar harus diisi",
                 "image.image" => "Gambar yang di upload tidak valid",
                 "image.max" => "Ukuran gambar maximal 1MB",
@@ -98,7 +99,7 @@ class SlideController extends Controller
                 "order" => "required|integer",
                 "title" => "required|string",
                 "link" => "required|string",
-                "is_publish" => "required|string",
+                "is_publish" => "required|string|in:Y,N",
                 "image" => "nullable",
             ];
 
@@ -111,6 +112,7 @@ class SlideController extends Controller
                 "title.required" => "Judul harus diisi",
                 "link.required" => "Link harus diisi",
                 "is_publish.required" => "Status harus diisi",
+                "is_publish.in" => "Status tidak sesuai",
                 "image.image" => "Gambar yang di upload tidak valid",
                 "image.max" => "Ukuran gambar maximal 1MB",
                 "image.mimes" => "Format gambar harus jpeg/png/jpg"
@@ -161,7 +163,7 @@ class SlideController extends Controller
             $data = $request->all();
             $rules = [
                 "id" => "required|integer",
-                "is_publish" => "required|string",
+                "is_publish" => "required|string|in:Y,N",
             ];
 
             if ($request->file('image')) {
@@ -172,6 +174,7 @@ class SlideController extends Controller
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",
                 "is_publish.required" => "Status harus diisi",
+                "is_publish.in" => "Status tidak sesuai",
             ];
 
             $validator = Validator::make($data, $rules, $messages);

@@ -2,12 +2,6 @@
 @section('title', $title)
 @push('styles')
     <link rel="stylesheet" href="{{ asset('/css/toggle-status.css') }}">
-    <style>
-        .bootstrap-tagsinput {
-            min-width: 100%;
-            min-height: 100px;
-        }
-    </style>
 @endpush
 @section('content')
     <div class="row mb-5">
@@ -15,22 +9,22 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Berita</h5>
+                        <h5 class="text-uppercase title">Home Anggaran</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
-                        <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah Berita</button>
+                        <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah Data</button>
                     </div>
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="postTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="pageTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
                                     <th class="all">Judul</th>
                                     <th class="all">Status</th>
-                                    <th class="all">Gambar</th>
+                                    <th class="all">Url Link</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,11 +37,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-7 col-sm-12" style="display: none" data-action="update" id="formEditable">
+        <div class="col-md-4 col-sm-12" style="display: none" data-action="update" id="formEditable">
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5>Tambah / Edit Berita</h5>
+                        <h5>Tambah / Edit Data</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-sm btn-warning" onclick="return closeForm(this)" id="btnCloseForm">
@@ -64,35 +58,10 @@
                                 placeholder="masukkan judul" required />
                         </div>
                         <div class="form-group">
-                            <label for="ma_hall_menu_id">Menu</label>
-                            <select class="form-control form-control" id="ma_hall_menu_id" name="menu">
-                                <option value="">Pilih Menu</option>
-                                @foreach ($hall_menus as $menu)
-                                    <option value="{{ $menu->id }}">{{ $menu->menu }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="link">Link</label>
-                            <input class="form-control" id="link" type="text" name="link"
-                                placeholder="masukkan link dengan format https://google.com..." required />
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">WhatsApp</label>
-                            <input class="form-control" id="phone" type="text" name="phone"
-                                placeholder="masukkan no whatsapp dengan format 628xxxxxxxxxx tanpa spasi atau tanda baca"
-                                required />
-                        </div>
-                        <div class="form-group">
-                            <label for="hall_id">Balai</label>
-                            <select class="form-control form-control" id="hall_id" name="{{ $hall_id ? '' : 'hall_id' }}"
-                                {{ $hall_id ? 'disabled' : '' }}>
-                                <option value="">Pilih Balai</option>
-                                @foreach ($halls as $hall)
-                                    <option value="{{ $hall->id }}" {{ $hall->id == $hall_id ? 'selected' : '' }}>
-                                        {{ $hall->name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="url">Url Link</label>
+                            <input class="form-control" id="url" type="text" name="url"
+                                placeholder="www.jatengprov.go.id" required />
+                            <small class="text-danger">contoh: www.jatengprov.go.id</small>
                         </div>
                         <div class="form-group">
                             <label for="is_publish">Status</label>
@@ -103,28 +72,9 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="type">Tipe</label>
-                            <select class="form-control form-control" id="type" name="type" required>
-                                <option value="">Pilih Tipe</option>
-                                <option value="1">Berita</option>
-                                <option value="2">Balai</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="tag_post">Tags</label>
-                            <br>
-                            <input type="text" id="tag_post" name="tag_post" class="form-control w-100 h-100"
-                                data-role="tagsinput">
-                        </div>
-                        <div class="form-group">
-                            <label for="image">Gambar</label>
-                            <input class="form-control" id="image" type="file" name="image"
-                                placeholder="upload gambar" required />
-                            <small class="text-danger">Max ukuran 1MB</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="title">Dekripsi</label>
-                            <div id="summernote" name="description"></div>
+                            <label for="description">Deskripsi</label>
+                            <textarea class="form-control" id="description" type="text" name="description" placeholder="masukkan judul" required
+                                cols="30" rows="5"></textarea>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
@@ -142,16 +92,7 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('js/plugin/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('js/plugin/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
-    <script src="{{ asset('js/plugin/summernote/summernote-bs4.min.js') }}"></script>
     <script>
-        $('#summernote').summernote({
-            placeholder: 'masukkan deskripsi',
-            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
-            tabsize: 2,
-            height: 300
-        });
-
         let dTable = null;
 
         $(function() {
@@ -159,8 +100,8 @@
         })
 
         function dataTable() {
-            const url = "/api/admin/news/datatable";
-            dTable = $("#postTable").DataTable({
+            const url = "/api/admin/pages/datatable";
+            dTable = $("#pageTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,
@@ -178,7 +119,7 @@
                 }, {
                     data: "is_publish"
                 }, {
-                    data: "image"
+                    data: "url"
                 }],
                 pageLength: 10,
             });
@@ -186,46 +127,36 @@
 
         function refreshData() {
             dTable.ajax.reload(null, false);
-            $("#summernote").summernote('code', "");
-            $("#tag_post").val("");
         }
 
 
         function addData() {
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
-            $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
+            $("#boxTable").removeClass("col-md-12").addClass("col-md-8");
             $("#name").focus();
         }
 
         function closeForm() {
             $("#formEditable").slideUp(200, function() {
-                $("#boxTable").removeClass("col-md-5").addClass("col-md-12");
+                $("#boxTable").removeClass("col-md-8").addClass("col-md-12");
                 $("#reset").click();
-                $("#tag_post").val("");
-                $("#summernote").summernote('code', "");
             })
         }
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/news/${id}/detail`,
+                url: `/api/admin/pages/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {
                     $("#formEditable").attr("data-action", "update").fadeIn(200, function() {
-                        $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
+                        $("#boxTable").removeClass("col-md-12").addClass("col-md-8");
                         let d = res.data;
-                        $("#image").removeAttr("required");
                         $("#id").val(d.id);
                         $("#title").val(d.title);
-                        $("#ma_hall_menu_id").val(d.ma_hall_menu_id);
-                        $("#hall_id").val(d.hall_id);
-                        $("#link").val(d.link);
-                        $("#phone").val(d.phone);
+                        $("#url").val(d.url);
                         $("#is_publish").val(d.is_publish);
-                        $("#type").val(d.type);
-                        $("#tag_post").val(d.tag_post);
-                        $("#summernote").summernote('code', d.description);
+                        $("#description").val(d.description);
                     })
                 },
                 error: function(err) {
@@ -241,19 +172,10 @@
             let formData = new FormData();
             formData.append("id", parseInt($("#id").val()));
             formData.append("title", $("#title").val());
-            $("#ma_hall_menu_id").val() != "" && formData.append("ma_hall_menu_id", $("#ma_hall_menu_id").val());
-            $("#hall_id").val() != "" && formData.append("hall_id", $("#hall_id").val());
-            formData.append('link', $("#link").val());
-            formData.append("phone", $("#phone").val());
-            formData.append("description", $("#summernote").summernote('code'));
+            formData.append("url", $("#url").val());
             formData.append("is_publish", $("#is_publish").val());
-            formData.append("type", parseInt($("#type").val()));
-            formData.append("tag_post", $("#tag_post").val());
-            formData.append("image", document.getElementById("image").files[0]);
+            formData.append("description", $("#description").val());
 
-            // formData.forEach(function(value, key) {
-            //     console.log(key + ": " + value);
-            // });
             saveData(formData, $("#formEditable").attr("data-action"));
             return false;
         });
@@ -270,7 +192,7 @@
 
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/news/update" : "/api/admin/news/create",
+                url: action == "update" ? "/api/admin/pages/update" : "/api/admin/pages/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -280,7 +202,6 @@
                 },
                 success: function(res) {
                     closeForm();
-                    $("#image").attr("required", true);
                     showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
                     refreshData();
                 },
@@ -296,7 +217,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/news",
+                    url: "/api/admin/pages",
                     method: "DELETE",
                     data: {
                         id: id
@@ -319,7 +240,7 @@
 
         function updateStatusData(data) {
             $.ajax({
-                url: "/api/admin/news/update-status",
+                url: "/api/admin/pages/update-status",
                 contentType: false,
                 processData: false,
                 method: "POST",

@@ -15,7 +15,7 @@
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="newsTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="hallTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
@@ -113,7 +113,7 @@
 
         function dataTable() {
             const url = "/api/admin/hall/datatable";
-            dTable = $("#newsTable").DataTable({
+            dTable = $("#hallTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,
