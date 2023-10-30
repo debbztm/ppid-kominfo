@@ -108,3 +108,14 @@ CATATAN PENTING
 
 CATATAN KURANG RELATE
   -> existing tabel pages digunakan untuk menu home anggaran. field table non use (seo_pages, image, type )
+
+
+CATATAN COMPLETED MENU
+Master
+  -> balai (ok)
+  -> slide (ok)
+  -> berita (ok)
+  -> home anggaran (ok)
+  -> infografis (ok)
+  -> jumlah informasi
+  -> portal data (ok)

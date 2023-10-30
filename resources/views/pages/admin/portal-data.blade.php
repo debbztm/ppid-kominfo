@@ -9,22 +9,22 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Home Anggaran</h5>
+                        <h5 class="text-uppercase title">Berita</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
-                        <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah Data</button>
+                        <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah Berita</button>
                     </div>
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="pageTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="potalDataTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
                                     <th class="all">Judul</th>
                                     <th class="all">Status</th>
-                                    <th class="all">Url Link</th>
+                                    <th class="all">Url</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,7 +41,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5>Tambah / Edit Data</h5>
+                        <h5>Tambah / Edit</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-sm btn-warning" onclick="return closeForm(this)" id="btnCloseForm">
@@ -58,23 +58,17 @@
                                 placeholder="masukkan judul" required />
                         </div>
                         <div class="form-group">
-                            <label for="url">Url Link</label>
+                            <label for="url">Url</label>
                             <input class="form-control" id="url" type="text" name="url"
-                                placeholder="www.jatengprov.go.id" required />
-                            <small class="text-danger">contoh: www.jatengprov.go.id</small>
+                                placeholder="masukkan url" required />
                         </div>
                         <div class="form-group">
-                            <label for="is_publish">Status</label>
-                            <select class="form-control form-control" id="is_publish" name="is_publish" required>
+                            <label for="is_active">Status</label>
+                            <select class="form-control form-control" id="is_active" name="is_active" required>
                                 <option value = "">Pilih Status</option>
-                                <option value="Y">Publish</option>
-                                <option value="N">Draft</option>
+                                <option value="Y">Ya</option>
+                                <option value="N">Tidak</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Deskripsi</label>
-                            <textarea class="form-control" id="description" type="text" name="description" placeholder="masukkan judul" required
-                                cols="30" rows="5"></textarea>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
@@ -100,8 +94,8 @@
         })
 
         function dataTable() {
-            const url = "/api/admin/pages/datatable";
-            dTable = $("#pageTable").DataTable({
+            const url = "/api/admin/portal-data/datatable";
+            dTable = $("#potalDataTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,
@@ -117,7 +111,7 @@
                 }, {
                     data: "title"
                 }, {
-                    data: "is_publish"
+                    data: "is_active"
                 }, {
                     data: "url"
                 }],
@@ -145,7 +139,7 @@
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/pages/${id}/detail`,
+                url: `/api/admin/portal-data/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {
@@ -154,9 +148,8 @@
                         let d = res.data;
                         $("#id").val(d.id);
                         $("#title").val(d.title);
+                        $("#is_active").val(d.is_active);
                         $("#url").val(d.url);
-                        $("#is_publish").val(d.is_publish);
-                        $("#description").val(d.description);
                     })
                 },
                 error: function(err) {
@@ -173,8 +166,7 @@
             formData.append("id", parseInt($("#id").val()));
             formData.append("title", $("#title").val());
             formData.append("url", $("#url").val());
-            formData.append("is_publish", $("#is_publish").val());
-            formData.append("description", $("#description").val());
+            formData.append("is_active", $("#is_active").val());
 
             saveData(formData, $("#formEditable").attr("data-action"));
             return false;
@@ -184,7 +176,7 @@
             let c = confirm(`Anda yakin ingin mengubah status ke ${status} ?`)
             if (c) {
                 let dataToSend = new FormData();
-                dataToSend.append("is_publish", status == "Draft" ? "N" : "Y");
+                dataToSend.append("is_active", status == "NonActive" ? "N" : "Y");
                 dataToSend.append("id", id);
                 updateStatusData(dataToSend);
             }
@@ -192,7 +184,7 @@
 
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/pages/update" : "/api/admin/pages/create",
+                url: action == "update" ? "/api/admin/portal-data/update" : "/api/admin/portal-data/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -217,7 +209,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/pages",
+                    url: "/api/admin/portal-data",
                     method: "DELETE",
                     data: {
                         id: id
@@ -240,7 +232,7 @@
 
         function updateStatusData(data) {
             $.ajax({
-                url: "/api/admin/pages/update-status",
+                url: "/api/admin/portal-data/update-status",
                 contentType: false,
                 processData: false,
                 method: "POST",

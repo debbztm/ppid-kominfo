@@ -194,7 +194,7 @@
         function addData() {
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
             $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
-            $("#name").focus();
+            $("#title").focus();
         }
 
         function closeForm() {

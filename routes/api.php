@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CustomTemplateController;
 use App\Http\Controllers\Admin\HallController;
 use App\Http\Controllers\Admin\InfographicController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\AuthController;
@@ -78,5 +79,15 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::get("list", [InfographicController::class, "list"]);
         Route::post("create", [InfographicController::class, "create"]);
         Route::delete('/', [InfographicController::class, 'destroy']);
+    });
+
+    // PORTAL DATA
+    Route::group(["prefix" => "portal-data"], function () {
+        Route::get("datatable", [PortalDataController::class, "dataTable"]);
+        Route::get("{id}/detail", [PortalDataController::class, "getDetail"]);
+        Route::post("/create", [PortalDataController::class, "create"]);
+        Route::post("/update", [PortalDataController::class, "update"]);
+        Route::post("/update-status", [PortalDataController::class, "updateStatus"]);
+        Route::delete("/", [PortalDataController::class, "destroy"]);
     });
 });

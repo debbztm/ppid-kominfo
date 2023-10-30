@@ -2,33 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
-use App\Models\Hall;
-use App\Models\MaHallMenu;
-use App\Models\MaPost;
+use App\Models\PortalData;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
-class PostController extends Controller
+class PortalDataController extends Controller
 {
     public function index()
     {
-        $title = "Berita";
-        $hall_menus = MaHallMenu::all();
-        $halls = Hall::all();
-        $hall_id = json_decode(Cookie::get("user"))->hall_id;
-        return view("pages.admin.post", compact("title", 'hall_menus', 'halls', "hall_id"));
+        $title = "Portal Data";
+        return view("pages.admin.portal-data", compact("title"));
     }
 
     // HANDLE API
     public function dataTable(Request $request)
     {
-        $query = MaPost::query();
-        $user = json_decode(Cookie::get("user"));
+
+        $query = PortalData::query();
 
         if ($request->query("search")) {
             $searchValue = $request->query("search")['value'];
@@ -37,13 +28,7 @@ class PostController extends Controller
             });
         }
 
-        // Kalau role == Admin . list all
-        // kalau tidak . list by username nya
-        if ($user->role->name == "USER") {
-            $query->where("username", $user->username);
-        }
-
-        $data = $query->orderBy('date', 'desc')
+        $data = $query->orderBy('created_at', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
             ->get();
@@ -59,39 +44,31 @@ class PostController extends Controller
                                 </div>
                             </div>";
 
-            $is_publish = $item->is_publish == 'Y' ? '
+            $is_active = $item->is_active == 'Y' ? '
                     <div class="text-center">
-                        <span class="label-switch">Publish</span>
+                        <span class="label-switch">Active</span>
                     </div>
                     <div class="input-row">
                         <div class="toggle_status on">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Draft\');" />
+                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'NonActive\');" />
                             <span class="slider"></span>
                         </div>
                     </div>' :
-                '
-                    <div class="text-center">
-                        <span class="label-switch">Draft</span>
+                    '<div class="text-center">
+                        <span class="label-switch">NonActive</span>
                     </div>
                     <div class="input-row">
                         <div class="toggle_status off">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Publish\');" />
+                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Active\');" />
                             <span class="slider"></span>
                         </div>
                     </div>';
-            $image = '<div class="thumbnail">
-                            <div class="thumb">
-                                <img src="' . Storage::url($item->image) . '" alt="" width="300px" height="300px" 
-                                class="img-fluid img-thumbnail" alt="' . $item->title . '">
-                            </div>
-                        </div>';
             $item['action'] = $action;
-            $item['is_publish'] = $is_publish;
-            $item['image'] = $image;
+            $item['is_active'] = $is_active;
             return $item;
         });
 
-        $total = MaPost::count();
+        $total = PortalData::count();
         return response()->json([
             'draw' => $request->query('draw'),
             'recordsFiltered' => $total,
@@ -103,9 +80,9 @@ class PostController extends Controller
     public function getDetail($id)
     {
         try {
-            $post = MaPost::find($id);
+            $data = PortalData::find($id);
 
-            if (!$post) {
+            if (!$data) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan",
@@ -114,7 +91,7 @@ class PostController extends Controller
 
             return response()->json([
                 "status" => "success",
-                "data" => $post
+                "data" => $data
             ]);
         } catch (\Exception $err) {
             return response()->json([
@@ -130,30 +107,15 @@ class PostController extends Controller
             $data = $request->all();
             $rules = [
                 "title" => "required|string",
-                "ma_hall_menu_id" => "nullable",
-                "link" => "required|string",
-                "phone" => "required|string",
-                "hall_id" => "nullable",
-                "description" => "required|string",
-                "is_publish" => "required|string|in:Y,N",
-                "type" => "required|integer",
-                "tag_post" => "required|string",
-                "image" => "required|image|max:10240|mimes:jpeg,png,jpg"
+                "url" => "required|string",
+                "is_active" => "required|string|in:Y,N",
             ];
 
             $messages = [
                 "title.required" => "Judul harus diisi",
-                "link.required" => "Link harus diisi",
-                "phone.required" => "No WA harus diisi",
-                "description.required" => "Deskripsi harus diisi",
-                "is_publish.required" => "Status harus diisi",
-                "is_publish.in" => "Status tidak sesuai",
-                "type.required" => "Tipe harus diisi",
-                "tag_post.required" => "Tags harus diisi",
-                "image.required" => "Gambar harus diisi",
-                "image.image" => "Gambar yang di upload tidak valid",
-                "image.max" => "Ukuran gambar maximal 1MB",
-                "image.mimes" => "Format gambar harus jpeg/png/jpg"
+                "url.required" => "Url harus diisi",
+                "is_active.required" => "Status harus diisi",
+                "is_active.in" => "Status tidak sesuai",
             ];
 
             $validator = Validator::make($data, $rules, $messages);
@@ -164,24 +126,12 @@ class PostController extends Controller
                 ], 400);
             }
 
-            $data['image'] = $request->file('image')->store('assets/news', 'public');
-            $data["seo"] = Str::slug($data["title"]);
-            $data["day"] = Helper::currentDay();
-            $data["date"] = Helper::currentDate();
-            $user = json_decode(Cookie::get("user"));
-            $data["username"] = $user->username;
-            $data["is_hall"] = $user->hall_id;
-            $data["hall_menu"] = "";
-
-            MaPost::create($data);
+            PortalData::create($data);
             return response()->json([
                 "status" => "success",
                 "message" =>  "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
-            if ($request->file("image")) {
-                unlink(public_path("storage/assets/news/" . $request->image->hashName()));
-            }
             return response()->json([
                 "status" => "error",
                 "message" => $err->getMessage(),
@@ -196,15 +146,8 @@ class PostController extends Controller
             $rules = [
                 "id" => "required|integer",
                 "title" => "required|string",
-                "ma_hall_menu_id" => "nullable",
-                "link" => "required|string",
-                "phone" => "required|string",
-                "hall_id" => "nullable",
-                "description" => "required|string",
-                "is_publish" => "required|string|in:Y,N",
-                "type" => "required|integer",
-                "tag_post" => "required|string",
-                "image" => "nullable"
+                "url" => "required|string",
+                "is_active" => "required|string|in:Y,N",
             ];
 
             if ($request->file('image')) {
@@ -215,16 +158,9 @@ class PostController extends Controller
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",
                 "title.required" => "Judul harus diisi",
-                "link.required" => "Link harus diisi",
-                "phone.required" => "No WA harus diisi",
-                "description.required" => "Deskripsi harus diisi",
-                "is_publish.required" => "Status harus diisi",
-                "is_publish.in" => "Status tidak sesuai",
-                "type.required" => "Tipe harus diisi",
-                "tag_post.required" => "Tags harus diisi",
-                "image.image" => "Gambar yang di upload tidak valid",
-                "image.max" => "Ukuran gambar maximal 1MB",
-                "image.mimes" => "Format gambar harus jpeg/png/jpg"
+                "url.required" => "Url harus diisi",
+                "is_active.required" => "Status harus diisi",
+                "is_active.in" => "Status tidak sesuai",
             ];
 
             $validator = Validator::make($data, $rules, $messages);
@@ -235,34 +171,20 @@ class PostController extends Controller
                 ], 400);
             }
 
-            $post = MaPost::find($data['id']);
-            if (!$post) {
+            $item = PortalData::find($data['id']);
+            if (!$item) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
 
-            // delete undefined data image
-            unset($data["image"]);
-            if ($request->file("image")) {
-                unlink(public_path("storage/" . $post->image));
-                $data["image"] = $request->file("image")->store("assets/news", "public");
-            }
-
-            if ($data["title"]) {
-                $data["seo"] = Str::slug($data["title"]);
-            }
-
-            $post->update($data);
+            $item->update($data);
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil diperbarui"
             ]);
         } catch (\Exception $err) {
-            if ($request->file("image")) {
-                unlink(public_path("storage/assets/news/" . $request->image->hashName()));
-            }
             return response()->json([
                 "status" => "error",
                 "message" => $err->getMessage(),
@@ -276,14 +198,14 @@ class PostController extends Controller
             $data = $request->all();
             $rules = [
                 "id" => "required|integer",
-                "is_publish" => "required|string|in:Y,N",
+                "is_active" => "required|string|in:Y,N",
             ];
 
             $messages = [
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",
-                "is_publish.required" => "Status harus diisi",
-                "is_publish.in" => "Status tidak sesuai",
+                "is_active.required" => "Status harus diisi",
+                "is_active.in" => "Status tidak sesuai",
             ];
 
             $validator = Validator::make($data, $rules, $messages);
@@ -294,14 +216,14 @@ class PostController extends Controller
                 ], 400);
             }
 
-            $post = MaPost::find($data['id']);
-            if (!$post) {
+            $item = PortalData::find($data['id']);
+            if (!$item) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
-            $post->update($data);
+            $item->update($data);
             return response()->json([
                 "status" => "success",
                 "message" => "Status berhasil diperbarui"
@@ -330,15 +252,15 @@ class PostController extends Controller
             }
 
             $id = $request->id;
-            $post = MaPost::find($id);
-            if (!$post) {
+            $data = PortalData::find($id);
+            if (!$data) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
-            unlink(public_path('storage/' . $post->image));
-            $post->delete();
+
+            $data->delete();
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil dihapus"

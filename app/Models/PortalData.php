@@ -9,4 +9,5 @@ class PortalData extends Model
 {
     use HasFactory;
     protected $fillable = ['title', 'url', 'is_active'];
+    protected $table = "portal_datas";
 }

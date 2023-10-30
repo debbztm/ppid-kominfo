@@ -56,8 +56,8 @@
                         <p>Jumlah Informasi</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li class="nav-item ml-3 {{ $routename == 'portal-data' ? 'active' : '' }}">
+                    <a href="{{ route('portal-data') }}">
                         <i class="fas fa-database"></i>
                         <p>Portal Data</p>
                     </a>
