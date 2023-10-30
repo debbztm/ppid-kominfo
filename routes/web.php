@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HallController;
+use App\Http\Controllers\Admin\InfographicController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SlideController;
@@ -34,4 +35,5 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('slide', [SlideController::class, 'index'])->name('slide'); // slide
     Route::get('news', [PostController::class, 'index'])->name('news'); // berita
     Route::get('pages', [PageController::class, 'index'])->name('pages'); // home anggaran
+    Route::get('infographic', [InfographicController::class, 'index'])->name('infographic'); //  infografis
 });

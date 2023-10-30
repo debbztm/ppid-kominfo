@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CustomTemplateController;
 use App\Http\Controllers\Admin\HallController;
+use App\Http\Controllers\Admin\InfographicController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SlideController;
@@ -70,5 +71,12 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/update", [PageController::class, "update"]);
         Route::post("/update-status", [PageController::class, "updateStatus"]);
         Route::delete("/", [PageController::class, "destroy"]);
+    });
+
+    // INFOGRAPHIC
+    Route::group(["prefix" => "infographic"], function () {
+        Route::get("list", [InfographicController::class, "list"]);
+        Route::post("create", [InfographicController::class, "create"]);
+        Route::delete('/', [InfographicController::class, 'destroy']);
     });
 });

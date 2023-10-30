@@ -44,8 +44,8 @@
                         <p>Home Anggaran</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li class="nav-item ml-3 {{ $routename == 'infographic' ? 'active' : '' }}">
+                    <a href="{{ route('infographic') }}">
                         <i class="fas fa-chart-bar"></i>
                         <p>Infografis</p>
                     </a>
