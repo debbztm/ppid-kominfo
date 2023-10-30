@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('hall_id')->nullable();
             $table->foreign('hall_id')->references('id')->on('halls')->onUpdate('cascade');
             $table->string('menu', 50);
-            $table->text('information');
+            $table->text('information')->nullable();
             $table->timestamps();
         });
     }

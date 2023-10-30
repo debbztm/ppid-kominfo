@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('seo')->nullable();
             $table->string('image')->nullable();
-            $table->string('profile')->nullable();
+            $table->text('profile')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('whatsapp')->nullable();

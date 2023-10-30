@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\CustomTemplateController;
+use App\Http\Controllers\Admin\HallController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SlideController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,19 +19,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('admin')->namespace('admin')->group(function () {
-    Route::post('/custom_template/create_update', [CustomTemplateController::class, 'saveUpdateData']);
+// AUTH
+Route::group(["middleware" => "guest"], function () {
+    Route::post("/auth/register", [AuthController::class, "register"]);
+    Route::post("/auth/login", [AuthController::class, "validateLogin"]);
+});
 
-    // MASTER SLIDE
-    Route::group(['prefix' => 'slide'], function () {
-        Route::get('datatable', [SlideController::class, 'dataTable']);
+Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(function () {
+    Route::post("/custom_template/create_update", [CustomTemplateController::class, "saveUpdateData"]);
+
+    // HALL
+    Route::group(["prefix" => "hall"], function () {
+        Route::get("datatable", [HallController::class, "datatable"]);
+        Route::get("{id}/detail", [HallController::class, "getDetail"]);
+        Route::post("/create", [HallController::class, "create"]);
+        Route::post("/update", [HallController::class, "update"]);
+        Route::delete("/", [HallController::class, "destroy"]);
+    });
+
+    // SLIDE
+    Route::group(["prefix" => "slide"], function () {
+        Route::get("datatable", [SlideController::class, "dataTable"]);
         Route::get("{id}/detail", [SlideController::class, "getDetail"]);
-        Route::post('/create', [SlideController::class, 'create']);
-        Route::post('/update', [SlideController::class, 'update']);
-        Route::delete('/', [SlideController::class, 'destroy']);
+        Route::post("/create", [SlideController::class, "create"]);
+        Route::post("/update", [SlideController::class, "update"]);
+        Route::post("/update-status", [SlideController::class, "updateStatus"]);
+        Route::delete("/", [SlideController::class, "destroy"]);
+    });
+
+    // POST/NEWS
+    Route::group(["prefix" => "news"], function () {
+        Route::get("datatable", [PostController::class, "dataTable"]);
+        Route::get("{id}/detail", [PostController::class, "getDetail"]);
+        Route::post("/create", [PostController::class, "create"]);
+        Route::post("/update", [PostController::class, "update"]);
+        Route::post("/update-status", [PostController::class, "updateStatus"]);
+        Route::delete("/", [PostController::class, "destroy"]);
     });
 });

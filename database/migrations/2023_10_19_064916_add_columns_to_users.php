@@ -17,7 +17,7 @@ return new class extends Migration
              * relation to table halls (hall_id > id)
              */
 
-            $table->unsignedBigInteger('role_id')->after('password');
+            $table->unsignedBigInteger('role_id')->after('password')->default(2);
             $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('hall_id')->after('password')->nullable();
             $table->foreign('hall_id')->references('id')->on('halls')->onUpdate('cascade');

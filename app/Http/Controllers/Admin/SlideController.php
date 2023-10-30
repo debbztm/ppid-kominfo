@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MaSlide;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class SlideController extends Controller
 {
@@ -15,10 +16,37 @@ class SlideController extends Controller
         return view("pages.admin.slide", compact("title"));
     }
 
+    // HANDLER API
     public function create(Request $request)
     {
         try {
             $data = $request->all();
+            $rules = [
+                "order" => "required|integer",
+                "title" => "required|string",
+                "link" => "required|string",
+                "is_publish" => "required|string",
+                "image" => "required|image|max:10240|mimes:jpeg,png,jpg"
+            ];
+
+            $messages = [
+                "order.required" => "Urutan harus diisi",
+                "title.required" => "Judul harus diisi",
+                "link.required" => "Link harus diisi",
+                "is_publish.required" => "Status harus diisi",
+                "image.required" => "Gambar harus diisi",
+                "image.image" => "Gambar yang di upload tidak valid",
+                "image.max" => "Ukuran gambar maximal 1MB",
+                "image.mimes" => "Format gambar harus jpeg/png/jpg"
+            ];
+
+            $validator = Validator::make($data, $rules, $messages);
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => $validator->errors()->first(),
+                ], 400);
+            }
             $data['image'] = $request->file('image')->store('assets/slide', 'public');
             MaSlide::create($data);
             //  echo "<pre>" . var_dump($request->image->hashName()) . "</pre>";
@@ -41,7 +69,15 @@ class SlideController extends Controller
     public function getDetail($id)
     {
         try {
-            $slide = MaSlide::findOrFail($id);
+            $slide = MaSlide::find($id);
+
+            if (!$slide) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Data slide tidak ditemukan",
+                ], 404);
+            }
+
             return response()->json([
                 "status" => "success",
                 "data" => $slide
@@ -50,7 +86,7 @@ class SlideController extends Controller
             return response()->json([
                 "status" => "error",
                 "message" => "Data tidak ditemukan"
-            ], 404);
+            ], 500);
         }
     }
 
@@ -58,8 +94,36 @@ class SlideController extends Controller
     {
         try {
             $data = $request->all();
-            $slide = MaSlide::find($data['id']);
+            $rules = [
+                "order" => "required|integer",
+                "title" => "required|string",
+                "link" => "required|string",
+                "is_publish" => "required|string",
+                "image" => "nullable",
+            ];
 
+            if ($request->file('image')) {
+                $rules['image'] .= '|image|max:10240|mimes:jpeg,png,jpg';
+            }
+
+            $messages = [
+                "order.required" => "Urutan harus diisi",
+                "title.required" => "Judul harus diisi",
+                "link.required" => "Link harus diisi",
+                "is_publish.required" => "Status harus diisi",
+                "image.image" => "Gambar yang di upload tidak valid",
+                "image.max" => "Ukuran gambar maximal 1MB",
+                "image.mimes" => "Format gambar harus jpeg/png/jpg"
+            ];
+
+            $validator = Validator::make($data, $rules, $messages);
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => $validator->errors()->first(),
+                ], 400);
+            }
+            $slide = MaSlide::find($data['id']);
 
             if (!$slide) {
                 return response()->json([
@@ -91,9 +155,68 @@ class SlideController extends Controller
         }
     }
 
+    public function updateStatus(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $rules = [
+                "id" => "required|integer",
+                "is_publish" => "required|string",
+            ];
+
+            if ($request->file('image')) {
+                $rules['image'] .= '|image|max:10240|mimes:jpeg,png,jpg';
+            }
+
+            $messages = [
+                "id.required" => "Data ID harus diisi",
+                "id.integer" => "Type ID tidak sesuai",
+                "is_publish.required" => "Status harus diisi",
+            ];
+
+            $validator = Validator::make($data, $rules, $messages);
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => $validator->errors()->first(),
+                ], 400);
+            }
+
+            $slide = MaSlide::find($data['id']);
+            if (!$slide) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Data slide tidak ditemukan"
+                ], 404);
+            }
+            $slide->update($data);
+            return response()->json([
+                "status" => "success",
+                "message" => "Status berhasil diperbarui"
+            ]);
+        } catch (\Exception $err) {
+            return response()->json([
+                "status" => "error",
+                "message" => $err->getMessage(),
+            ], 500);
+        }
+    }
+
     public function destroy(Request $request)
     {
         try {
+            $validator = Validator::make($request->all(), ["id" => "required|integer"], [
+                "id.required" => "Data ID harus diisi",
+                "id.integer" => "Type ID tidak valid"
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => $validator->errors()->first()
+                ], 400);
+            }
+
             $id = $request->id;
             $slide = MaSlide::find($id);
             if (!$slide) {
@@ -139,7 +262,7 @@ class SlideController extends Controller
                             </button>
                             <div class='dropdown-menu' aria-labelledby='dropdown-{$item->id}' data-dropdown-out='fadeOut'>
                                 <a class='dropdown-item' onclick='return getData(\"{$item->id}\");' href='javascript:void(0);' title='Edit'>Edit</a>
-                                <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Remove'>Hapus</a>
+                                <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
                             </div>
                         </div>";
 

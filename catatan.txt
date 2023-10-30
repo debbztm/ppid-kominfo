@@ -96,3 +96,11 @@ portaldata -> portal_data
   -> sosial media
   -> image
   -> maps
+
+
+
+CATATAN PENTING
+
+  menu berita (kurang validasi role id )
+  -> MaHallMenu tidak ada controller dan view nya di existing (tolong tambahkan)
+  -> Rombak alur crud balai + tambah menunya (sudah)

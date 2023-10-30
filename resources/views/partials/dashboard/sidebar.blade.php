@@ -20,14 +20,20 @@
                     </span>
                     <h4 class="text-section">Master</h4>
                 </li>
+                <li class="nav-item ml-3 {{ $routename == 'hall' ? 'active' : '' }}">
+                    <a href="{{ route('hall') }}">
+                        <i class="fas fa-door-open"></i>
+                        <p>Balai</p>
+                    </a>
+                </li>
                 <li class="nav-item ml-3 {{ $routename == 'slide' ? 'active' : '' }}">
                     <a href="{{ route('slide') }}">
                         <i class="fas fa-images"></i>
                         <p>Slide</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li class="nav-item ml-3 {{ $routename == 'news' ? 'active' : '' }}">
+                    <a href="{{ route('news') }}">
                         <i class="fas fa-newspaper"></i>
                         <p>Berita</p>
                     </a>
