@@ -62,7 +62,7 @@
                         <p>Portal Data</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3  {{ $routename == 'official-ppid' ? 'active' : '' }}">
+                <li class="nav-item ml-3 {{ $routename == 'official-ppid' ? 'active' : '' }}">
                     <a href="{{ route('official-ppid') }}">
                         <i class="fas fa-users"></i>
                         <p>Pejabat PPID</p>
@@ -75,8 +75,8 @@
                         <p>Foto</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li class="nav-item ml-3 {{ $routename == 'video' ? 'active' : '' }}">
+                    <a href="{{ route('video') }}">
                         <i class="fas fa-video"></i>
                         <p>Video</p>
                     </a>

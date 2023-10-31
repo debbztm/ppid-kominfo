@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SlideController;
+use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -117,5 +118,14 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::get("{gallery_id}/list", [ImageGalleryController::class, "list"]);
         Route::post("create", [ImageGalleryController::class, "create"]);
         Route::delete('/', [ImageGalleryController::class, 'destroy']);
+    });
+
+    // VIDEO
+    Route::group(["prefix" => "video"], function () {
+        Route::get("datatable", [VideoController::class, "dataTable"]);
+        Route::get("{id}/detail", [VideoController::class, "getDetail"]);
+        Route::post("/create", [VideoController::class, "create"]);
+        Route::post("/update", [VideoController::class, "update"]);
+        Route::delete("/", [VideoController::class, "destroy"]);
     });
 });
