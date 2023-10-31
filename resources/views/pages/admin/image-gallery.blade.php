@@ -40,9 +40,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Infografis</h5>
+                        <h5 class="text-uppercase title">Gallery</h5>
+                        <span id="title"></span>
                     </div>
                     <div class="card-header-right">
+                        <button class="btn btn-mini btn-warning mr-1" onclick="return back();">Kembali</button>
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
                         <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah Data</button>
                     </div>
@@ -92,38 +94,42 @@
     <script src="{{ asset('js/plugin/datatables/datatables.min.js') }}"></script>
     <script>
         let dTable = null;
-
+        let url = new URL(window.location.href);
+        let path = url.pathname;
+        let pathSegments = path.split('/');
+        let id = pathSegments[pathSegments.length - 2];
+    
         $(function() {
-            dataList();
+            dataList(id);
         })
 
         function refreshData() {
-            dataList();
+            dataList(id);
         }
 
         function dataList() {
             $.ajax({
-                url: "/api/admin/infographic/list",
+                url: `/api/admin/image-gallery/${id}/list`,
                 header: {
                     "Content-Type": "application/json",
                 },
                 method: "GET",
                 success: function(res) {
                     $("#imageGallery").empty();
+                    $("#title").html(res.title);
                     $.each(res.data, function(index, item) {
                         $("#imageGallery").append(item.image);
                     });
                 },
                 error: function(err) {
                     console.log("error :", err);
-                    showMessage("warning", "flaticon-danger", "Peringatan", err.message || err.responseJSON
+                    showMessage("danger", "flaticon-danger", "Peringatan", err.message || err.responseJSON
                         ?.message);
                     $("#imageGallery").empty();
                 }
 
             })
         }
-
 
         function addData() {
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
@@ -137,20 +143,22 @@
             })
         }
 
-
+        function back() {
+            window.location.href = "{{ route('gallery') }}"
+        }
 
         $("#formEditable form").submit(function(e) {
             e.preventDefault();
             let formData = new FormData();
+            formData.append("ma_gallery_id", parseInt(id));
             formData.append("image", document.getElementById("image").files[0]);
             saveData(formData);
             return false;
         });
 
-
         function saveData(data, action) {
             $.ajax({
-                url: "/api/admin/infographic/create",
+                url: "/api/admin/image-gallery/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -175,7 +183,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/infographic",
+                    url: "/api/admin/image-gallery",
                     method: "DELETE",
                     data: {
                         id: id

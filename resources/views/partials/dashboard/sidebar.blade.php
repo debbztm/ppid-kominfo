@@ -68,8 +68,9 @@
                         <p>Pejabat PPID</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li
+                    class="nav-item ml-3  {{ $routename == 'gallery' || $routename == 'image-gallery' ? 'active' : '' }}">
+                    <a href="{{ route('gallery') }}">
                         <i class="fas fa-camera"></i>
                         <p>Foto</p>
                     </a>

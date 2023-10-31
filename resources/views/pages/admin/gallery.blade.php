@@ -1,55 +1,33 @@
 @extends('layouts.dashboard')
 @section('title', $title)
-@push('styles')
-    <style>
-        .image-wrapper {
-            position: relative !important;
-            max-width: 300px;
-            height: 300px;
-        }
-
-        .image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .delete-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #767676;
-            box-sizing: border-box;
-        }
-
-        .delete-button i {
-            color: white;
-        }
-    </style>
-@endpush
 @section('content')
     <div class="row mb-5">
         <div class="col-md-12" id="boxTable">
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Infografis</h5>
+                        <h5 class="text-uppercase title">Gallery</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
                         <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah Data</button>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="row" id="imageGallery">
-
+                <div class="card-block">
+                    <div class="table-responsive mt-3">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="postTable">
+                            <thead>
+                                <tr>
+                                    <th class="all">#</th>
+                                    <th class="all">Judul</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" class="text-center"><small>Tidak Ada Data</small></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -58,7 +36,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5>Tambah</h5>
+                        <h5>Tambah / Edit Data</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-sm btn-warning" onclick="return closeForm(this)" id="btnCloseForm">
@@ -68,11 +46,11 @@
                 </div>
                 <div class="card-block">
                     <form>
+                        <input class="form-control" id="id" type="hidden" name="id" />
                         <div class="form-group">
-                            <label for="image">Gambar</label>
-                            <input class="form-control" id="image" type="file" name="image"
-                                placeholder="upload gambar" required />
-                            <small class="text-danger">Max ukuran 1MB</small>
+                            <label for="title">Judul</label>
+                            <input class="form-control" id="title" type="text" name="title"
+                                placeholder="masukkan judul" required />
                         </div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
@@ -94,40 +72,41 @@
         let dTable = null;
 
         $(function() {
-            dataList();
+            dataTable();
         })
 
-        function refreshData() {
-            dataList();
+        function dataTable() {
+            const url = "/api/admin/gallery/datatable";
+            dTable = $("#postTable").DataTable({
+                searching: true,
+                orderng: true,
+                lengthChange: true,
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                searchDelay: 1000,
+                paging: true,
+                lengthMenu: [5, 10, 25, 50, 100],
+                ajax: url,
+                columns: [{
+                    data: "action",
+                    width: "100px"
+                }, {
+                    data: "title"
+                }],
+                pageLength: 10,
+            });
         }
 
-        function dataList() {
-            $.ajax({
-                url: "/api/admin/infographic/list",
-                header: {
-                    "Content-Type": "application/json",
-                },
-                method: "GET",
-                success: function(res) {
-                    $("#imageGallery").empty();
-                    $.each(res.data, function(index, item) {
-                        $("#imageGallery").append(item.image);
-                    });
-                },
-                error: function(err) {
-                    console.log("error :", err);
-                    showMessage("warning", "flaticon-danger", "Peringatan", err.message || err.responseJSON
-                        ?.message);
-                    $("#imageGallery").empty();
-                }
-
-            })
+        function refreshData() {
+            dTable.ajax.reload(null, false);
         }
 
 
         function addData() {
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
             $("#boxTable").removeClass("col-md-12").addClass("col-md-8");
+            $("#title").focus();
         }
 
         function closeForm() {
@@ -137,20 +116,40 @@
             })
         }
 
-
+        function getData(id) {
+            $.ajax({
+                url: `/api/admin/gallery/${id}/detail`,
+                method: "GET",
+                dataType: "json",
+                success: function(res) {
+                    $("#formEditable").attr("data-action", "update").fadeIn(200, function() {
+                        $("#boxTable").removeClass("col-md-12").addClass("col-md-8");
+                        let d = res.data;
+                        $("#id").val(d.id);
+                        $("#title").val(d.title);
+                    })
+                },
+                error: function(err) {
+                    console.log("error :", err);
+                    showMessage("warning", "flaticon-error", "Peringatan", err.message || err.responseJSON
+                        ?.message);
+                }
+            })
+        }
 
         $("#formEditable form").submit(function(e) {
             e.preventDefault();
             let formData = new FormData();
-            formData.append("image", document.getElementById("image").files[0]);
-            saveData(formData);
+            formData.append("id", parseInt($("#id").val()));
+            formData.append("title", $("#title").val());
+
+            saveData(formData, $("#formEditable").attr("data-action"));
             return false;
         });
 
-
         function saveData(data, action) {
             $.ajax({
-                url: "/api/admin/infographic/create",
+                url: action == "update" ? "/api/admin/gallery/update" : "/api/admin/gallery/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -160,6 +159,7 @@
                 },
                 success: function(res) {
                     closeForm();
+                    $("#image").attr("required", true);
                     showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
                     refreshData();
                 },
@@ -175,7 +175,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/infographic",
+                    url: "/api/admin/gallery",
                     method: "DELETE",
                     data: {
                         id: id

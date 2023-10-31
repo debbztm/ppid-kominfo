@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\HallController;
+use App\Http\Controllers\Admin\ImageGalleryController;
 use App\Http\Controllers\Admin\InfographicController;
 use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
@@ -40,4 +42,6 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('infographic', [InfographicController::class, 'index'])->name('infographic'); //  infografis
     Route::get('portal-data', [PortalDataController::class, 'index'])->name('portal-data'); // portal data
     Route::get('official-ppid', [OfficialPpidProfileController::class, 'index'])->name('official-ppid'); // pejabat ppid
+    Route::get('gallery', [GalleryController::class, 'index'])->name('gallery'); // galeri
+    Route::get('image-gallery/{gallery_id}/detail', [ImageGalleryController::class, 'index'])->name('image-gallery'); // image gallery
 });

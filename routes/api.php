@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\CustomTemplateController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\HallController;
+use App\Http\Controllers\Admin\ImageGalleryController;
 use App\Http\Controllers\Admin\InfographicController;
 use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
@@ -99,5 +101,21 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/create", [OfficialPpidProfileController::class, "create"]);
         Route::post("/update", [OfficialPpidProfileController::class, "update"]);
         Route::delete("/", [OfficialPpidProfileController::class, "destroy"]);
+    });
+
+    // GALLERY
+    Route::group(["prefix" => "gallery"], function () {
+        Route::get("datatable", [GalleryController::class, "dataTable"]);
+        Route::get("{id}/detail", [GalleryController::class, "getDetail"]);
+        Route::post("/create", [GalleryController::class, "create"]);
+        Route::post("/update", [GalleryController::class, "update"]);
+        Route::delete("/", [GalleryController::class, "destroy"]);
+    });
+
+    // IMAGE GALLERY
+    Route::group(["prefix" => "image-gallery"], function () {
+        Route::get("{gallery_id}/list", [ImageGalleryController::class, "list"]);
+        Route::post("create", [ImageGalleryController::class, "create"]);
+        Route::delete('/', [ImageGalleryController::class, 'destroy']);
     });
 });

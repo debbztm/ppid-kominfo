@@ -114,8 +114,9 @@ CATATAN COMPLETED MENU
 Master
   -> balai (ok)
   -> slide (ok)
-  -> berita (ok)
+  -> berita (kurang action lihat berita di home page)
   -> home anggaran (ok)
   -> infografis (ok)
   -> jumlah informasi
   -> portal data (ok)
+  -> foto/gallery (ok)
