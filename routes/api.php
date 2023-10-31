@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CustomTemplateController;
 use App\Http\Controllers\Admin\HallController;
 use App\Http\Controllers\Admin\InfographicController;
+use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
@@ -89,5 +90,14 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/update", [PortalDataController::class, "update"]);
         Route::post("/update-status", [PortalDataController::class, "updateStatus"]);
         Route::delete("/", [PortalDataController::class, "destroy"]);
+    });
+
+    // OFFICIAL PPID PROFILE / PEJABAT PPID
+    Route::group(["prefix" => "official-ppid"], function () {
+        Route::get("datatable", [OfficialPpidProfileController::class, "dataTable"]);
+        Route::get("{id}/detail", [OfficialPpidProfileController::class, "getDetail"]);
+        Route::post("/create", [OfficialPpidProfileController::class, "create"]);
+        Route::post("/update", [OfficialPpidProfileController::class, "update"]);
+        Route::delete("/", [OfficialPpidProfileController::class, "destroy"]);
     });
 });

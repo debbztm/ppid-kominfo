@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HallController;
 use App\Http\Controllers\Admin\InfographicController;
+use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
@@ -37,5 +38,6 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('news', [PostController::class, 'index'])->name('news'); // berita
     Route::get('pages', [PageController::class, 'index'])->name('pages'); // home anggaran
     Route::get('infographic', [InfographicController::class, 'index'])->name('infographic'); //  infografis
-    Route::get('portal-data', [PortalDataController::class, 'index'])->name('portal-data');
+    Route::get('portal-data', [PortalDataController::class, 'index'])->name('portal-data'); // portal data
+    Route::get('official-ppid', [OfficialPpidProfileController::class, 'index'])->name('official-ppid'); // pejabat ppid
 });
