@@ -195,6 +195,7 @@
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
             $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
             $("#title").focus();
+            $("#image").attr("required", true);
         }
 
         function closeForm() {
@@ -203,6 +204,7 @@
                 $("#reset").click();
                 $("#tag_post").val("");
                 $("#summernote").summernote('code', "");
+                $("#image").attr("required", true);
             })
         }
 

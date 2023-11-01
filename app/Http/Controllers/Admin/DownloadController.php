@@ -3,40 +3,38 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\MaOfficialPpidProfile;
-use Exception;
+use App\Models\MaDownload;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class OfficialPpidProfileController extends Controller
+class DownloadController extends Controller
 {
     public function index()
     {
-        $title = "Pejabat PPID";
-        return view("pages.admin.official-ppid", compact("title"));
+        $title = "Download";
+        return view("pages.admin.download", compact("title"));
     }
 
-    // HANDLE API
-    public function dataTable(Request $request)
+    // HANDLER API
+    public function datatable(Request $request)
     {
-        $query = MaOfficialPpidProfile::query();
+
+        $query = MaDownload::query();
 
         if ($request->query("search")) {
-            $searchValue = $request->query("search")["value"];
+            $searchValue = $request->query("search")['value'];
             $query->where(function ($query) use ($searchValue) {
-                $query->where("title1", "like", "%" . $searchValue . "%")
-                    ->orWhere("title2", "like", "%" . $searchValue . "%");
+                $query->where('title', 'like', '%' . $searchValue . '%');
             });
         }
 
-        $data = $query->orderBy("created_at", "desc")
-            ->skip($request->query("start"))
-            ->limit($request->query("length"))
+        $data = $query->orderBy('created_at', 'desc')
+            ->skip($request->query('start'))
+            ->limit($request->query('length'))
             ->get();
 
         $output = $data->map(function ($item) {
-            $action = "<div class='dropdown-primary dropdown open'>
+            $action = " <div class='dropdown-primary dropdown open'>
                             <button class='btn btn-sm btn-primary dropdown-toggle waves-effect waves-light' id='dropdown-{$item->id}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
                                 Aksi
                             </button>
@@ -45,19 +43,11 @@ class OfficialPpidProfileController extends Controller
                                 <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
                             </div>
                         </div>";
-
-            $image = '<div class="thumbnail">
-                                <div class="thumb">
-                                    <img src="' . Storage::url($item->image) . '" alt="" width="300px" height="300px" 
-                                    class="img-fluid img-thumbnail" alt="' . $item->title1 . '">
-                                </div>
-                            </div>';
             $item['action'] = $action;
-            $item['image'] = $image;
             return $item;
         });
 
-        $total = MaOfficialPpidProfile::count();
+        $total = MaDownload::count();
         return response()->json([
             'draw' => $request->query('draw'),
             'recordsFiltered' => $total,
@@ -69,7 +59,7 @@ class OfficialPpidProfileController extends Controller
     public function getDetail($id)
     {
         try {
-            $data = MaOfficialPpidProfile::find($id);
+            $data = MaDownload::find($id);
 
             if (!$data) {
                 return response()->json([
@@ -82,7 +72,7 @@ class OfficialPpidProfileController extends Controller
                 "status" => "success",
                 "data" => $data
             ]);
-        } catch (Exception $err) {
+        } catch (\Exception $err) {
             return response()->json([
                 "status" => "error",
                 "message" => $err->getMessage()
@@ -95,17 +85,17 @@ class OfficialPpidProfileController extends Controller
         try {
             $data = $request->all();
             $rules = [
-                "title1" => "required|string",
-                "title2" => "required|string",
-                "image" => "required|image|max:1024|mimes:jpeg,png,jpg"
+                "title" => "required|string",
+                "description" => "required|string",
+                "file" => "required|max:30720|mimes:doc,docx,pdf,jpg,jpeg,gif,bmp,png,rar,zip,xlsx,csv,xls,pptx,ppt"
             ];
+
             $messages = [
-                "title1.required" => "Judul satu harus diisi",
-                "title2.required" => "Judul dua harus diisi",
-                "image.required" => "Gambar harus diisi",
-                "image.image" => "Gambar yang di upload tidak valid",
-                "image.max" => "Ukuran gambar maximal 1MB",
-                "image.mimes" => "Format gambar harus jpeg/png/jpg"
+                "title.required" => "Judul harus diisi",
+                "description.required" => "Deskripsi harus diisi",
+                "file.required" => "File harus diisi",
+                "file.max" => "Ukuran file maximal 30MB",
+                "file.mimes" => "Format file tidak valid"
             ];
 
             $validator = Validator::make($data, $rules, $messages);
@@ -116,19 +106,20 @@ class OfficialPpidProfileController extends Controller
                 ], 400);
             }
 
-            $data['image'] = $request->file('image')->store('assets/officialppidprofile', 'public');
-            MaOfficialPpidProfile::create($data);
+            $data['file'] = $request->file('file')->store('assets/download', 'public');
+
+            MaDownload::create($data);
             return response()->json([
                 "status" => "success",
                 "message" =>  "Data berhasil dibuat"
             ]);
-        } catch (Exception $err) {
-            if ($request->file("image")) {
-                unlink(public_path("storage/assets/officialppidprofile/" . $request->image->hashName()));
+        } catch (\Exception $err) {
+            if ($request->file("file")) {
+                unlink(public_path("storage/assets/download/" . $request->file->hashName()));
             }
             return response()->json([
                 "status" => "error",
-                "message" => $err->getMessage()
+                "message" => $err->getMessage(),
             ], 500);
         }
     }
@@ -139,23 +130,22 @@ class OfficialPpidProfileController extends Controller
             $data = $request->all();
             $rules = [
                 "id" => "required|integer",
-                "title1" => "required|string",
-                "title2" => "required|string",
-                "image" => "nullable"
+                "title" => "required|string",
+                "description" => "required|string",
+                "file" => "nullable"
             ];
 
-            if ($request->file('image')) {
-                $rules['image'] .= '|image|max:1024|mimes:jpeg,png,jpg';
+            if ($request->file('file')) {
+                $rules['file'] .= '|max:30720|mimes:doc,docx,pdf,jpg,jpeg,gif,bmp,png,rar,zip,xlsx,csv,xls,pptx,ppt';
             }
 
             $messages = [
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",
-                "title1.required" => "Judul satu harus diisi",
-                "title2.required" => "Judul dua harus diisi",
-                "image.image" => "Gambar yang di upload tidak valid",
-                "image.max" => "Ukuran gambar maximal 1MB",
-                "image.mimes" => "Format gambar harus jpeg/png/jpg"
+                "title.required" => "Judul harus diisi",
+                "description.required" => "Deskripsi harus diisi",
+                "file.max" => "Ukuran file maximal 30MB",
+                "file.mimes" => "Format file tidak valid"
             ];
 
             $validator = Validator::make($data, $rules, $messages);
@@ -166,33 +156,33 @@ class OfficialPpidProfileController extends Controller
                 ], 400);
             }
 
-            $existing = MaOfficialPpidProfile::find($data['id']);
-            if (!$existing) {
+            $download = MaDownload::find($data['id']);
+            if (!$download) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
 
-            // delete undefined data image
-            unset($data["image"]);
-            if ($request->file("image")) {
-                unlink(public_path("storage/" . $existing->image));
-                $data["image"] = $request->file("image")->store("assets/officialppidprofile", "public");
+            // delete undefined data file
+            unset($data["file"]);
+            if ($request->file("file")) {
+                unlink(public_path("storage/" . $download->file));
+                $data["file"] = $request->file("file")->store("assets/download", "public");
             }
 
-            $existing->update($data);
+            $download->update($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil diperbarui"
+                "message" => "Data berhasil diperbarui"
             ]);
-        } catch (Exception $err) {
-            if ($request->file("image")) {
-                unlink(public_path("storage/assets/officialppidprofile/" . $request->image->hashName()));
+        } catch (\Exception $err) {
+            if ($request->file("file")) {
+                unlink(public_path("storage/assets/download/" . $request->file->hashName()));
             }
             return response()->json([
                 "status" => "error",
-                "message" => $err->getMessage()
+                "message" => $err->getMessage(),
             ], 500);
         }
     }
@@ -213,20 +203,20 @@ class OfficialPpidProfileController extends Controller
             }
 
             $id = $request->id;
-            $data = MaOfficialPpidProfile::find($id);
+            $data = MaDownload::find($id);
             if (!$data) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
-            unlink(public_path('storage/' . $data->image));
+            unlink(public_path('storage/' . $data->file));
             $data->delete();
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil dihapus"
             ]);
-        } catch (Exception $err) {
+        } catch (\Exception $err) {
             return response()->json([
                 "status" => "error",
                 "message" => $err->getMessage()

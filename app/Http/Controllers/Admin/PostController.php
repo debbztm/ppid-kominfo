@@ -49,15 +49,15 @@ class PostController extends Controller
             ->get();
 
         $output = $data->map(function ($item) {
-            $action = "<div class='dropdown-primary dropdown open'>
-                                <button class='btn btn-sm btn-primary dropdown-toggle waves-effect waves-light' id='dropdown-{$item->id}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
-                                    Aksi
-                                </button>
-                                <div class='dropdown-menu' aria-labelledby='dropdown-{$item->id}' data-dropdown-out='fadeOut'>
-                                    <a class='dropdown-item' onclick='return getData(\"{$item->id}\");' href='javascript:void(0);' title='Edit'>Edit</a>
-                                    <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
-                                </div>
-                            </div>";
+            $action = " <div class='dropdown-primary dropdown open'>
+                            <button class='btn btn-sm btn-primary dropdown-toggle waves-effect waves-light' id='dropdown-{$item->id}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
+                                Aksi
+                            </button>
+                            <div class='dropdown-menu' aria-labelledby='dropdown-{$item->id}' data-dropdown-out='fadeOut'>
+                                <a class='dropdown-item' onclick='return getData(\"{$item->id}\");' href='javascript:void(0);' title='Edit'>Edit</a>
+                                <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
+                            </div>
+                        </div>";
 
             $is_publish = $item->is_publish == 'Y' ? '
                     <div class="text-center">
@@ -138,7 +138,7 @@ class PostController extends Controller
                 "is_publish" => "required|string|in:Y,N",
                 "type" => "required|integer",
                 "tag_post" => "required|string",
-                "image" => "required|image|max:10240|mimes:jpeg,png,jpg"
+                "image" => "required|image|max:1024|mimes:jpeg,png,jpg"
             ];
 
             $messages = [
@@ -208,7 +208,7 @@ class PostController extends Controller
             ];
 
             if ($request->file('image')) {
-                $rules['image'] .= '|image|max:10240|mimes:jpeg,png,jpg';
+                $rules['image'] .= '|image|max:1024|mimes:jpeg,png,jpg';
             }
 
             $messages = [

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\HallController;
 use App\Http\Controllers\Admin\ImageGalleryController;
@@ -48,4 +49,5 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('image-gallery/{gallery_id}/detail', [ImageGalleryController::class, 'index'])->name('image-gallery'); // image gallery
     Route::get('video', [VideoController::class, 'index'])->name('video'); // video
     Route::get('agenda', [AgendaController::class, 'index'])->name('agenda'); // agenda
+    Route::get('download', [DownloadController::class, 'index'])->name('download'); // download
 });

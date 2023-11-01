@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\CustomTemplateController;
+use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\HallController;
 use App\Http\Controllers\Admin\ImageGalleryController;
@@ -137,5 +138,14 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/create", [AgendaController::class, "create"]);
         Route::post("/update", [AgendaController::class, "update"]);
         Route::delete("/", [AgendaController::class, "destroy"]);
+    });
+
+    // DOWNLOAD
+    Route::group(["prefix" => "download"], function () {
+        Route::get("datatable", [DownloadController::class, "dataTable"]);
+        Route::get("{id}/detail", [DownloadController::class, "getDetail"]);
+        Route::post("/create", [DownloadController::class, "create"]);
+        Route::post("/update", [DownloadController::class, "update"]);
+        Route::delete("/", [DownloadController::class, "destroy"]);
     });
 });

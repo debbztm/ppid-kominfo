@@ -87,8 +87,8 @@
                         <p>Agenda</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li class="nav-item ml-3 {{ $routename == 'download' ? 'active' : '' }}">
+                    <a href="{{ route('download') }}">
                         <i class="fas fa-download"></i>
                         <p>Download</p>
                     </a>

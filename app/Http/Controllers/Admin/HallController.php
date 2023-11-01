@@ -63,7 +63,7 @@ class HallController extends Controller
                 "phone" => "required|string",
                 "email" => "required|string",
                 "whatsapp" => "required|string",
-                "image" => "required|image|max:10240|mimes:jpeg,png,gpj",
+                "image" => "required|image|max:1024|mimes:jpeg,png,gpj",
                 "profile" => "required|string",
             ];
 
@@ -143,7 +143,7 @@ class HallController extends Controller
             ];
 
             if ($request->file('image')) {
-                $rules['image'] .= '|image|max:10240|mimes:jpeg,png,jpg';
+                $rules['image'] .= '|image|max:1024|mimes:jpeg,png,jpg';
             }
 
             $messages = [

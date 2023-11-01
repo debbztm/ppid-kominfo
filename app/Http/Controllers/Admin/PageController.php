@@ -202,7 +202,7 @@ class PageController extends Controller
             ];
 
             if ($request->file('image')) {
-                $rules['image'] .= '|image|max:10240|mimes:jpeg,png,jpg';
+                $rules['image'] .= '|image|max:1024|mimes:jpeg,png,jpg';
             }
 
             $messages = [

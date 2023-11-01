@@ -26,7 +26,7 @@ class SlideController extends Controller
                 "title" => "required|string",
                 "link" => "required|string",
                 "is_publish" => "required|string|in:Y,N",
-                "image" => "required|image|max:10240|mimes:jpeg,png,jpg"
+                "image" => "required|image|max:1024|mimes:jpeg,png,jpg"
             ];
 
             $messages = [
@@ -104,7 +104,7 @@ class SlideController extends Controller
             ];
 
             if ($request->file('image')) {
-                $rules['image'] .= '|image|max:10240|mimes:jpeg,png,jpg';
+                $rules['image'] .= '|image|max:1024|mimes:jpeg,png,jpg';
             }
 
             $messages = [
@@ -167,7 +167,7 @@ class SlideController extends Controller
             ];
 
             if ($request->file('image')) {
-                $rules['image'] .= '|image|max:10240|mimes:jpeg,png,jpg';
+                $rules['image'] .= '|image|max:1024|mimes:jpeg,png,jpg';
             }
 
             $messages = [
