@@ -2,29 +2,39 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
-use App\Models\PortalData;
+use App\Models\MaAgenda;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
-class PortalDataController extends Controller
+class AgendaController extends Controller
 {
     public function index()
     {
-        $title = "Portal Data";
-        return view("pages.admin.portal-data", compact("title"));
+        $title = "Agenda";
+        return view("pages.admin.agenda", compact("title"));
     }
 
-    // HANDLE API
+    // HANDLER API
     public function dataTable(Request $request)
     {
-        $query = PortalData::query();
+        $query = MaAgenda::query();
+        $user = json_decode(Cookie::get("user"));
 
         if ($request->query("search")) {
             $searchValue = $request->query("search")['value'];
             $query->where(function ($query) use ($searchValue) {
                 $query->where('title', 'like', '%' . $searchValue . '%');
             });
+        }
+
+        // Kalau role == Admin . list all
+        // kalau tidak . list by username nya
+        if ($user->role->name == "USER") {
+            $query->where("username", $user->username);
         }
 
         $data = $query->orderBy('created_at', 'desc')
@@ -43,31 +53,11 @@ class PortalDataController extends Controller
                             </div>
                         </div>";
 
-            $is_active = $item->is_active == 'Y' ? '
-                    <div class="text-center">
-                        <span class="label-switch">Active</span>
-                    </div>
-                    <div class="input-row">
-                        <div class="toggle_status on">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'NonActive\');" />
-                            <span class="slider"></span>
-                        </div>
-                    </div>' :
-                    '<div class="text-center">
-                        <span class="label-switch">NonActive</span>
-                    </div>
-                    <div class="input-row">
-                        <div class="toggle_status off">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Active\');" />
-                            <span class="slider"></span>
-                        </div>
-                    </div>';
             $item['action'] = $action;
-            $item['is_active'] = $is_active;
             return $item;
         });
 
-        $total = PortalData::count();
+        $total = MaAgenda::count();
         return response()->json([
             'draw' => $request->query('draw'),
             'recordsFiltered' => $total,
@@ -79,7 +69,7 @@ class PortalDataController extends Controller
     public function getDetail($id)
     {
         try {
-            $data = PortalData::find($id);
+            $data = MaAgenda::find($id);
 
             if (!$data) {
                 return response()->json([
@@ -87,6 +77,8 @@ class PortalDataController extends Controller
                     "message" => "Data tidak ditemukan",
                 ], 404);
             }
+
+            $data['time'] = Helper::change_date1($data['time']);
 
             return response()->json([
                 "status" => "success",
@@ -104,17 +96,21 @@ class PortalDataController extends Controller
     {
         try {
             $data = $request->all();
-            $rules = [
-                "title" => "required|string",
-                "url" => "required|string",
-                "is_active" => "required|string|in:Y,N",
-            ];
+            $user =
+                $rules = [
+                    "title" => "required|string",
+                    "time" => "required",
+                    "hour" => "required|string",
+                    "place" => "required|string",
+                    "description" => "required|string",
+                ];
 
             $messages = [
                 "title.required" => "Judul harus diisi",
-                "url.required" => "Url harus diisi",
-                "is_active.required" => "Status harus diisi",
-                "is_active.in" => "Status tidak sesuai",
+                "time.required" => "Tanggal harus diisi",
+                "hour.required" => "Jam harus diisi",
+                "place.required" => "Tempat harud siisi",
+                "description.required" => "Deskripsi harus diisi"
             ];
 
             $validator = Validator::make($data, $rules, $messages);
@@ -125,7 +121,12 @@ class PortalDataController extends Controller
                 ], 400);
             }
 
-            PortalData::create($data);
+            $data["time"] = Helper::change_date2($data["time"]);
+            $data["seo"] = Str::slug($data["title"]);
+            $user = json_decode(Cookie::get("user"));
+            $data["username"] = $user->username;
+
+            MaAgenda::create($data);
             return response()->json([
                 "status" => "success",
                 "message" =>  "Data berhasil dibuat"
@@ -145,17 +146,20 @@ class PortalDataController extends Controller
             $rules = [
                 "id" => "required|integer",
                 "title" => "required|string",
-                "url" => "required|string",
-                "is_active" => "required|string|in:Y,N",
+                "time" => "required",
+                "hour" => "required|string",
+                "place" => "required|string",
+                "description" => "required|string",
             ];
 
             $messages = [
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",
                 "title.required" => "Judul harus diisi",
-                "url.required" => "Url harus diisi",
-                "is_active.required" => "Status harus diisi",
-                "is_active.in" => "Status tidak sesuai",
+                "time.required" => "Tanggal harus diisi",
+                "hour" => "Jam harus diisi",
+                "place.required" => "Tempat harud siisi",
+                "description.required" => "Deskripsi harus diisi"
             ];
 
             $validator = Validator::make($data, $rules, $messages);
@@ -166,62 +170,21 @@ class PortalDataController extends Controller
                 ], 400);
             }
 
-            $item = PortalData::find($data['id']);
-            if (!$item) {
+            $agenda = MaAgenda::find($data['id']);
+            if (!$agenda) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
 
-            $item->update($data);
+            $data["time"] = Helper::change_date2($data["time"]);
+            $data["seo"] = Str::slug($data["title"]);
+
+            $agenda->update($data);
             return response()->json([
                 "status" => "success",
-                "message" => "Data berhasil diperbarui"
-            ]);
-        } catch (\Exception $err) {
-            return response()->json([
-                "status" => "error",
-                "message" => $err->getMessage(),
-            ], 500);
-        }
-    }
-
-    public function updateStatus(Request $request)
-    {
-        try {
-            $data = $request->all();
-            $rules = [
-                "id" => "required|integer",
-                "is_active" => "required|string|in:Y,N",
-            ];
-
-            $messages = [
-                "id.required" => "Data ID harus diisi",
-                "id.integer" => "Type ID tidak sesuai",
-                "is_active.required" => "Status harus diisi",
-                "is_active.in" => "Status tidak sesuai",
-            ];
-
-            $validator = Validator::make($data, $rules, $messages);
-            if ($validator->fails()) {
-                return response()->json([
-                    "status" => "error",
-                    "message" => $validator->errors()->first(),
-                ], 400);
-            }
-
-            $item = PortalData::find($data['id']);
-            if (!$item) {
-                return response()->json([
-                    "status" => "error",
-                    "message" => "Data tidak ditemukan"
-                ], 404);
-            }
-            $item->update($data);
-            return response()->json([
-                "status" => "success",
-                "message" => "Status berhasil diperbarui"
+                "message" =>  "Data berhasil diperbarui"
             ]);
         } catch (\Exception $err) {
             return response()->json([
@@ -247,15 +210,15 @@ class PortalDataController extends Controller
             }
 
             $id = $request->id;
-            $data = PortalData::find($id);
-            if (!$data) {
+            $agenda = MaAgenda::find($id);
+            if (!$agenda) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
 
-            $data->delete();
+            $agenda->delete();
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil dihapus"

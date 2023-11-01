@@ -18,7 +18,7 @@
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="potalDataTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="portalDataTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
@@ -95,7 +95,7 @@
 
         function dataTable() {
             const url = "/api/admin/portal-data/datatable";
-            dTable = $("#potalDataTable").DataTable({
+            dTable = $("#portalDataTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,

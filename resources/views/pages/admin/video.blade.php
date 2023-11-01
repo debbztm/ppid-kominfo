@@ -15,7 +15,7 @@
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="potalDataTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="videoTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
@@ -91,7 +91,7 @@
 
         function dataTable() {
             const url = "/api/admin/video/datatable";
-            dTable = $("#potalDataTable").DataTable({
+            dTable = $("#videoTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,

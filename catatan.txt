@@ -120,3 +120,6 @@ Master
   -> jumlah informasi
   -> portal data (ok)
   -> foto/gallery (ok)
+  -> video (ok)
+  -> agenda (ok)
+  

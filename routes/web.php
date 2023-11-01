@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\HallController;
@@ -46,4 +47,5 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('gallery', [GalleryController::class, 'index'])->name('gallery'); // galeri
     Route::get('image-gallery/{gallery_id}/detail', [ImageGalleryController::class, 'index'])->name('image-gallery'); // image gallery
     Route::get('video', [VideoController::class, 'index'])->name('video'); // video
+    Route::get('agenda', [AgendaController::class, 'index'])->name('agenda'); // agenda
 });

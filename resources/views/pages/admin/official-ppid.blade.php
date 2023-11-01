@@ -15,7 +15,7 @@
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="postTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="officialPpidTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
@@ -90,7 +90,7 @@
 
         function dataTable() {
             const url = "/api/admin/official-ppid/datatable";
-            dTable = $("#postTable").DataTable({
+            dTable = $("#officialPpidTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,

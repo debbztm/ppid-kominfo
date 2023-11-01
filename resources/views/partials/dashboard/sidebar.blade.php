@@ -81,8 +81,8 @@
                         <p>Video</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li class="nav-item ml-3 {{ $routename == 'agenda' ? 'active' : '' }}">
+                    <a href="{{ route('agenda') }}">
                         <i class="fas fa-calendar-alt"></i>
                         <p>Agenda</p>
                     </a>

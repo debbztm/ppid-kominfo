@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('seo');
-            $table->string('description');
+            $table->text('description');
             $table->string('username');
             $table->date('time');
-            $table->string('hour', 5)->nullable();
+            $table->string('hour', 10)->nullable();
             $table->string('place')->nullable();
             $table->timestamps();
         });

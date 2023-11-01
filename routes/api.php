@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\CustomTemplateController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\HallController;
@@ -127,5 +128,14 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/create", [VideoController::class, "create"]);
         Route::post("/update", [VideoController::class, "update"]);
         Route::delete("/", [VideoController::class, "destroy"]);
+    });
+
+    // AGENDA
+    Route::group(["prefix" => "agenda"], function () {
+        Route::get("datatable", [AgendaController::class, "dataTable"]);
+        Route::get("{id}/detail", [AgendaController::class, "getDetail"]);
+        Route::post("/create", [AgendaController::class, "create"]);
+        Route::post("/update", [AgendaController::class, "update"]);
+        Route::delete("/", [AgendaController::class, "destroy"]);
     });
 });
