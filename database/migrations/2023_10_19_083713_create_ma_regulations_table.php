@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('seo');
-            $table->string('url');
+            $table->string('url')->nullable();
             $table->enum('is_url', ['0', '1'])->default('0');
             $table->timestamps();
         });

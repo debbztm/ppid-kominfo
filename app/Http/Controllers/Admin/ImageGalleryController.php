@@ -94,7 +94,7 @@ class ImageGalleryController extends Controller
             ]);
         } catch (\Exception $err) {
             if ($request->file("image")) {
-                unlink(public_path("storage/assets/infographic/" . $request->image->hashName()));
+                unlink(public_path("storage/assets/imagegallery/" . $request->image->hashName()));
             }
             return response()->json([
                 "status" => "error",

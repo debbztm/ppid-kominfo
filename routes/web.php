@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\RegulationController;
+use App\Http\Controllers\Admin\RegulationFileController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\AuthController;
@@ -50,4 +52,6 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('video', [VideoController::class, 'index'])->name('video'); // video
     Route::get('agenda', [AgendaController::class, 'index'])->name('agenda'); // agenda
     Route::get('download', [DownloadController::class, 'index'])->name('download'); // download
+    Route::get('regulation', [RegulationController::class, 'index'])->name('regulation'); // regulation
+    Route::get('regulation-file/{regulation_id}/detail', [RegulationFileController::class, 'index'])->name('regulation-file'); // regulation file
 });

@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('ma_image_galleries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ma_gallery_id')->nullable();
-            $table->foreign('ma_gallery_id')->references('id')->on('ma_galleries')->onUpdate('cascade');
+            $table->foreign('ma_gallery_id')->references('id')
+                ->on('ma_galleries')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->string('image');
             $table->timestamps();
         });

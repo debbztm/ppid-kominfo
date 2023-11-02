@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\RegulationController;
+use App\Http\Controllers\Admin\RegulationFileController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\AuthController;
@@ -147,5 +149,24 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/create", [DownloadController::class, "create"]);
         Route::post("/update", [DownloadController::class, "update"]);
         Route::delete("/", [DownloadController::class, "destroy"]);
+    });
+
+    // REGULATION
+    Route::group(["prefix" => "regulation"], function () {
+        Route::get("datatable", [RegulationController::class, "dataTable"]);
+        Route::get("{id}/detail", [RegulationController::class, "getDetail"]);
+        Route::post("/create", [RegulationController::class, "create"]);
+        Route::post("/update", [RegulationController::class, "update"]);
+        Route::post("/update-status", [RegulationController::class, "updateStatus"]);
+        Route::delete("/", [RegulationController::class, "destroy"]);
+    });
+
+    // REGULATION FILE
+    Route::group(["prefix" => "regulation-file"], function () {
+        Route::get("{regulation_id}/datatable", [RegulationFileController::class, "dataTable"]);
+        Route::get("{id}/detail", [RegulationFileController::class, "getDetail"]);
+        Route::post("/create", [RegulationFileController::class, "create"]);
+        Route::post("/update", [RegulationFileController::class, "update"]);
+        Route::delete("/", [RegulationFileController::class, "destroy"]);
     });
 });

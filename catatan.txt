@@ -122,4 +122,6 @@ Master
   -> foto/gallery (ok)
   -> video (ok)
   -> agenda (ok)
+  -> download (ok)
+  -> regulasi (ok)
   

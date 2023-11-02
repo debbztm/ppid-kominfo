@@ -93,8 +93,9 @@
                         <p>Download</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li
+                    class="nav-item ml-3 {{ $routename == 'regulation' || $routename == 'regulation-file' ? 'active' : '' }}">
+                    <a href="{{ route('regulation') }}">
                         <i class="fas fa-file-alt"></i>
                         <p>Regulasi</p>
                     </a>

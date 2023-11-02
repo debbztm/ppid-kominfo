@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Home Anggaran</h5>
+                        <h5 class="text-uppercase title">Regulasi</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
@@ -18,13 +18,13 @@
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="pageTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="regulationTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
                                     <th class="all">Judul</th>
-                                    <th class="all">Status</th>
-                                    <th class="all">Url Link</th>
+                                    <th class="all">Url</th>
+                                    <td class="all">Status URL</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,26 +55,20 @@
                         <div class="form-group">
                             <label for="title">Judul</label>
                             <input class="form-control" id="title" type="text" name="title"
-                                placeholder="masukkan judul" required />
+                                placeholder="masukkan judul regulasi" required />
                         </div>
                         <div class="form-group">
-                            <label for="url">Url Link</label>
+                            <label for="url">Url</label>
                             <input class="form-control" id="url" type="text" name="url"
-                                placeholder="www.jatengprov.go.id" required />
-                            <small class="text-danger">contoh: www.jatengprov.go.id</small>
+                                placeholder="masukkan link url" />
                         </div>
                         <div class="form-group">
-                            <label for="is_publish">Status</label>
-                            <select class="form-control form-control" id="is_publish" name="is_publish" required>
+                            <label for="is_url">Url Aktif</label>
+                            <select class="form-control form-control" id="is_url" name="is_url">
                                 <option value = "">Pilih Status</option>
-                                <option value="Y">Publish</option>
-                                <option value="N">Draft</option>
+                                <option value="1">Aktif</option>
+                                <option value="0">Non Aktif</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Deskripsi</label>
-                            <textarea class="form-control" id="description" type="text" name="description" placeholder="masukkan deskripsi" required
-                                cols="30" rows="5"></textarea>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
@@ -100,8 +94,8 @@
         })
 
         function dataTable() {
-            const url = "/api/admin/pages/datatable";
-            dTable = $("#pageTable").DataTable({
+            const url = "/api/admin/regulation/datatable";
+            dTable = $("#regulationTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,
@@ -113,13 +107,15 @@
                 lengthMenu: [5, 10, 25, 50, 100],
                 ajax: url,
                 columns: [{
-                    data: "action"
+                    data: "action",
+                    width: "100px"
                 }, {
                     data: "title"
                 }, {
-                    data: "is_publish"
-                }, {
                     data: "url"
+                }, {
+                    data: "is_url",
+                    width: "300px"
                 }],
                 pageLength: 10,
             });
@@ -128,7 +124,6 @@
         function refreshData() {
             dTable.ajax.reload(null, false);
         }
-
 
         function addData() {
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
@@ -145,7 +140,7 @@
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/pages/${id}/detail`,
+                url: `/api/admin/regulation/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {
@@ -155,8 +150,7 @@
                         $("#id").val(d.id);
                         $("#title").val(d.title);
                         $("#url").val(d.url);
-                        $("#is_publish").val(d.is_publish);
-                        $("#description").val(d.description);
+                        $("#is_url").val(d.is_url);
                     })
                 },
                 error: function(err) {
@@ -173,8 +167,7 @@
             formData.append("id", parseInt($("#id").val()));
             formData.append("title", $("#title").val());
             formData.append("url", $("#url").val());
-            formData.append("is_publish", $("#is_publish").val());
-            formData.append("description", $("#description").val());
+            formData.append("is_url", parseInt($("#is_url").val() == "" ? 0 : $("#is_url").val()));
 
             saveData(formData, $("#formEditable").attr("data-action"));
             return false;
@@ -184,7 +177,7 @@
             let c = confirm(`Anda yakin ingin mengubah status ke ${status} ?`)
             if (c) {
                 let dataToSend = new FormData();
-                dataToSend.append("is_publish", status == "Draft" ? "N" : "Y");
+                dataToSend.append("is_url", status == "NonActive" ? 0 : 1);
                 dataToSend.append("id", id);
                 updateStatusData(dataToSend);
             }
@@ -192,7 +185,7 @@
 
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/pages/update" : "/api/admin/pages/create",
+                url: action == "update" ? "/api/admin/regulation/update" : "/api/admin/regulation/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -202,6 +195,7 @@
                 },
                 success: function(res) {
                     closeForm();
+                    $("#image").attr("required", true);
                     showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
                     refreshData();
                 },
@@ -217,7 +211,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/pages",
+                    url: "/api/admin/regulation",
                     method: "DELETE",
                     data: {
                         id: id
@@ -240,7 +234,7 @@
 
         function updateStatusData(data) {
             $.ajax({
-                url: "/api/admin/pages/update-status",
+                url: "/api/admin/regulation/update-status",
                 contentType: false,
                 processData: false,
                 method: "POST",

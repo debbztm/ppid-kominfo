@@ -9,27 +9,26 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Home Anggaran</h5>
+                        <h5 class="text-uppercase title">File Regulasi</h5>
                     </div>
                     <div class="card-header-right">
+                        <button class="btn btn-mini btn-warning mr-1" onclick="return back();">Kembali</button>
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
                         <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah Data</button>
                     </div>
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="pageTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="regulationFileTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
                                     <th class="all">Judul</th>
-                                    <th class="all">Status</th>
-                                    <th class="all">Url Link</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td colspan="4" class="text-center"><small>Tidak Ada Data</small></td>
+                                    <td colspan="2" class="text-center"><small>Tidak Ada Data</small></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -55,26 +54,18 @@
                         <div class="form-group">
                             <label for="title">Judul</label>
                             <input class="form-control" id="title" type="text" name="title"
-                                placeholder="masukkan judul" required />
+                                placeholder="masukkan judul regulasi" required />
                         </div>
                         <div class="form-group">
-                            <label for="url">Url Link</label>
-                            <input class="form-control" id="url" type="text" name="url"
-                                placeholder="www.jatengprov.go.id" required />
-                            <small class="text-danger">contoh: www.jatengprov.go.id</small>
+                            <label for="description">Deskripsi File</label>
+                            <textarea class="form-control" id="description" type="text" name="description" placeholder="masukkan deskripsi file"
+                                required cols="30" rows="5"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="is_publish">Status</label>
-                            <select class="form-control form-control" id="is_publish" name="is_publish" required>
-                                <option value = "">Pilih Status</option>
-                                <option value="Y">Publish</option>
-                                <option value="N">Draft</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Deskripsi</label>
-                            <textarea class="form-control" id="description" type="text" name="description" placeholder="masukkan deskripsi" required
-                                cols="30" rows="5"></textarea>
+                            <label for="file">File Regulasi</label>
+                            <input class="form-control" id="file" type="file" name="file"
+                                placeholder="upload gambar" required />
+                            <small class="text-danger">Max ukuran 1MB</small>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
@@ -94,14 +85,25 @@
     <script src="{{ asset('js/plugin/datatables/datatables.min.js') }}"></script>
     <script>
         let dTable = null;
-
+        let url = new URL(window.location.href);
+        let path = url.pathname;
+        let pathSegments = path.split('/');
+        let regulation_id = pathSegments[pathSegments.length - 2];
         $(function() {
-            dataTable();
+            dataTable(regulation_id);
         })
 
-        function dataTable() {
-            const url = "/api/admin/pages/datatable";
-            dTable = $("#pageTable").DataTable({
+        function refreshData() {
+            dTable.ajax.reload(null, false);
+        }
+
+        function back() {
+            window.location.href = "{{ route('regulation') }}"
+        }
+
+        function dataTable(regulation_id) {
+            const url = `/api/admin/regulation-file/${regulation_id}/datatable`;
+            dTable = $("#regulationFileTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,
@@ -111,41 +113,42 @@
                 searchDelay: 1000,
                 paging: true,
                 lengthMenu: [5, 10, 25, 50, 100],
-                ajax: url,
+                ajax: {
+                    url,
+                    error: function(err) {
+                        console.log("error :", err);
+                        showMessage("warning", "flaticon-error", "Peringatan", err.message || err.responseJSON
+                            ?.message);
+                    }
+                },
                 columns: [{
-                    data: "action"
+                    data: "action",
+                    width: "100px"
                 }, {
                     data: "title"
-                }, {
-                    data: "is_publish"
-                }, {
-                    data: "url"
                 }],
                 pageLength: 10,
             });
         }
 
-        function refreshData() {
-            dTable.ajax.reload(null, false);
-        }
-
-
         function addData() {
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
             $("#boxTable").removeClass("col-md-12").addClass("col-md-8");
             $("#title").focus();
+            $("#file").attr("required", true);
         }
 
         function closeForm() {
             $("#formEditable").slideUp(200, function() {
                 $("#boxTable").removeClass("col-md-8").addClass("col-md-12");
                 $("#reset").click();
+                $("#file").attr("required", true);
             })
         }
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/pages/${id}/detail`,
+                url: `/api/admin/regulation-file/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {
@@ -154,9 +157,8 @@
                         let d = res.data;
                         $("#id").val(d.id);
                         $("#title").val(d.title);
-                        $("#url").val(d.url);
-                        $("#is_publish").val(d.is_publish);
                         $("#description").val(d.description);
+                        $("#file").removeAttr("required");
                     })
                 },
                 error: function(err) {
@@ -171,28 +173,18 @@
             e.preventDefault();
             let formData = new FormData();
             formData.append("id", parseInt($("#id").val()));
+            formData.append("ma_regulation_id", regulation_id);
             formData.append("title", $("#title").val());
-            formData.append("url", $("#url").val());
-            formData.append("is_publish", $("#is_publish").val());
             formData.append("description", $("#description").val());
+            formData.append("file", document.getElementById("file").files[0]);
 
             saveData(formData, $("#formEditable").attr("data-action"));
             return false;
         });
 
-        function updateStatus(id, status) {
-            let c = confirm(`Anda yakin ingin mengubah status ke ${status} ?`)
-            if (c) {
-                let dataToSend = new FormData();
-                dataToSend.append("is_publish", status == "Draft" ? "N" : "Y");
-                dataToSend.append("id", id);
-                updateStatusData(dataToSend);
-            }
-        }
-
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/pages/update" : "/api/admin/pages/create",
+                url: action == "update" ? "/api/admin/regulation-file/update" : "/api/admin/regulation-file/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -202,6 +194,7 @@
                 },
                 success: function(res) {
                     closeForm();
+                    $("#image").attr("required", true);
                     showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
                     refreshData();
                 },
@@ -217,7 +210,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/pages",
+                    url: "/api/admin/regulation-file",
                     method: "DELETE",
                     data: {
                         id: id
@@ -236,28 +229,6 @@
                     }
                 })
             }
-        }
-
-        function updateStatusData(data) {
-            $.ajax({
-                url: "/api/admin/pages/update-status",
-                contentType: false,
-                processData: false,
-                method: "POST",
-                data: data,
-                beforeSend: function() {
-                    console.log("Loading...")
-                },
-                success: function(res) {
-                    showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
-                    refreshData();
-                },
-                error: function(err) {
-                    console.log("error :", err);
-                    showMessage("danger", "flaticon-error", "Peringatan", err.message || err.responseJSON
-                        ?.message);
-                }
-            })
         }
     </script>
 @endpush
