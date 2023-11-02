@@ -143,7 +143,7 @@ class HallController extends Controller
             ];
 
             if ($request->file('image')) {
-                $rules['image'] .= '|image|max:1024|mimes:jpeg,png,jpg';
+                $rules['image'] .= '|image|max:1024|mimes:giv,svg,jpeg,png,jpg';
             }
 
             $messages = [

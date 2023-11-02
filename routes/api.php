@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\HallController;
 use App\Http\Controllers\Admin\ImageGalleryController;
 use App\Http\Controllers\Admin\InfographicController;
+use App\Http\Controllers\Admin\LinkController;
 use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PortalDataController;
@@ -168,5 +169,14 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/create", [RegulationFileController::class, "create"]);
         Route::post("/update", [RegulationFileController::class, "update"]);
         Route::delete("/", [RegulationFileController::class, "destroy"]);
+    });
+
+    // LINK
+    Route::group(["prefix" => "link"], function () {
+        Route::get("datatable", [LinkController::class, "dataTable"]);
+        Route::get("{id}/detail", [LinkController::class, "getDetail"]);
+        Route::post("/create", [LinkController::class, "create"]);
+        Route::post("/update", [LinkController::class, "update"]);
+        Route::delete("/", [LinkController::class, "destroy"]);
     });
 });

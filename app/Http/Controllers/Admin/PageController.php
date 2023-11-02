@@ -201,10 +201,6 @@ class PageController extends Controller
                 "is_publish" => "required|string|in:Y,N",
             ];
 
-            if ($request->file('image')) {
-                $rules['image'] .= '|image|max:1024|mimes:jpeg,png,jpg';
-            }
-
             $messages = [
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",

@@ -3,40 +3,38 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\MaOfficialPpidProfile;
-use Exception;
+use App\Models\MaLink;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class OfficialPpidProfileController extends Controller
+class LinkController extends Controller
 {
     public function index()
     {
-        $title = "Pejabat PPID";
-        return view("pages.admin.official-ppid", compact("title"));
+        $title = "Link Terkait";
+        return view("pages.admin.link", compact("title"));
     }
 
-    // HANDLE API
+    // HANDLER API
     public function dataTable(Request $request)
     {
-        $query = MaOfficialPpidProfile::query();
+        $query = MaLink::query();
 
         if ($request->query("search")) {
-            $searchValue = $request->query("search")["value"];
+            $searchValue = $request->query("search")['value'];
             $query->where(function ($query) use ($searchValue) {
-                $query->where("title1", "like", "%" . $searchValue . "%")
-                    ->orWhere("title2", "like", "%" . $searchValue . "%");
+                $query->where('title', 'like', '%' . $searchValue . '%');
             });
         }
 
-        $data = $query->orderBy("created_at", "desc")
-            ->skip($request->query("start"))
-            ->limit($request->query("length"))
+        $data = $query->orderBy('created_at', 'desc')
+            ->skip($request->query('start'))
+            ->limit($request->query('length'))
             ->get();
 
         $output = $data->map(function ($item) {
-            $action = "<div class='dropdown-primary dropdown open'>
+            $action = " <div class='dropdown-primary dropdown open'>
                             <button class='btn btn-sm btn-primary dropdown-toggle waves-effect waves-light' id='dropdown-{$item->id}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
                                 Aksi
                             </button>
@@ -46,18 +44,11 @@ class OfficialPpidProfileController extends Controller
                             </div>
                         </div>";
 
-            $image = '<div class="thumbnail">
-                                <div class="thumb">
-                                    <img src="' . Storage::url($item->image) . '" alt="" width="300px" height="300px" 
-                                    class="img-fluid img-thumbnail" alt="' . $item->title1 . '">
-                                </div>
-                            </div>';
             $item['action'] = $action;
-            $item['image'] = $image;
             return $item;
         });
 
-        $total = MaOfficialPpidProfile::count();
+        $total = MaLink::count();
         return response()->json([
             'draw' => $request->query('draw'),
             'recordsFiltered' => $total,
@@ -69,20 +60,22 @@ class OfficialPpidProfileController extends Controller
     public function getDetail($id)
     {
         try {
-            $data = MaOfficialPpidProfile::find($id);
+            $link = MaLink::find($id);
 
-            if (!$data) {
+            if (!$link) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan",
                 ], 404);
             }
 
+            $link["image"] = "<img src='" . Storage::url($link["image"]) . "' class='img img-thumbnail'>";
+
             return response()->json([
                 "status" => "success",
-                "data" => $data
+                "data" => $link
             ]);
-        } catch (Exception $err) {
+        } catch (\Exception $err) {
             return response()->json([
                 "status" => "error",
                 "message" => $err->getMessage()
@@ -90,21 +83,23 @@ class OfficialPpidProfileController extends Controller
         }
     }
 
+
     public function create(Request $request)
     {
         try {
             $data = $request->all();
             $rules = [
-                "title1" => "required|string",
-                "title2" => "required|string",
-                "image" => "required|image|max:1024|mimes:giv,svg,jpeg,png,jpg"
+                "title" => "required|string",
+                "url" => "required|string",
+                "image" => "required|image|max:200|mimes:giv,svg,jpeg,png,jpg"
             ];
+
             $messages = [
-                "title1.required" => "Judul satu harus diisi",
-                "title2.required" => "Judul dua harus diisi",
+                "title.required" => "Judul harus diisi",
+                "url.required" => "Url harus diisi",
                 "image.required" => "Gambar harus diisi",
                 "image.image" => "Gambar yang di upload tidak valid",
-                "image.max" => "Ukuran gambar maximal 1MB",
+                "image.max" => "Ukuran gambar maximal 200KB",
                 "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg"
             ];
 
@@ -116,19 +111,20 @@ class OfficialPpidProfileController extends Controller
                 ], 400);
             }
 
-            $data['image'] = $request->file('image')->store('assets/officialppidprofile', 'public');
-            MaOfficialPpidProfile::create($data);
+            $data['image'] = $request->file('image')->store('assets/link', 'public');
+
+            MaLink::create($data);
             return response()->json([
                 "status" => "success",
                 "message" =>  "Data berhasil dibuat"
             ]);
-        } catch (Exception $err) {
+        } catch (\Exception $err) {
             if ($request->file("image")) {
-                unlink(public_path("storage/assets/officialppidprofile/" . $request->image->hashName()));
+                unlink(public_path("storage/assets/link/" . $request->image->hashName()));
             }
             return response()->json([
                 "status" => "error",
-                "message" => $err->getMessage()
+                "message" => $err->getMessage(),
             ], 500);
         }
     }
@@ -139,22 +135,22 @@ class OfficialPpidProfileController extends Controller
             $data = $request->all();
             $rules = [
                 "id" => "required|integer",
-                "title1" => "required|string",
-                "title2" => "required|string",
+                "title" => "required|string",
+                "url" => "required|string",
                 "image" => "nullable"
             ];
 
             if ($request->file('image')) {
-                $rules['image'] .= '|image|max:1024|mimes:giv,svg,jpeg,png,jpg';
+                $rules['image'] .= '|image|max:200|mimes:giv,svg,jpeg,png,jpg';
             }
 
             $messages = [
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",
-                "title1.required" => "Judul satu harus diisi",
-                "title2.required" => "Judul dua harus diisi",
+                "title.required" => "Judul harus diisi",
+                "url.required" => "Url harus diisi",
                 "image.image" => "Gambar yang di upload tidak valid",
-                "image.max" => "Ukuran gambar maximal 1MB",
+                "image.max" => "Ukuran gambar maximal 200KB",
                 "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg"
             ];
 
@@ -166,8 +162,8 @@ class OfficialPpidProfileController extends Controller
                 ], 400);
             }
 
-            $existing = MaOfficialPpidProfile::find($data['id']);
-            if (!$existing) {
+            $link = MaLink::find($data['id']);
+            if (!$link) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
@@ -177,22 +173,22 @@ class OfficialPpidProfileController extends Controller
             // delete undefined data image
             unset($data["image"]);
             if ($request->file("image")) {
-                unlink(public_path("storage/" . $existing->image));
-                $data["image"] = $request->file("image")->store("assets/officialppidprofile", "public");
+                unlink(public_path("storage/" . $link->image));
+                $data["image"] = $request->file("image")->store("assets/link", "public");
             }
 
-            $existing->update($data);
+            $link->update($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil diperbarui"
+                "message" => "Data berhasil diperbarui"
             ]);
-        } catch (Exception $err) {
+        } catch (\Exception $err) {
             if ($request->file("image")) {
-                unlink(public_path("storage/assets/officialppidprofile/" . $request->image->hashName()));
+                unlink(public_path("storage/assets/link/" . $request->image->hashName()));
             }
             return response()->json([
                 "status" => "error",
-                "message" => $err->getMessage()
+                "message" => $err->getMessage(),
             ], 500);
         }
     }
@@ -213,20 +209,20 @@ class OfficialPpidProfileController extends Controller
             }
 
             $id = $request->id;
-            $data = MaOfficialPpidProfile::find($id);
-            if (!$data) {
+            $link = MaLink::find($id);
+            if (!$link) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
-            unlink(public_path('storage/' . $data->image));
-            $data->delete();
+            unlink(public_path('storage/' . $link->image));
+            $link->delete();
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil dihapus"
             ]);
-        } catch (Exception $err) {
+        } catch (\Exception $err) {
             return response()->json([
                 "status" => "error",
                 "message" => $err->getMessage()

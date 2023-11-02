@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class MaLink extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'url'];
+    protected $fillable = ['title', 'url', 'image'];
 }

@@ -138,7 +138,7 @@ class PostController extends Controller
                 "is_publish" => "required|string|in:Y,N",
                 "type" => "required|integer",
                 "tag_post" => "required|string",
-                "image" => "required|image|max:1024|mimes:jpeg,png,jpg"
+                "image" => "required|image|max:1024|mimes:giv,svg,jpeg,png,jpg"
             ];
 
             $messages = [
@@ -153,7 +153,7 @@ class PostController extends Controller
                 "image.required" => "Gambar harus diisi",
                 "image.image" => "Gambar yang di upload tidak valid",
                 "image.max" => "Ukuran gambar maximal 1MB",
-                "image.mimes" => "Format gambar harus jpeg/png/jpg"
+                "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg"
             ];
 
             $validator = Validator::make($data, $rules, $messages);
@@ -208,7 +208,7 @@ class PostController extends Controller
             ];
 
             if ($request->file('image')) {
-                $rules['image'] .= '|image|max:1024|mimes:jpeg,png,jpg';
+                $rules['image'] .= '|image|max:1024|mimes:giv,svg,jpeg,png,jpg';
             }
 
             $messages = [
@@ -224,7 +224,7 @@ class PostController extends Controller
                 "tag_post.required" => "Tags harus diisi",
                 "image.image" => "Gambar yang di upload tidak valid",
                 "image.max" => "Ukuran gambar maximal 1MB",
-                "image.mimes" => "Format gambar harus jpeg/png/jpg"
+                "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg"
             ];
 
             $validator = Validator::make($data, $rules, $messages);

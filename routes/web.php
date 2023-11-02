@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\HallController;
 use App\Http\Controllers\Admin\ImageGalleryController;
 use App\Http\Controllers\Admin\InfographicController;
+use App\Http\Controllers\Admin\LinkController;
 use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PortalDataController;
@@ -54,4 +55,5 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('download', [DownloadController::class, 'index'])->name('download'); // download
     Route::get('regulation', [RegulationController::class, 'index'])->name('regulation'); // regulation
     Route::get('regulation-file/{regulation_id}/detail', [RegulationFileController::class, 'index'])->name('regulation-file'); // regulation file
+    Route::get('link', [LinkController::class, 'index'])->name('link'); // link
 });

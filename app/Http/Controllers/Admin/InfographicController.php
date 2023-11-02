@@ -49,11 +49,11 @@ class InfographicController extends Controller
     {
         try {
             $data = $request->all();
-            $validator = Validator::make($data, ["image" => "required|image|max:1024|mimes:jpeg,png,jpg"], [
+            $validator = Validator::make($data, ["image" => "required|image|max:1024|mimes:giv,svg,jpeg,png,jpg"], [
                 "image.required" => "Gambar harus diisi",
                 "image.image" => "Gambar yang di upload tidak valid",
                 "image.max" => "Ukuran gambar maximal 1MB",
-                "image.mimes" => "Format gambar harus jpeg/png/jpg"
+                "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg"
             ]);
             if ($validator->fails()) {
                 return response()->json([

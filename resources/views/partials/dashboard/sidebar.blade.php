@@ -100,8 +100,8 @@
                         <p>Regulasi</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li class="nav-item ml-3 {{ $routename == 'link' ? 'active' : '' }}">
+                    <a href="{{ route('link') }}">
                         <i class="fas fa-external-link-alt"></i>
                         <p>Link Terkait</p>
                     </a>

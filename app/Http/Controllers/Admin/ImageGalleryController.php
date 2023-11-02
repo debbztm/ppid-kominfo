@@ -62,14 +62,14 @@ class ImageGalleryController extends Controller
             $data = $request->all();
             $validator = Validator::make($data, [
                 "ma_gallery_id" => "required|integer",
-                "image" => "required|image|max:1024|mimes:jpeg,png,jpg"
+                "image" => "required|image|max:1024|mimes:giv,svg,jpeg,png,jpg"
             ], [
                 "ma_gallery_id.required" => "ID Galeri harus diisi",
                 "ma_gallery_id.integer" => "Type ID Galeri tidak valid",
                 "image.required" => "Gambar harus diisi",
                 "image.image" => "Gambar yang di upload tidak valid",
                 "image.max" => "Ukuran gambar maximal 1MB",
-                "image.mimes" => "Format gambar harus jpeg/png/jpg"
+                "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg"
             ]);
             if ($validator->fails()) {
                 return response()->json([
