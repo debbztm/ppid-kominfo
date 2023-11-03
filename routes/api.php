@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RegulationController;
 use App\Http\Controllers\Admin\RegulationFileController;
 use App\Http\Controllers\Admin\SlideController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
@@ -178,5 +179,15 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/create", [LinkController::class, "create"]);
         Route::post("/update", [LinkController::class, "update"]);
         Route::delete("/", [LinkController::class, "destroy"]);
+    });
+
+    // USER
+    Route::group(["prefix" => "user"], function () {
+        Route::get("datatable", [UserController::class, "dataTable"]);
+        Route::get("{id}/detail", [UserController::class, "getDetail"]);
+        Route::post("/create", [UserController::class, "create"]);
+        Route::post("/update", [UserController::class, "update"]);
+        Route::post("/update-status", [UserController::class, "updateStatus"]);
+        Route::delete("/", [UserController::class, "destroy"]);
     });
 });

@@ -86,7 +86,7 @@ class SlideController extends Controller
         } catch (\Exception $err) {
             return response()->json([
                 "status" => "error",
-                "message" => "Data tidak ditemukan"
+                "message" => $err->getMessage()
             ], 500);
         }
     }
@@ -96,6 +96,7 @@ class SlideController extends Controller
         try {
             $data = $request->all();
             $rules = [
+                "id" => "required|integer",
                 "order" => "required|integer",
                 "title" => "required|string",
                 "link" => "required|string",
@@ -108,6 +109,8 @@ class SlideController extends Controller
             }
 
             $messages = [
+                "id.required" => "Data ID harus diisi",
+                "id.integer" => "Type ID tidak sesuai",
                 "order.required" => "Urutan harus diisi",
                 "title.required" => "Judul harus diisi",
                 "link.required" => "Link harus diisi",

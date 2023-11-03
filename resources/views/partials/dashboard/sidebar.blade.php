@@ -112,8 +112,8 @@
                         <p>Hubungi Kami</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li class="nav-item ml-3 {{ $routename == 'user' ? 'active' : '' }}">
+                    <a href="{{ route('user') }}">
                         <i class="fas fa-users-cog"></i>
                         <p>Pengguna</p>
                     </a>

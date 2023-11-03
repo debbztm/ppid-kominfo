@@ -86,6 +86,16 @@ class AuthController extends Controller
                     "message" => $validate->errors()->first(),
                 ], 400);
             }
+
+            $user = User::where('username', $request->username)->first();
+
+            if ($user && $user->is_active != "Y") {
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Akun tidak aktif"
+                ], 400);
+            }
+
             if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
                 User::where('username', $request->username)->update(['last_login' =>  now()]);
                 $data = User::with(['role:id,name', 'hall:id,name'])->select('name')

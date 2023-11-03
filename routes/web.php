@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RegulationController;
 use App\Http\Controllers\Admin\RegulationFileController;
 use App\Http\Controllers\Admin\SlideController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -56,4 +57,5 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('regulation', [RegulationController::class, 'index'])->name('regulation'); // regulation
     Route::get('regulation-file/{regulation_id}/detail', [RegulationFileController::class, 'index'])->name('regulation-file'); // regulation file
     Route::get('link', [LinkController::class, 'index'])->name('link'); // link
+    Route::get('user', [UserController::class, 'index'])->name('user'); // pengguna
 });
