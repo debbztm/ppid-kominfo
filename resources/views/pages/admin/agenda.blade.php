@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Balai</h5>
+                        <h5 class="text-uppercase title">Agenda</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
@@ -167,7 +167,6 @@
                 success: function(res) {
                     $("#formEditable").attr("data-action", "update").fadeIn(200, function() {
                         $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
-                        console.log("res :", res)
                         let d = res.data;
                         $("#id").val(d.id);
                         $("#title").val(d.title);

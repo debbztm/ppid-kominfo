@@ -118,6 +118,12 @@
                         <p>Pengguna</p>
                     </a>
                 </li>
+                <li class="nav-item ml-3 {{ $routename == 'setting' ? 'active' : '' }}">
+                    <a href="{{ route('setting') }}">
+                        <i class="fas fa-cog"></i>
+                        <p>Setting</p>
+                    </a>
+                </li>
                 {{-- <li class="nav-item ml-3">
                     <a data-toggle="collapse" href="#base">
                         <i class="fas fa-layer-group"></i>

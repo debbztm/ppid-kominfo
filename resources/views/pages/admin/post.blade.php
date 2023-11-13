@@ -123,7 +123,7 @@
                             <small class="text-danger">Max ukuran 1MB</small>
                         </div>
                         <div class="form-group">
-                            <label for="title">Dekripsi</label>
+                            <label for="description">Dekripsi</label>
                             <div id="summernote" name="description"></div>
                         </div>
                         <div class="form-group">
@@ -187,7 +187,6 @@
         function refreshData() {
             dTable.ajax.reload(null, false);
             $("#summernote").summernote('code', "");
-            $("#tag_post").val("");
         }
 
 
@@ -202,7 +201,7 @@
             $("#formEditable").slideUp(200, function() {
                 $("#boxTable").removeClass("col-md-5").addClass("col-md-12");
                 $("#reset").click();
-                $("#tag_post").val("");
+                $("#tag_post").tagsinput("removeAll");
                 $("#summernote").summernote('code', "");
                 $("#image").attr("required", true);
             })
@@ -216,6 +215,7 @@
                 success: function(res) {
                     $("#formEditable").attr("data-action", "update").fadeIn(200, function() {
                         $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
+                        $("#tag_post").tagsinput("removeAll");
                         let d = res.data;
                         $("#image").removeAttr("required");
                         $("#id").val(d.id);
@@ -226,7 +226,7 @@
                         $("#phone").val(d.phone);
                         $("#is_publish").val(d.is_publish);
                         $("#type").val(d.type);
-                        $("#tag_post").val(d.tag_post);
+                        $("#tag_post").tagsinput("add", d.tag_post);
                         $("#summernote").summernote('code', d.description);
                     })
                 },

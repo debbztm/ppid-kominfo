@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RegulationController;
 use App\Http\Controllers\Admin\RegulationFileController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VideoController;
@@ -189,5 +190,11 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/update", [UserController::class, "update"]);
         Route::post("/update-status", [UserController::class, "updateStatus"]);
         Route::delete("/", [UserController::class, "destroy"]);
+    });
+
+    // SETTING
+    Route::group(["prefix" => "setting"], function () {
+        Route::get("/detail", [SettingController::class, 'getDetail']);
+        Route::post("/create-update", [SettingController::class, 'createAndUpdate']);
     });
 });

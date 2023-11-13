@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RegulationController;
 use App\Http\Controllers\Admin\RegulationFileController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VideoController;
@@ -58,4 +59,10 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('regulation-file/{regulation_id}/detail', [RegulationFileController::class, 'index'])->name('regulation-file'); // regulation file
     Route::get('link', [LinkController::class, 'index'])->name('link'); // link
     Route::get('user', [UserController::class, 'index'])->name('user'); // pengguna
+    Route::get('setting', [SettingController::class, 'index'])->name('setting'); // setting
+    Route::get('setting/webinfo', [SettingController::class, 'webinfo'])->name("setting.webinfo");
+    Route::get('setting/profile', [SettingController::class, 'profile'])->name("setting.profile");
+    Route::get('setting/sosmed', [SettingController::class, 'sosmed'])->name("setting.sosmed");
+    Route::get('setting/image', [SettingController::class, 'image'])->name("setting.image");
+    Route::get('setting/maps', [SettingController::class, 'maps'])->name("setting.maps");
 });

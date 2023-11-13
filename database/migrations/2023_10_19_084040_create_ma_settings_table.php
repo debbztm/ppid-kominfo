@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('web_name');
             $table->string('web_description');
             $table->longText('about');
-            $table->text('home_text');
-            $table->string('home_image');
-            $table->text('home_tag');
+            $table->text('home_text')->nullable();
+            $table->string('home_image')->nullable();
+            $table->text('home_tag')->nullable();
             $table->text('web_tag');
             $table->string('web_phone');
             $table->string('web_email');

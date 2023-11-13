@@ -165,7 +165,6 @@
                 success: function(res) {
                     $("#formEditable").attr("data-action", "update").fadeIn(200, function() {
                         $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
-                        console.log("res :", res)
                         let d = res.data;
                         $("#image").removeAttr("required");
                         $("#id").val(d.id);

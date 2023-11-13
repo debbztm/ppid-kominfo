@@ -40,7 +40,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Gallery</h5>
+                        <h5 class="text-uppercase title">Image Gallery</h5>
                         <span id="title"></span>
                     </div>
                     <div class="card-header-right">

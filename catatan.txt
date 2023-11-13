@@ -80,6 +80,28 @@ portaldata -> portal_data
   -> link terkait
   -> hubungi kami
   -> pengguna
+  -> Setting
+      -> Setting menjadi tab layout saja
+        - info website  
+            - nama website
+            - telpon
+            - deskripsi
+            - email
+            - alamat
+            - keyword
+            - online
+        - profile
+            - berisikan deskripsi profile
+        - sosial media
+            - facebook
+            - twitter
+            - instagram
+            - youtube
+        - image
+            - berisikan image dan preview existing image
+        - maps
+            - input url maps
+            - preview existing map
 
 -> Management
   -> profile
@@ -88,14 +110,6 @@ portaldata -> portal_data
   -> tupoksi
   -> struktur organisasi
   -> profile pebajat
-
--> Setting
-  -> pecah layout di settings menjadi sub menu
-  -> info website
-  -> profile
-  -> sosial media
-  -> image
-  -> maps
 
 
 
