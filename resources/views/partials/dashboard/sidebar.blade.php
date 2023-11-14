@@ -192,42 +192,6 @@
                         <p>Profil Pejabat</p>
                     </a>
                 </li>
-                <li class="nav-section">
-                    <span class="sidebar-mini-icon">
-                        <i class="fa fa-ellipsis-h"></i>
-                    </span>
-                    <h4 class="text-section">Settings</h4>
-                </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
-                        <i class="fas fa-info"></i>
-                        <p>Info Website</p>
-                    </a>
-                </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
-                        <i class="fas fa-user-circle"></i>
-                        <p>Profile</p>
-                    </a>
-                </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
-                        <i class="fas fa-share-alt"></i>
-                        <p>Social Media</p>
-                    </a>
-                </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
-                        <i class="fas fa-image"></i>
-                        <p>Image</p>
-                    </a>
-                </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>Maps</p>
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
