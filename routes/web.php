@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\CountInformationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\GalleryController;
@@ -47,6 +48,7 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('news', [PostController::class, 'index'])->name('news'); // berita
     Route::get('pages', [PageController::class, 'index'])->name('pages'); // home anggaran
     Route::get('infographic', [InfographicController::class, 'index'])->name('infographic'); //  infografis
+    Route::get('count-information', [CountInformationController::class, 'index'])->name('count-information'); //  jumlah informasi
     Route::get('portal-data', [PortalDataController::class, 'index'])->name('portal-data'); // portal data
     Route::get('official-ppid', [OfficialPpidProfileController::class, 'index'])->name('official-ppid'); // pejabat ppid
     Route::get('gallery', [GalleryController::class, 'index'])->name('gallery'); // galeri

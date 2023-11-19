@@ -50,8 +50,8 @@
                         <p>Infografis</p>
                     </a>
                 </li>
-                <li class="nav-item ml-3">
-                    <a href="#">
+                <li class="nav-item ml-3 {{ $routename == 'count-information' ? 'active' : '' }}"">
+                    <a href="{{ route('count-information') }}">
                         <i class="fas fa-info-circle"></i>
                         <p>Jumlah Informasi</p>
                     </a>

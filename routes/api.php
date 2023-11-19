@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\CountInformationController;
 use App\Http\Controllers\Admin\CustomTemplateController;
 use App\Http\Controllers\Admin\DownloadController;
 use App\Http\Controllers\Admin\GalleryController;
@@ -90,6 +91,12 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::get("list", [InfographicController::class, "list"]);
         Route::post("create", [InfographicController::class, "create"]);
         Route::delete('/', [InfographicController::class, 'destroy']);
+    });
+
+    // COUNT INFORMATION
+    Route::group(["prefix" => "count-information"], function () {
+        Route::get("/detail", [CountInformationController::class, 'getDetail']);
+        Route::post("/create-update", [CountInformationController::class, 'createAndUpdate']);
     });
 
     // PORTAL DATA

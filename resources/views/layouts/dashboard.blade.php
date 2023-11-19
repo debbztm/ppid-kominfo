@@ -1,9 +1,9 @@
 @php
     $color = \App\Models\CustomTemplate::find(1);
-    $logoColor = $color && $color->logo_header_color ?  $color->logo_header_color : "blue";
-    $topbarColor = $color && $color->topbar_color ? $color->topbar_color : "blue2";
-    $sidebarColor = $color && $color->sidebar_color ? $color->sidebar_color  : "white";
-    $bgColor = $color && $color->bd_color ? $color->bd_color :  "bg1";
+    $logoColor = $color && $color->logo_header_color ? $color->logo_header_color : 'blue';
+    $topbarColor = $color && $color->topbar_color ? $color->topbar_color : 'blue2';
+    $sidebarColor = $color && $color->sidebar_color ? $color->sidebar_color : 'white';
+    $bgColor = $color && $color->bd_color ? $color->bd_color : 'bg1';
 
 @endphp
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <link rel="icon" href="https://via.placeholder.com/50" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('icon/icon.png') }}" type="image/x-icon" />
 
     @include('partials.dashboard.styles')
     <title>@yield('title')</title>

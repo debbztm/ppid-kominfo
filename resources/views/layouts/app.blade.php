@@ -1,27 +1,29 @@
-<!DOCTYPE html>
-<html class="no-js" lang="ID">
+@php
+    $meta = \App\Models\MaSetting::first();
+    $portalData = \App\Models\PortalData::where('is_active', 'Y')->get();
+    $regulations = \App\Models\MaRegulation::all();
+@endphp
+<!doctype html>
+<html class="no-js" lang="">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>@yield('title')</title>
+    <link rel="icon" type="image/png" href="{{asset('frontend/img/icon.png')}}">
+    <title>@yield('title') </title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     @include('partials.front.styles')
     @stack('styles')
 </head>
 
 <body>
     @include('partials.front.header')
-    @include('partials.front.navbar')
-
-    {{-- CONTENT --}}
     @yield('content')
-    {{-- END CONTENT --}}
-
     @include('partials.front.footer')
     @include('partials.front.scripts')
-    @stack('scipts')
+    @stack('scripts')
+
 </body>
 
 </html>

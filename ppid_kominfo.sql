@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 08, 2023 at 03:16 AM
+-- Generation Time: Nov 19, 2023 at 03:19 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.3.27
 
@@ -352,7 +352,9 @@ CREATE TABLE `ma_official_ppid_profiles` (
 --
 
 INSERT INTO `ma_official_ppid_profiles` (`id`, `title1`, `title2`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'TIM PERTIMBANGAN', 'PPID Pelaksana ESDM Jateng', 'assets/officialppidprofile/txy8317DsJsasvaTqQMMLOz1y3x5gEPGaONXLBZN.jpg', '2023-10-30 18:51:17', '2023-10-30 18:51:17');
+(1, 'TIM PERTIMBANGAN', 'PPID Pelaksana ESDM Jateng', 'assets/officialppidprofile/2g38MQkNdpOxBtlGaetBuC5RHTYgGsevc2voZhru.jpg', '2023-10-30 18:51:17', '2023-11-18 22:23:28'),
+(3, 'ENDRO HUDIYONO, AP, SH, MM', 'PPID Pelaksana', 'assets/officialppidprofile/pARq9qSpMZ4ITCKU2jq7qOGzu2FCQIR9Xz0f3zmM.jpg', '2023-11-18 22:25:35', '2023-11-18 22:25:42'),
+(4, 'BOEDYO DHARMAWAN, ST, MT', 'Atasan PPID Pelaksana', 'assets/officialppidprofile/pHYbO6WscRNebAu6ZxtpLJn41GscrERyU8pzyRMI.jpg', '2023-11-18 22:26:00', '2023-11-18 22:26:00');
 
 -- --------------------------------------------------------
 
@@ -498,7 +500,7 @@ CREATE TABLE `ma_regulations` (
 --
 
 INSERT INTO `ma_regulations` (`id`, `title`, `seo`, `url`, `is_url`, `created_at`, `updated_at`) VALUES
-(3, 'neww', 'neww', NULL, '0', '2023-11-01 21:15:25', '2023-11-01 21:16:28');
+(3, 'testing regulasi', 'testing-regulasi', NULL, '0', '2023-11-01 21:15:25', '2023-11-18 23:54:32');
 
 -- --------------------------------------------------------
 
@@ -545,24 +547,24 @@ INSERT INTO `ma_regulation_files` (`id`, `ma_regulation_id`, `title`, `descripti
 
 CREATE TABLE `ma_settings` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `web_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `web_description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `about` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `web_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `web_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `home_text` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `home_image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `home_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `home_tag` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `web_tag` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `web_phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `web_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `web_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `maps_location` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `web_logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `web_tag` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `web_phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `web_email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `web_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `maps_location` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `web_logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `application` int(11) DEFAULT NULL,
   `granted` int(11) DEFAULT NULL,
   `rejected` int(11) DEFAULT NULL,
   `objected` int(11) DEFAULT NULL,
   `ikm` int(11) DEFAULT NULL,
-  `is_online` enum('Y','N') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Y',
+  `is_online` enum('Y','N') COLLATE utf8mb4_unicode_ci DEFAULT 'Y',
   `facebook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `twitter` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `instagram` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -570,6 +572,13 @@ CREATE TABLE `ma_settings` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ma_settings`
+--
+
+INSERT INTO `ma_settings` (`id`, `web_name`, `web_description`, `about`, `home_text`, `home_image`, `home_tag`, `web_tag`, `web_phone`, `web_email`, `web_address`, `maps_location`, `web_logo`, `application`, `granted`, `rejected`, `objected`, `ikm`, `is_online`, `facebook`, `twitter`, `instagram`, `youtube`, `created_at`, `updated_at`) VALUES
+(4, 'Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah', '-', '<p><span style=\"font-family: &quot;Source Sans Pro&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">Peran Dinas Energi dan Sumber Daya Mineral (ESDM) Provinsi Jawa Tengah menjadi semakin penting sebagai salah satu komponen untuk mewujudkan program peningkatan ekonomi dan penguatan infrastruktur guna memperkuat kehidupan perekonomian rakyat.</span><br></p>', NULL, NULL, NULL, 'Dinas Energi dan Sumber Daya Mineral,ESDM,ESDM Jateng', '+6224 7608203', 'esdm@jatengprov.go.id', 'Jl. Madukoro AA-BB No.44 Semarang 50144', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31682.425587773974!2d110.38185591303082!3d-6.973587810201888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70f4c6a1903aeb:0xc9375164cd84a6b8!2sDinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah!5e0!3m2!1sid!2sid!4v1625555001306!5m2!1sid!2sid', 'undefined', 61, 49, 12, 0, 1457, 'Y', 'https://www.facebook.com/ESDMJateng', 'https://twitter.com/ESDMJateng', 'https://www.instagram.com/esdm_jateng/', 'https://www.youtube.com/channel/UC0D2l2SLd8jP7rEM0GieMUA', '2023-11-13 01:55:59', '2023-11-19 06:50:22');
 
 -- --------------------------------------------------------
 
@@ -593,7 +602,9 @@ CREATE TABLE `ma_slides` (
 --
 
 INSERT INTO `ma_slides` (`id`, `order`, `title`, `image`, `link`, `is_publish`, `created_at`, `updated_at`) VALUES
-(1, 2, 'test', 'assets/slide/cU32Nu6ysjZwSQv0GNiaiaOBqxXOCWALWxrdaRnp.png', 'asdad', 'Y', '2023-10-24 22:00:49', '2023-10-29 19:57:34');
+(1, 1, 'ESDM Provinsi Jateng', 'assets/slide/fgsebNNweoLKBpDqjDLwVmFfcQOW6Dx0fysJj0TV.png', '-', 'Y', '2023-10-24 22:00:49', '2023-11-18 21:39:01'),
+(2, 2, '11 capacity building', 'assets/slide/k72s3sGxlOBzrNxQ1Hd6fU0r49WCI8AEDiM8ycso.jpg', '-', 'Y', '2023-11-18 21:31:53', '2023-11-18 21:34:36'),
+(3, 3, 'Tim Pertimbangan PPID Dinas ESDM', 'assets/slide/XiNh4ZUSUWmNwFzCD3n32Vf8C8OHYcC2tn961PHT.jpg', '-', 'Y', '2023-11-18 21:32:15', '2023-11-18 21:34:41');
 
 -- --------------------------------------------------------
 
@@ -696,7 +707,17 @@ CREATE TABLE `pages` (
 
 INSERT INTO `pages` (`id`, `category`, `title`, `seo`, `description`, `image`, `url`, `type`, `username`, `is_publish`, `created_at`, `updated_at`) VALUES
 (1, 'homeanggaran', 'Realisasi APBD', NULL, 'Laporan Perkembangan Pelaksanaan Kegiatan APBD Provinsi Jawa Tengah Dinas ESDM Provinsi Jawa Tengah', NULL, 'drive.google.com/file/d/1bttlUIUfZn4kb69znvUJH2zoH9at_0SM/view?usp=sharing', NULL, NULL, 'Y', '2023-10-29 23:18:31', '2023-10-29 23:23:29'),
-(2, 'homeanggaran', 'Ringkasan RKO', NULL, 'Rencana Kerja Operasional Pelaksanaan APBD Dinas Energi Dan Sumber Daya Mineral Provinsi Jawa Tengah', NULL, 'drive.google.com/file/d/1puSwUYMfp30BTmRsc_UcpHhm_l9CriJB/view', NULL, NULL, 'Y', '2023-10-29 23:24:12', '2023-10-29 23:24:12');
+(2, 'homeanggaran', 'Ringkasan RKO', NULL, 'Rencana Kerja Operasional Pelaksanaan APBD Dinas Energi Dan Sumber Daya Mineral Provinsi Jawa Tengah', NULL, 'drive.google.com/file/d/1puSwUYMfp30BTmRsc_UcpHhm_l9CriJB/view', NULL, NULL, 'Y', '2023-10-29 23:24:12', '2023-10-29 23:24:12'),
+(5, 'homeanggaran', 'Ringkasan DPA', NULL, 'Ringkasan Dokumen Pelaksanaan Anggaran (DPA) Bidang dan Balai Dinas Energi Dan Sumber Daya Mineral Provinsi Jawa Tengah', NULL, 'drive.google.com/file/d/1AUuoCbmvzjSXrsIlj7JL20nusGUCb4vP/view', NULL, NULL, 'Y', '2023-11-18 22:13:55', '2023-11-18 22:13:55'),
+(6, 'homeanggaran', 'Ringkasan RKA', NULL, 'Rencana Kerja Dan Anggaran (RKA) Bidang dan Balai Dinas Energi Dan Sumber Daya Mineral Provinsi Jawa Tengah', NULL, 'drive.google.com/file/d/1pg1ASqdoxTgUIFPz78r4ye_l1l83QOl9/view', NULL, NULL, 'Y', '2023-11-18 22:14:21', '2023-11-18 22:14:21'),
+(7, 'homeanggaran', 'Neraca', NULL, 'Neraca/ Laporan Posisi Keuangan (Balance Sheet atau Statement of Financial Position) Dinas ESDM Provinsi Jawa Tengah', NULL, 'drive.google.com/file/d/13UBbs4uxSEvSQw7RhuyiDgF1_MV34WVj/view', NULL, NULL, 'Y', '2023-11-18 22:14:38', '2023-11-18 22:14:38'),
+(8, 'homeanggaran', 'Aset & Investasi', NULL, 'Aset atau Aktiva dan Investasi sebagai Sumber Daya atau Kekayaan yang dimiliki oleh Dinas ESDM Provinsi Jawa Tengah', NULL, 'drive.google.com/file/d/16cuZjapYRnnWmdN9y1l5G8pkJQhTxxuz/view', NULL, NULL, 'Y', '2023-11-18 22:15:06', '2023-11-18 22:15:06'),
+(9, 'homeanggaran', 'Laporan Ekuitas', NULL, 'Hak Residual atas Aktiva Perusahaan setelah dikurangi semua kewajiban dalam neraca Dinas ESDM Provinsi Jawa Tengah', NULL, 'drive.google.com/file/d/13u-SiLR8d5V306k9f0zGZ2w_kc5oeXJd/view', NULL, NULL, 'Y', '2023-11-18 22:15:33', '2023-11-18 22:15:33'),
+(10, 'homeanggaran', 'CALK', NULL, 'Laporan Realisasi Anggaran (LRA), Neraca dan Laporan Arus Kas (LAK) dalam rangka pengungkapan yang memadai.', NULL, 'drive.google.com/file/d/1bttlUIUfZn4kb69znvUJH2zoH9at_0SM/view', NULL, NULL, 'Y', '2023-11-18 22:15:54', '2023-11-18 22:15:54'),
+(11, 'homeanggaran', 'RFK', NULL, 'Laporan Realisasi Keuangan Bulanan Dinas ESDM Provinsi Jawa Tengah', NULL, 'drive.google.com/file/d/1DO6Pxb5vGKBJzLIXE-8dVB4tBSXBoLp1/view', NULL, NULL, 'Y', '2023-11-18 22:16:09', '2023-11-18 22:16:09'),
+(12, 'homeanggaran', 'Realisasi Pendapatan', NULL, 'Realisasi Pendapatan Dinas ESDM Provinsi Jawa Tengah', NULL, 'drive.google.com/file/d/1mvr6hIE7OEy7r9B9seMmLsVILg9WcOAV/view', NULL, NULL, 'Y', '2023-11-18 22:16:29', '2023-11-18 22:16:29'),
+(13, 'homeanggaran', 'LRA', NULL, 'Laporan Realisasi Anggaran Dinas ESDM Provinsi Jawa Tengah', NULL, 'https://drive.google.com/file/d/1VqPH4n60JMtpjuF2GVfWjaVDxNu5SLfW/view?usp=sharing', NULL, NULL, 'Y', '2023-11-18 22:16:49', '2023-11-18 22:16:49'),
+(14, 'homeanggaran', 'Restra', NULL, 'Rencana Strategis Dinas ESDM Provinsi Jawa Tengah Tahun 2018-2023', NULL, 'drive.google.com/file/d/1X5yiLYjNb7_cdhUbuS_62rHvL400HK0j/view?usp=sharing', NULL, NULL, 'Y', '2023-11-18 22:17:10', '2023-11-18 22:17:10');
 
 -- --------------------------------------------------------
 
@@ -799,7 +820,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email_verified_at`, `password`, `hall_id`, `role_id`, `last_login`, `is_active`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin', NULL, '$2y$10$uTGazv/Ug9AmAzXMg1ZuGetX1hN0bQTDBVtIoIOCWwkKF1pd1GZa6', NULL, 1, '2023-11-07 00:44:02', 'Y', NULL, '2023-10-24 01:43:53', '2023-11-07 00:44:02'),
+(1, 'admin', 'admin', NULL, '$2y$10$uTGazv/Ug9AmAzXMg1ZuGetX1hN0bQTDBVtIoIOCWwkKF1pd1GZa6', NULL, 1, '2023-11-19 06:24:07', 'Y', NULL, '2023-10-24 01:43:53', '2023-11-19 06:24:07'),
 (2, 'admin2 oke oke', 'admin2', NULL, '$2y$10$suEg5MharXTkU1b/5usFHOXBe7sTzeKA.yjRfkTiFKrvmSZf5cV6G', NULL, 2, '2023-11-03 02:57:45', 'Y', NULL, '2023-10-24 01:46:21', '2023-11-02 20:12:55'),
 (3, 'user', 'user', NULL, '$2y$10$yigeE5nUtokVQAH7Bv0TgOiG4dagSm2iZ2KFqhpbWIIZU67OHKWoa', NULL, 2, '2023-10-24 08:46:45', 'N', NULL, '2023-10-24 01:46:45', '2023-10-24 01:46:45'),
 (4, 'asd', 'asd', NULL, '$2y$10$P4nlfVz.MR2t8A14zuyCgOQ3/j/vWd5qDu0OpxUZiKziHhBWx1wsO', NULL, 2, '2023-10-24 08:47:11', 'N', NULL, '2023-10-24 01:47:11', '2023-10-24 01:47:11'),
@@ -1131,7 +1152,7 @@ ALTER TABLE `ma_main_regulations`
 -- AUTO_INCREMENT for table `ma_official_ppid_profiles`
 --
 ALTER TABLE `ma_official_ppid_profiles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ma_official_profiles`
@@ -1191,13 +1212,13 @@ ALTER TABLE `ma_regulation_files`
 -- AUTO_INCREMENT for table `ma_settings`
 --
 ALTER TABLE `ma_settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ma_slides`
 --
 ALTER TABLE `ma_slides`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ma_videos`
@@ -1215,7 +1236,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
