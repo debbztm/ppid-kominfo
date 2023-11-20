@@ -126,143 +126,30 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3 class=" black h-sep">Words From<span class="text-ultra-bold"> Our Clients</span> </h3>
-                    <p class="fz-16 gray-666 mt-50">Our charity helps those people who have no hope</p>
+                    <h3 class=" black h-sep"><span class="text-ultra-bold"> Berita</span> </h3>
+                    <p class="fz-16 gray-666 mt-50">Berita terbaru dari ppid kominfo</p>
                 </div>
             </div>
             <div class="row mt-100">
                 <div class="col-md-12">
                     <div class="test-sldier">
-                        <div class="item">
-                            <div class="test-img display-ib position-r pull-left">
-                                <img class="img-responsive display-ib" src="{{ asset('frontend/img/test1.jpg') }}"
-                                    alt="">
+                        @foreach ($news as $key => $news)
+                            <div class="item">
+                                <a href="berita/read/{{ $news->id }}/{{ $news->seo }}">
+                                    <div class="test-img display-ib position-r pull-left">
+                                        <img class="img-responsive display-ib" src="{{ Storage::url($news->image) }}"
+                                            alt="">
+                                    </div>
+                                    <div class="display-ib pull-left test-text">
+                                        <img src="{{ asset('frontend/img/quote-open.png') }}" alt="">
+                                        <h4 class="fz-17 d-black text-bold mt-30">{{ $news->title }}</h4>
+                                        <p class="mt-25">{!! Illuminate\Support\Str::limit($news->description, 150) !!}...</p>
+                                        <img class="pull-right mt-30" src="{{ asset('frontend/img/quote-close.png') }}"
+                                            alt="">
+                                    </div>
+                                </a>
                             </div>
-                            <div class="display-ib pull-left test-text">
-                                <img src="{{ asset('frontend/img/quote-open.png') }}" alt="">
-                                <h4 class="fz-17 d-black text-bold mt-30">Paul walker</h4>
-                                <h5 class="fz-15 green-5c mt-10">CEO & Founder</h5>
-                                <p class="mt-25">We finally got a piece of the pie. Might as well say Would you be
-                                    mine Could be you be mine? Won't you be my neighbor We're gonna do it. On your Got a
-                                    dream and we just know. </p>
-                                <img class="pull-right mt-30" src="{{ asset('frontend/img/quote-close.png') }}"
-                                    alt="">
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="test-img display-ib position-r pull-left">
-                                <img class="img-responsive display-ib" src="{{ asset('frontend/img/test2.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="display-ib pull-left test-text">
-                                <img src="{{ asset('frontend/img/quote-open.png') }}" alt="">
-                                <h4 class="fz-17 d-black text-bold mt-30">Paul walker</h4>
-                                <h5 class="fz-15 green-5c mt-10">CEO & Founder</h5>
-                                <p class="mt-25">We finally got a piece of the pie. Might as well say Would you be
-                                    mine Could be you be mine? Won't you be my neighbor We're gonna do it. On your Got a
-                                    dream and we just know. </p>
-                                <img class="pull-right mt-30" src="{{ asset('frontend/img/quote-close.png') }}"
-                                    alt="">
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="test-img display-ib position-r pull-left">
-                                <img class="img-responsive display-ib" src="{{ asset('frontend/img/test1.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="display-ib pull-left test-text">
-                                <img src="{{ asset('frontend/img/quote-open.png') }}" alt="">
-                                <h4 class="fz-17 d-black text-bold mt-30">Paul walker</h4>
-                                <h5 class="fz-15 green-5c mt-10">CEO & Founder</h5>
-                                <p class="mt-25">We finally got a piece of the pie. Might as well say Would you be
-                                    mine Could be you be mine? Won't you be my neighbor We're gonna do it. On your Got a
-                                    dream and we just know. </p>
-                                <img class="pull-right mt-30" src="{{ asset('frontend/img/quote-close.png') }}"
-                                    alt="">
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="test-img display-ib position-r pull-left">
-                                <img class="img-responsive display-ib" src="{{ asset('frontend/img/test2.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="display-ib pull-left test-text">
-                                <img src="{{ asset('frontend/img/quote-open.png') }}" alt="">
-                                <h4 class="fz-17 d-black text-bold mt-30">Paul walker</h4>
-                                <h5 class="fz-15 green-5c mt-10">CEO & Founder</h5>
-                                <p class="mt-25">We finally got a piece of the pie. Might as well say Would you be
-                                    mine Could be you be mine? Won't you be my neighbor We're gonna do it. On your Got a
-                                    dream and we just know. </p>
-                                <img class="pull-right mt-30" src="{{ asset('frontend/img/quote-close.png') }}"
-                                    alt="">
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="test-img display-ib position-r pull-left">
-                                <img class="img-responsive display-ib" src="{{ asset('frontend/img/test1.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="display-ib pull-left test-text">
-                                <img src="{{ asset('frontend/img/quote-open.png') }}" alt="">
-                                <h4 class="fz-17 d-black text-bold mt-30">Paul walker</h4>
-                                <h5 class="fz-15 green-5c mt-10">CEO & Founder</h5>
-                                <p class="mt-25">We finally got a piece of the pie. Might as well say Would you be
-                                    mine Could be you be mine? Won't you be my neighbor We're gonna do it. On your Got a
-                                    dream and we just know. </p>
-                                <img class="pull-right mt-30" src="{{ asset('frontend/img/quote-close.png') }}"
-                                    alt="">
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="test-img display-ib position-r pull-left">
-                                <img class="img-responsive display-ib" src="{{ asset('frontend/img/test2.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="display-ib pull-left test-text">
-                                <img src="{{ asset('frontend/img/quote-open.png') }}" alt="">
-                                <h4 class="fz-17 d-black text-bold mt-30">Paul walker</h4>
-                                <h5 class="fz-15 green-5c mt-10">CEO & Founder</h5>
-                                <p class="mt-25">We finally got a piece of the pie. Might as well say Would you be
-                                    mine Could be you be mine? Won't you be my neighbor We're gonna do it. On your Got a
-                                    dream and we just know. </p>
-                                <img class="pull-right mt-30" src="{{ asset('frontend/img/quote-close.png') }}"
-                                    alt="">
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="test-img display-ib position-r pull-left">
-                                <img class="img-responsive display-ib" src="{{ asset('frontend/img/test1.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="display-ib pull-left test-text">
-                                <img src="{{ asset('frontend/img/quote-open.png') }}" alt="">
-                                <h4 class="fz-17 d-black text-bold mt-30">Paul walker</h4>
-                                <h5 class="fz-15 green-5c mt-10">CEO & Founder</h5>
-                                <p class="mt-25">We finally got a piece of the pie. Might as well say Would you be
-                                    mine Could be you be mine? Won't you be my neighbor We're gonna do it. On your Got a
-                                    dream and we just know. </p>
-                                <img class="pull-right mt-30" src="{{ asset('frontend/img/quote-close.png') }}"
-                                    alt="">
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="test-img display-ib position-r pull-left">
-                                <img class="img-responsive display-ib" src="{{ asset('frontend/img/test2.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="display-ib pull-left test-text">
-                                <img src="{{ asset('frontend/img/quote-open.png') }}" alt="">
-                                <h4 class="fz-17 d-black text-bold mt-30">Paul walker</h4>
-                                <h5 class="fz-15 green-5c mt-10">CEO & Founder</h5>
-                                <p class="mt-25">We finally got a piece of the pie. Might as well say Would you be
-                                    mine Could be you be mine? Won't you be my neighbor We're gonna do it. On your Got a
-                                    dream and we just know. </p>
-                                <img class="pull-right mt-30" src="{{ asset('frontend/img/quote-close.png') }}"
-                                    alt="">
-                            </div>
-                        </div>
-
-
+                        @endforeach
                     </div>
                 </div>
             </div>

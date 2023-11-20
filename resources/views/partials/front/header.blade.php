@@ -65,7 +65,12 @@
                                     aria-haspopup="true" aria-expanded="false">Balai/UPT <span
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href=""></a></li>
+                                    @foreach ($halls as $hall)
+                                        <li>
+                                            <a
+                                                href="balai/profil/{{ $hall->id }}/{{ $hall->seo }}">{{ $hall->name }}</a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </li>
                             <li><a class="" href="#">Berita </a></li>

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('hall_menu');
             $table->string('title');
             $table->string('seo');
-            $table->string('description');
+            $table->longText('description');
             $table->string('image');
             $table->string('link');
             $table->text('tag_post');

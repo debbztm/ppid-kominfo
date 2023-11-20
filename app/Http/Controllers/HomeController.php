@@ -18,12 +18,11 @@ class HomeController extends Controller
         $title = "Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
         $slide = MaSlide::where("is_publish", "Y")->orderBy('order', 'asc')->get();
         $meta = MaSetting::first();
-        $news1 = MaPost::where("is_publish", "Y")->orderBy("date", "desc")->limit(1)->get();
-        $news2 = MaPost::where('is_publish', 'Y')->orderBy('date', 'desc')->skip(1)->take(2)->get();
+        $news = MaPost::where("is_publish", "Y")->orderBy("date", "desc")->limit(10)->get();
         $hmanggaran = Page::where("category", "homeanggaran")->get();
         $infografis = Infographic::all();
         $link = MaLink::orderBy("id", "desc")->get();
         $officialppid = MaOfficialPpidProfile::all();
-        return view("pages.front.home", compact('title', 'slide', 'meta', 'news1', 'news2', 'hmanggaran', 'infografis', 'link', 'officialppid'));
+        return view("pages.front.home", compact('title', 'slide', 'meta', 'news', 'hmanggaran', 'infografis', 'link', 'officialppid'));
     }
 }

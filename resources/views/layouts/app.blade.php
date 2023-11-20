@@ -2,6 +2,7 @@
     $meta = \App\Models\MaSetting::first();
     $portalData = \App\Models\PortalData::where('is_active', 'Y')->get();
     $regulations = \App\Models\MaRegulation::all();
+    $halls = \App\Models\Hall::all();
 @endphp
 <!doctype html>
 <html class="no-js" lang="">
