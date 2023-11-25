@@ -3,28 +3,29 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\MaRegulation;
+use App\Models\MaReview;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
-class RegulationController extends Controller
+class ReviewController extends Controller
 {
     public function index()
     {
-        $title = "Regulasi";
-        return view("pages.admin.regulation", compact("title"));
+        $title = "Testimonial";
+        return view("pages.admin.review", compact("title"));
     }
 
     // HANDLE API
     public function dataTable(Request $request)
     {
-        $query = MaRegulation::query();
+        $query = MaReview::query();
 
         if ($request->query("search")) {
             $searchValue = $request->query("search")['value'];
             $query->where(function ($query) use ($searchValue) {
-                $query->where('title', 'like', '%' . $searchValue . '%');
+                $query->where('name', 'like', '%' . $searchValue . '%');
             });
         }
 
@@ -40,35 +41,21 @@ class RegulationController extends Controller
                             </button>
                             <div class='dropdown-menu' aria-labelledby='dropdown-{$item->id}' data-dropdown-out='fadeOut'>
                                 <a class='dropdown-item' onclick='return getData(\"{$item->id}\");' href='javascript:void(0);' title='Edit'>Edit</a>
-                                <a class='dropdown-item' href='/admin/regulation-file/$item->id/detail' title='Galery'>Regulation File</a>
                                 <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
                             </div>
                         </div>";
-            $is_url = $item->is_url == 1 ? '
-                    <div class="text-center">
-                        <span class="label-switch">Active</span>
-                    </div>
-                    <div class="input-row">
-                        <div class="toggle_status on">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'NonActive\');" />
-                            <span class="slider"></span>
-                        </div>
-                    </div>' :
-                '<div class="text-center">
-                        <span class="label-switch">NonActive</span>
-                    </div>
-                    <div class="input-row">
-                        <div class="toggle_status off">
-                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Active\');" />
-                            <span class="slider"></span>
-                        </div>
-                    </div>';
+            $image = '<div class="thumbnail">
+                            <div class="thumb">
+                                <img src="' . Storage::url($item->image) . '" alt="" width="300px" height="300px" 
+                                class="img-fluid img-thumbnail" alt="' . $item->name . '">
+                            </div>
+                        </div>';
             $item['action'] = $action;
-            $item['is_url'] = $is_url;
+            $item['image'] = $image;
             return $item;
         });
 
-        $total = MaRegulation::count();
+        $total = MaReview::count();
         return response()->json([
             'draw' => $request->query('draw'),
             'recordsFiltered' => $total,
@@ -80,9 +67,9 @@ class RegulationController extends Controller
     public function getDetail($id)
     {
         try {
-            $gallery = MaRegulation::find($id);
+            $review = MaReview::find($id);
 
-            if (!$gallery) {
+            if (!$review) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan",
@@ -91,7 +78,7 @@ class RegulationController extends Controller
 
             return response()->json([
                 "status" => "success",
-                "data" => $gallery
+                "data" => $review
             ]);
         } catch (\Exception $err) {
             return response()->json([
@@ -105,107 +92,18 @@ class RegulationController extends Controller
     {
         try {
             $data = $request->all();
-
-            $validator = Validator::make(
-                $data,
-                [
-                    "title" => "required|string",
-                    "is_url" => "nullable|in:0,1",
-                    "type" => "required|integer",
-                ],
-                [
-                    "title.required" => "Judul harus diisi",
-                    "is_url.in" => "Status url tidak valid",
-                    "type.required" => "Tipe harus diisi",
-                ]
-            );
-            if ($validator->fails()) {
-                return response()->json([
-                    "status" => "error",
-                    "message" => $validator->errors()->first(),
-                ], 400);
-            }
-
-            $data["seo"] = Str::slug($data["title"]);
-            MaRegulation::create($data);
-            return response()->json([
-                "status" => "success",
-                "message" => "Data berhasil dibuat"
-            ]);
-        } catch (\Exception $err) {
-            return response()->json([
-                "status" => "error",
-                "message" => $err->getMessage(),
-            ], 500);
-        }
-    }
-
-    public function update(Request $request)
-    {
-        try {
-            $data = $request->all();
-
-            $validator = Validator::make(
-                $data,
-                [
-                    "id" => "required|integer",
-                    "title" => "required|string",
-                    "is_url" => "nullable|in:0,1",
-                    "type" => "required|integer",
-                ],
-                [
-                    "id.required" => "Data ID harus diisi",
-                    "id.integer" => "Type ID tidak sesuai",
-                    "title.required" => "Judul harus diisi",
-                    "is_url.in" => "Status url tidak valid",
-                    "type.required" => "Tipe harus diisi",
-                ]
-            );
-            if ($validator->fails()) {
-                return response()->json([
-                    "status" => "error",
-                    "message" => $validator->errors()->first(),
-                ], 400);
-            }
-
-
-            $regulation = MaRegulation::find($data['id']);
-            if (!$regulation) {
-                return response()->json([
-                    "status" => "error",
-                    "message" => "Data tidak ditemukan"
-                ], 404);
-            }
-
-            $data["seo"] = Str::slug($data["title"]);
-            $regulation->update($data);
-            return response()->json([
-                "status" => "success",
-                "message" => "Data berhasil diperbarui"
-            ]);
-        } catch (\Exception $err) {
-            return response()->json([
-                "status" => "error",
-                "message" => $err->getMessage(),
-            ], 500);
-        }
-    }
-    public function updateStatus(Request $request)
-    {
-        try {
-            $data = $request->all();
             $rules = [
-                "id" => "required|integer",
-                "is_url" => "required|in:0,1",
-                "type" => "required|integer",
+                "name" => "required|string",
+                "review" => "required|string",
+                "image" => "required|image|max:1024|mimes:giv,svg,jpeg,png,jpg"
             ];
-
             $messages = [
-                "id.required" => "Data ID harus diisi",
-                "id.integer" => "Type ID tidak sesuai",
-                "is_url.required" => "Status Url harus diisi",
-                "is_url.in" => "Status Url tidak sesuai",
-                "type.required" => "Tipe harus diisi",
+                "name.required" => "Nama harus diisi",
+                "review.required" => "Testimonial harus diisi",
+                "image.required" => "Gambar harus diisi",
+                "image.image" => "Gambar yang di upload tidak valid",
+                "image.max" => "Ukuran gambar maximal 1MB",
+                "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg"
             ];
 
             $validator = Validator::make($data, $rules, $messages);
@@ -216,22 +114,83 @@ class RegulationController extends Controller
                 ], 400);
             }
 
-            $item = MaRegulation::find($data['id']);
-            if (!$item) {
+            $data['image'] = $request->file('image')->store('assets/review', 'public');
+            MaReview::create($data);
+            return response()->json([
+                "status" => "success",
+                "message" =>  "Data berhasil dibuat"
+            ]);
+        } catch (Exception $err) {
+            if ($request->file("image")) {
+                unlink(public_path("storage/assets/review/" . $request->image->hashName()));
+            }
+            return response()->json([
+                "status" => "error",
+                "message" => $err->getMessage()
+            ], 500);
+        }
+    }
+
+    public function update(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $rules = [
+                "id" => "required|integer",
+                "name" => "required|string",
+                "review" => "required|string",
+                "image" => "nullable"
+            ];
+
+            if ($request->file('image')) {
+                $rules['image'] .= '|image|max:1024|mimes:giv,svg,jpeg,png,jpg';
+            }
+
+            $messages = [
+                "id.required" => "Data ID harus diisi",
+                "id.integer" => "Type ID tidak sesuai",
+                "name.required" => "Nama harus diisi",
+                "review.required" => "Testimonial harus diisi",
+                "image.image" => "Gambar yang di upload tidak valid",
+                "image.max" => "Ukuran gambar maximal 1MB",
+                "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg"
+            ];
+
+            $validator = Validator::make($data, $rules, $messages);
+            if ($validator->fails()) {
+                return response()->json([
+                    "status" => "error",
+                    "message" => $validator->errors()->first(),
+                ], 400);
+            }
+
+            $existing = MaReview::find($data['id']);
+            if (!$existing) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
-            $item->update($data);
+
+            // delete undefined data image
+            unset($data["image"]);
+            if ($request->file("image")) {
+                unlink(public_path("storage/" . $existing->image));
+                $data["image"] = $request->file("image")->store("assets/review", "public");
+            }
+
+            $existing->update($data);
             return response()->json([
                 "status" => "success",
-                "message" => "Status berhasil diperbarui"
+                "message" =>  "Data berhasil diperbarui"
             ]);
-        } catch (\Exception $err) {
+        } catch (Exception $err) {
+            if ($request->file("image")) {
+                unlink(public_path("storage/assets/review/" . $request->image->hashName()));
+            }
             return response()->json([
                 "status" => "error",
-                "message" => $err->getMessage(),
+                "message" => $err->getMessage()
             ], 500);
         }
     }
@@ -252,20 +211,20 @@ class RegulationController extends Controller
             }
 
             $id = $request->id;
-            $data = MaRegulation::find($id);
+            $data = MaReview::find($id);
             if (!$data) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
-
+            unlink(public_path('storage/' . $data->image));
             $data->delete();
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil dihapus"
             ]);
-        } catch (\Exception $err) {
+        } catch (Exception $err) {
             return response()->json([
                 "status" => "error",
                 "message" => $err->getMessage()

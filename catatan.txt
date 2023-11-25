@@ -142,3 +142,12 @@ Master
   -> link terkait (ok)  
   -> hubungi kami
   -> pengguna (ok)
+
+
+
+
+catatan revisi
+
+- berita punya 5 type (ok)
+- regulasi punya 2 tipe  (ok)
+- tambah menu review (ok)

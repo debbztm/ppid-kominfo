@@ -118,6 +118,12 @@
                         <p>Pengguna</p>
                     </a>
                 </li>
+                <li class="nav-item ml-3 {{ $routename == 'review' ? 'active' : '' }}">
+                    <a href="{{ route('review') }}">
+                        <i class="fas fa-book-open"></i>
+                        <p>Testimoni</p>
+                    </a>
+                </li>
                 <li class="nav-item ml-3 {{ $routename == 'setting' ? 'active' : '' }}">
                     <a href="{{ route('setting') }}">
                         <i class="fas fa-cog"></i>

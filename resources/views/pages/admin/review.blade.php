@@ -1,15 +1,12 @@
 @extends('layouts.dashboard')
 @section('title', $title)
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('/css/toggle-status.css') }}">
-@endpush
 @section('content')
     <div class="row mb-5">
         <div class="col-md-12" id="boxTable">
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Regulasi</h5>
+                        <h5 class="text-uppercase title">Data Testimonial</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
@@ -18,14 +15,13 @@
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="regulationTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="officialPpidTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
-                                    <th class="all">Judul</th>
-                                    <th class="all">Type</th>
-                                    <th class="all">Url</th>
-                                    <td class="all">Status URL</td>
+                                    <th class="all">Nama</th>
+                                    <th class="all">Gambar</th>
+                                    <th class="all">Testimoni</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,7 +38,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5>Tambah / Edit Data</h5>
+                        <h5>Tambah / Edit Testimoni</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-sm btn-warning" onclick="return closeForm(this)" id="btnCloseForm">
@@ -54,30 +50,20 @@
                     <form>
                         <input class="form-control" id="id" type="hidden" name="id" />
                         <div class="form-group">
-                            <label for="title">Judul</label>
-                            <input class="form-control" id="title" type="text" name="title"
-                                placeholder="masukkan judul regulasi" required />
+                            <label for="name">Nama</label>
+                            <input class="form-control" id="name" type="text" name="name"
+                                placeholder="masukkan nama" required />
                         </div>
                         <div class="form-group">
-                            <label for="type">Tipe</label>
-                            <select class="form-control form-control" id="type" name="type" required>
-                                <option value="">Pilih Tipe</option>
-                                <option value="1">Tipe 1</option>
-                                <option value="2">TIpe 2</option>
-                            </select>
+                            <label for="image">Foto</label>
+                            <input class="form-control" id="image" type="file" name="image"
+                                placeholder="upload foto" required />
+                            <small class="text-danger">Max ukuran 1MB</small>
                         </div>
                         <div class="form-group">
-                            <label for="url">Url</label>
-                            <input class="form-control" id="url" type="text" name="url"
-                                placeholder="masukkan link url" />
-                        </div>
-                        <div class="form-group">
-                            <label for="is_url">Url Aktif</label>
-                            <select class="form-control form-control" id="is_url" name="is_url">
-                                <option value = "">Pilih Status</option>
-                                <option value="1">Aktif</option>
-                                <option value="0">Non Aktif</option>
-                            </select>
+                            <label for="review">Testimoni</label>
+                            <textarea class="form-control" placeholder="masukan testimoni" name="review" id="review" cols="30"
+                                rows="5" required></textarea>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">
@@ -103,8 +89,8 @@
         })
 
         function dataTable() {
-            const url = "/api/admin/regulation/datatable";
-            dTable = $("#regulationTable").DataTable({
+            const url = "/api/admin/review/datatable";
+            dTable = $("#officialPpidTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,
@@ -116,17 +102,13 @@
                 lengthMenu: [5, 10, 25, 50, 100],
                 ajax: url,
                 columns: [{
-                    data: "action",
-                    width: "100px"
+                    data: "action"
                 }, {
-                    data: "title"
+                    data: "name"
                 }, {
-                    data: "type"
+                    data: "image"
                 }, {
-                    data: "url"
-                }, {
-                    data: "is_url",
-                    width: "300px"
+                    data: "review"
                 }],
                 pageLength: 10,
             });
@@ -136,10 +118,11 @@
             dTable.ajax.reload(null, false);
         }
 
+
         function addData() {
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
             $("#boxTable").removeClass("col-md-12").addClass("col-md-8");
-            $("#title").focus();
+            $("#title1").focus();
         }
 
         function closeForm() {
@@ -151,18 +134,17 @@
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/regulation/${id}/detail`,
+                url: `/api/admin/review/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {
                     $("#formEditable").attr("data-action", "update").fadeIn(200, function() {
                         $("#boxTable").removeClass("col-md-12").addClass("col-md-8");
                         let d = res.data;
+                        $("#image").removeAttr("required");
                         $("#id").val(d.id);
-                        $("#title").val(d.title);
-                        $("#url").val(d.url);
-                        $("#is_url").val(d.is_url);
-                        $("#type").val(d.type)
+                        $("#name").val(d.name);
+                        $("#review").val(d.review);
                     })
                 },
                 error: function(err) {
@@ -177,27 +159,17 @@
             e.preventDefault();
             let formData = new FormData();
             formData.append("id", parseInt($("#id").val()));
-            formData.append("title", $("#title").val());
-            formData.append("url", $("#url").val());
-            formData.append("is_url", parseInt($("#is_url").val() == "" ? 0 : $("#is_url").val()));
-            formData.append('type', parseInt($("#type").val() == "" ? 1 : $("#type").val()));
+            formData.append("name", $("#name").val());
+            formData.append("review", $("#review").val());
+            formData.append("image", document.getElementById("image").files[0]);
+
             saveData(formData, $("#formEditable").attr("data-action"));
             return false;
         });
 
-        function updateStatus(id, status) {
-            let c = confirm(`Anda yakin ingin mengubah status ke ${status} ?`)
-            if (c) {
-                let dataToSend = new FormData();
-                dataToSend.append("is_url", status == "NonActive" ? 0 : 1);
-                dataToSend.append("id", id);
-                updateStatusData(dataToSend);
-            }
-        }
-
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/regulation/update" : "/api/admin/regulation/create",
+                url: action == "update" ? "/api/admin/review/update" : "/api/admin/review/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -223,7 +195,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/regulation",
+                    url: "/api/admin/review",
                     method: "DELETE",
                     data: {
                         id: id
@@ -242,28 +214,6 @@
                     }
                 })
             }
-        }
-
-        function updateStatusData(data) {
-            $.ajax({
-                url: "/api/admin/regulation/update-status",
-                contentType: false,
-                processData: false,
-                method: "POST",
-                data: data,
-                beforeSend: function() {
-                    console.log("Loading...")
-                },
-                success: function(res) {
-                    showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
-                    refreshData();
-                },
-                error: function(err) {
-                    console.log("error :", err);
-                    showMessage("danger", "flaticon-error", "Peringatan", err.message || err.responseJSON
-                        ?.message);
-                }
-            })
         }
     </script>
 @endpush

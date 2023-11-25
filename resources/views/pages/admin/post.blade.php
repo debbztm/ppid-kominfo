@@ -106,8 +106,11 @@
                             <label for="type">Tipe</label>
                             <select class="form-control form-control" id="type" name="type" required>
                                 <option value="">Pilih Tipe</option>
-                                <option value="1">Berita</option>
-                                <option value="2">Balai</option>
+                                <option value="1">Tipe 1</option>
+                                <option value="2">TIpe 2</option>
+                                <option value="3">TIpe 3</option>
+                                <option value="4">TIpe 4</option>
+                                <option value="5">TIpe 5</option>
                             </select>
                         </div>
                         <div class="form-group">

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\RegulationController;
 use App\Http\Controllers\Admin\RegulationFileController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UserController;
@@ -197,6 +198,15 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/update", [UserController::class, "update"]);
         Route::post("/update-status", [UserController::class, "updateStatus"]);
         Route::delete("/", [UserController::class, "destroy"]);
+    });
+
+    // REVIEW / TESTIMONI
+    Route::group(["prefix" => "review"], function () {
+        Route::get("datatable", [ReviewController::class, "dataTable"]);
+        Route::get("{id}/detail", [ReviewController::class, "getDetail"]);
+        Route::post("/create", [ReviewController::class, "create"]);
+        Route::post("/update", [ReviewController::class, "update"]);
+        Route::delete("/", [ReviewController::class, "destroy"]);
     });
 
     // SETTING

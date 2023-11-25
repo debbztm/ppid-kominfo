@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('username', 50);
             $table->string('phone', 50);
             $table->enum('is_publish', ['Y', 'N'])->default('Y');
-            $table->enum('type', ['0', '1', '2'])->default('1');
+            $table->enum('type', ['0', '1', '2', '3', '4', '5'])->default('1');
             $table->timestamps();
         });
     }

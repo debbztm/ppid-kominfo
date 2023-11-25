@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ma_regulations', function (Blueprint $table) {
+        Schema::create('ma_reviews', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('seo');
-            $table->string('url')->nullable();
-            $table->enum('is_url', ['0', '1'])->default('0');
-            $table->enum('type', ['1', '2'])->default('1');
+            $table->string('name');
+            $table->string('image');
+            $table->text("review");
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ma_regulations');
+        Schema::dropIfExists('ma_reviews');
     }
 };
