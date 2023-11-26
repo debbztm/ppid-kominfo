@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CountInformationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DownloadController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RegulationController;
 use App\Http\Controllers\Admin\RegulationFileController;
 use App\Http\Controllers\Admin\ReviewController;
@@ -38,7 +40,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name("home");
 
 Route::get('/kelola', [AuthController::class, 'login'])->name('login');
-
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // Dashboard
 Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -60,6 +62,7 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('regulation', [RegulationController::class, 'index'])->name('regulation'); // regulation
     Route::get('regulation-file/{regulation_id}/detail', [RegulationFileController::class, 'index'])->name('regulation-file'); // regulation file
     Route::get('link', [LinkController::class, 'index'])->name('link'); // link
+    Route::get('contact-us', [ContactController::class, 'index'])->name('contact-us'); // hubungi kami
     Route::get('user', [UserController::class, 'index'])->name('user'); // pengguna
     Route::get('review', [ReviewController::class, 'index'])->name('review'); // testimoni
     Route::get('setting', [SettingController::class, 'index'])->name('setting'); // setting
@@ -68,4 +71,16 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('setting/sosmed', [SettingController::class, 'sosmed'])->name("setting.sosmed");
     Route::get('setting/image', [SettingController::class, 'image'])->name("setting.image");
     Route::get('setting/maps', [SettingController::class, 'maps'])->name("setting.maps");
+    Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('profile/history', [ProfileController::class, 'history'])->name('history');
+    Route::get('profile/vision', [ProfileController::class, 'vision'])->name('vision');
+    Route::get('profile/tupoksi', [ProfileController::class, 'tupoksi'])->name('tupoksi');
+    Route::get('profile/organization', [ProfileController::class, 'organization'])->name('organization');
+    Route::get('profile/official', [ProfileController::class, 'official'])->name('official');
+
+    //FOR ROLE USER
+    Route::get('hall-profile', [HallController::class, 'hallProfile'])->name('hall-profile'); // profile balai
+    Route::get('hall-contact', [HallController::class, 'hallContact'])->name('hall-contact'); // kotak balai
+
+
 });

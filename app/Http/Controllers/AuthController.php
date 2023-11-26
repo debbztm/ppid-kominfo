@@ -14,7 +14,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $title =  "Kelola Akses";
+        $title = "Kelola Akses";
         return view("pages.auth.index", compact("title"));
     }
 
@@ -97,7 +97,6 @@ class AuthController extends Controller
             }
 
             if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-                User::where('username', $request->username)->update(['last_login' =>  now()]);
                 $data = User::with(['role:id,name', 'hall:id,name'])->select('name')
                     ->where('username', $request->username)
                     ->select('name', 'username', 'last_login', 'is_active', 'role_id', 'hall_id')
@@ -125,12 +124,12 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         // $request->session()->forget('user');
+        $user = json_decode(Cookie::get("user"));
         Auth::logout();
         Cookie::queue(Cookie::forget("user"));
+        User::where('username', $user->username)->update(['last_login' => now()]);
 
-        return response()->json([
-            "status" => "success",
-            "message" => "Logout Sukses"
-        ]);
+
+        return redirect()->route('home');
     }
 }

@@ -131,7 +131,7 @@ Master
   -> berita (kurang action lihat berita di home page)
   -> home anggaran (ok)
   -> infografis (ok)
-  -> jumlah informasi
+  -> jumlah informasi (ok)
   -> portal data (ok)
   -> pejabat ppid (ok)
   -> foto/gallery (ok)
@@ -151,3 +151,8 @@ catatan revisi
 - berita punya 5 type (ok)
 - regulasi punya 2 tipe  (ok)
 - tambah menu review (ok)
+- profile (ok)
+- logout (ok)
+
+
+buat dashboard role user

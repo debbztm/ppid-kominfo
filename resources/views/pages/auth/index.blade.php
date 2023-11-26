@@ -33,60 +33,10 @@
                             Log In
                         </button>
                     </div>
-                    <div class="login-account">
+                    {{-- <div class="login-account">
                         <span class="msg">Belum punya akun ?</span>
                         <a href="#" id="show-signup" class="link">Register</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <div class="container container-signup container-transparent animated fadeIn">
-            <form id="formRegister">
-                <h3 class="text-center">Register</h3>
-                <div class="login-form">
-                    <div class="form-group">
-                        <label for="name" class="placeholder"><b>Nama</b></label>
-                        <input id="name" name="name" type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="username" class="placeholder"><b>Username</b></label>
-                        <input id="username" name="username" type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="placeholder"><b>Password</b></label>
-                        <div class="position-relative">
-                            <input id="password" name="password" type="password" class="form-control" required>
-                            <div class="show-password">
-                                <i class="icon-eye"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="passwordConfirm" class="placeholder"><b>Confirm Password</b></label>
-                        <div class="position-relative">
-                            <input id="passwordConfirm" name="passwordConfirm" type="password" class="form-control"
-                                required>
-                            <div class="show-password">
-                                <i class="icon-eye"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row form-sub m-0">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" name="agree" id="agree">
-                            <label class="custom-control-label" for="agree">Saya Setuju dengan syarat dan
-                                ketentuan..</label>
-                        </div>
-                    </div>
-                    <div class="row form-action">
-                        <div class="col-md-6">
-                            <a href="#" id="show-signin" class="btn btn-danger btn-link w-100 fw-bold">Cancel</a>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="submit" class="btn btn-secondary w-100 fw-bold">Register</button>
-                        </div>
-                    </div>
+                    </div> --}}
                 </div>
             </form>
         </div>

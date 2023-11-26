@@ -3,7 +3,7 @@
 
     <div class="container-fluid">
         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-            <li class="nav-item dropdown hidden-caret">
+            {{-- <li class="nav-item dropdown hidden-caret">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                     <div class="avatar-sm">
                         <img src="https://via.placeholder.com/50" alt="..." class="avatar-img rounded-circle">
@@ -16,7 +16,7 @@
                                 <div class="avatar-lg"><img src="https://via.placeholder.com/50" alt="image profile"
                                         class="avatar-img rounded"></div>
                                 <div class="u-text">
-                                    <h4>Hizrian</h4>
+                                    <h4>{{$user->name}}</h4>
                                     <p class="text-muted">hello@example.com</p><a href="profile.html"
                                         class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                 </div>
@@ -34,7 +34,7 @@
                         </li>
                     </div>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </nav>

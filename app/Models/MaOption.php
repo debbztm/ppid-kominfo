@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class MaOption extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'seo', 'value', 'file'];
+    protected $fillable = ['title', 'seo', 'value', 'file', 'type'];
 }

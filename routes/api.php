@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CountInformationController;
 use App\Http\Controllers\Admin\CustomTemplateController;
 use App\Http\Controllers\Admin\DownloadController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RegulationController;
 use App\Http\Controllers\Admin\RegulationFileController;
 use App\Http\Controllers\Admin\ReviewController;
@@ -190,6 +192,15 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::delete("/", [LinkController::class, "destroy"]);
     });
 
+    // CONTACT US
+    Route::group(["prefix" => "contact-us"], function () {
+        Route::get("datatable", [ContactController::class, "dataTable"]);
+        Route::get("{id}/detail", [ContactController::class, "getDetail"]);
+        // Route::post("/create", [ContactController::class, "create"]);
+        // Route::post("/update", [ContactController::class, "update"]);
+        Route::delete("/", [ContactController::class, "destroy"]);
+    });
+
     // USER
     Route::group(["prefix" => "user"], function () {
         Route::get("datatable", [UserController::class, "dataTable"]);
@@ -214,4 +225,19 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::get("/detail", [SettingController::class, 'getDetail']);
         Route::post("/create-update", [SettingController::class, 'createAndUpdate']);
     });
+
+    // PROFILE
+    Route::group(["prefix" => "profile"], function () {
+        Route::get("/detail", [ProfileController::class, 'getDetail']);
+        Route::post("/create-update", [ProfileController::class, 'createAndUpdate']);
+    });
+
+
+    // FOR ROLE USER
+    Route::group(["prefix" => "hall-profile"], function () {
+        Route::get("/detail", [HallController::class, 'getHallProfileContact']);
+        Route::post("/update-profile", [HallController::class, 'updateSaveProfile']);
+        Route::post("/update-contact", [HallController::class, 'updateSaveContact']);
+    });
+
 });
