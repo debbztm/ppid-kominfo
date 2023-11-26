@@ -23,22 +23,35 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h3 class="text-uppercase black h-sep">Informasi <span class="text-ultra-bold">Publik</span> </h3>
-                    <p class="fz-16 gray-666 mt-50">Anggaran dan Keuangan</p>
+                    {{-- <p class="fz-16 gray-666 mt-50">Anggaran dan Keuangan</p> --}}
                 </div>
             </div>
             <div class="row mt-70">
                 <div class="col-md-12">
                     <div class="causes">
-                        @foreach ($hmanggaran as $hm)
-                            <div class="item">
+                        @foreach ($news as $key => $news)
+                            {{-- <div class="item">
                                 <div class="cause-content text-center">
                                     <h3 class="martel text-semi-bold d-black mb-5">{{ $hm->title }}</h3>
                                     <p class="lh-22 mt-10 mb-10">{{ $hm->description }}</p>
                                     <a class="fz-14 mt-20 btn-green-br"
                                         href="http://{{ $hm->url }}">Selengkapnya...</a>
                                 </div>
+                            </div> --}}
+                            <div class="item">
+                                <div class="causes-img text-center">
+                                    <img src="{{ Storage::url($news->image) }}"alt="{{ $news->title }}"
+                                        class="img-responsive">
+                                </div>
+                                <div class="cause-content text-center">
+                                    <h5 class="martel text-semi-bold d-black mt-10">{!! Illuminate\Support\Str::limit($news->title, 150) !!}</h5>
+                                    <p class="lh-22 mt-10">{!! Illuminate\Support\Str::limit($news->description, 150) !!}...</p>
+                                    <a class="fz-14 mt-20 btn-green-br"
+                                        href="berita/read/{{ $news->id }}/{{ $news->seo }}">Selengkapnya...</a>
+                                </div>
                             </div>
                         @endforeach
+
                     </div>
                 </div>
             </div>
@@ -122,32 +135,83 @@
             </div>
         </div>
     </section>
+    <section class="recent-causes mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3 class="text-uppercase black h-sep">Berita <span class="text-ultra-bold"></span> </h3>
+                    <p class="fz-16 gray-666 mt-50">Berita terbaru dari ppid kominfo</p>
+                </div>
+            </div>
+            <div class="row mt-20">
+                @foreach ($news5 as $key => $news5)
+                    <div class="col-md-4 mt-50 cause-main">
+                        <div class="item" style="height: 400px !important;">
+                            <div class="causes-img text-center">
+                                <img src="{{ Storage::url($news5->image) }}"alt="{{ $news5->title }}"
+                                    class="img-responsive" style="width:300px!important; height: 150px!important">
+                            </div>
+                            <div class="cause-content text-center" style="padding: 2px !important;">
+                                <p class="martel text-semi-bold d-black mt-5">{!! Illuminate\Support\Str::limit($news5->title, 40) !!}</p>
+                                <div class="lh-22 mt-10">{!! Illuminate\Support\Str::limit($news5->description, 80) !!}...</div>
+                                <a class="fz-14 mt-20 btn-green-br"
+                                    href="berita/read/{{ $news5->id }}/{{ $news5->seo }}">Selengkapnya...</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <section class="mt-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-8">
+                    <div class="count-down">
+                        <div class="count-header clearfix">
+                            <div class="pull-left">
+                                <h4 class="green-6f text-uppercase mb-15 text-semi-bold">Agenda Terbaru</h4>
+                                @if ($agenda)
+                                    <span class="karla gray-777 fz-14"><i class="fa fa-clock-o"></i>
+                                        {{ $agenda->time }} <span class="three-pm">{{ $agenda->hour }}</span></span>
+                                @endif
+                            </div>
+                            <img class="pull-right mt-10" src="img/calendar.png" alt="">
+                        </div>
+
+                        <div id="clock"></div>
+                        <div class="btns mt-50">
+                            <a class="text-uppercase martel fz-14 btn-prime tri-b" href="/agenda">Lihat semua agenda</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- testimoni --}}
     <section class="testimonials mt-150 mb-150">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3 class=" black h-sep"><span class="text-ultra-bold"> Berita</span> </h3>
-                    <p class="fz-16 gray-666 mt-50">Berita terbaru dari ppid kominfo</p>
+                    <h3 class=" black h-sep">Testimoni<span class="text-ultra-bold"> </span> </h3>
                 </div>
             </div>
             <div class="row mt-100">
                 <div class="col-md-12">
                     <div class="test-sldier">
-                        @foreach ($news as $key => $news)
+                        @foreach ($reviews as $review)
                             <div class="item">
-                                <a href="berita/read/{{ $news->id }}/{{ $news->seo }}">
-                                    <div class="test-img display-ib position-r pull-left">
-                                        <img class="img-responsive display-ib" src="{{ Storage::url($news->image) }}"
-                                            alt="">
-                                    </div>
-                                    <div class="display-ib pull-left test-text">
-                                        <img src="{{ asset('frontend/img/quote-open.png') }}" alt="">
-                                        <h4 class="fz-17 d-black text-bold mt-30">{{ $news->title }}</h4>
-                                        <p class="mt-25">{!! Illuminate\Support\Str::limit($news->description, 150) !!}...</p>
-                                        <img class="pull-right mt-30" src="{{ asset('frontend/img/quote-close.png') }}"
-                                            alt="">
-                                    </div>
-                                </a>
+                                <div class="test-img display-ib position-r pull-left">
+                                    <img class="img-responsive display-ib" src="{{ Storage::url($review->image) }}"
+                                        alt="{{ $review->name }}" style="min-height:250px !important;">
+                                </div>
+                                <div class="display-ib pull-left test-text">
+                                    <img src="img/quote-open.png" alt="">
+                                    <h4 class="fz-17 d-black text-bold mt-30">{{ $review->name }}</h4>
+                                    <p class="mt-25">{{ $review->review }} </p>
+                                    <img class="pull-right mt-30" src="img/quote-close.png" alt="">
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -156,3 +220,50 @@
         </div>
     </section>
 @endsection
+@push('scripts')
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+
+    <script>
+        $.ajax({
+            url: "/api/agenda",
+            method: "GET",
+            dataType: "json",
+            success: function(res) {
+                let data = res.data;
+                console.log("res :", res)
+
+                moment.locale('id');
+                let localDate = moment(data.time).format("ddd-MMM-YYYY")
+                console.log("new :", localDate)
+                localDate = localDate.split("-")
+                console.log("local time :", localDate)
+                let hour = data.hour;
+                let localTime = hour.replace(" AM", "").replace(" PM", "").split(":")
+                console.log("format :", hour, localTime)
+                if (hour.includes("AM")) {
+                    localTime[2] = "AM"
+                } else {
+                    localTime[2] = "PM"
+                }
+                console.log("formarted hour :", localTime[2])
+                $('#clock').countdown('', function(event) {
+                    console.log("MASUKKK")
+                    let elementAgenda
+                    // var $this = $(this).html(event.strftime('' +elementAgenda  ));
+                    var $this = $(this).html(event.strftime(''
+
+                        +
+
+                        `<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">Hari</span> <span class="karla fz-60 green-6f">${localDate[0]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>   ` +
+                        `<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">Bulan</span> <span class="karla fz-60 green-6f">${localDate[1]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>   ` +
+                        `<div class="time-p mt-80 text-center"><span class="hr poppins text-uppercase d-black">Jam</span> <span class="karla fz-60 green-6f">${localTime[0]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  ` +
+                        `<div class="time-p mt-80 text-center"><span class="min poppins text-uppercase d-black">Menit</span> <span class="karla fz-60 green-6f">${localTime[1]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  ` +
+                        `<div class="time-p mt-80 text-center"><span class="min poppins text-uppercase d-black">Waktu</span> <span class="karla fz-60 green-6f">${localTime[2]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  `
+                    ));
+                });
+
+            }
+        })
+    </script>
+@endpush

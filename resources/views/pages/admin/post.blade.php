@@ -75,13 +75,12 @@
                         <div class="form-group">
                             <label for="link">Link</label>
                             <input class="form-control" id="link" type="text" name="link"
-                                placeholder="masukkan link dengan format https://google.com..." required />
+                                placeholder="masukkan link dengan format https://google.com..." />
                         </div>
                         <div class="form-group">
                             <label for="phone">WhatsApp</label>
                             <input class="form-control" id="phone" type="text" name="phone"
-                                placeholder="masukkan no whatsapp dengan format 628xxxxxxxxxx tanpa spasi atau tanda baca"
-                                required />
+                                placeholder="masukkan no whatsapp dengan format 628xxxxxxxxxx tanpa spasi atau tanda baca" />
                         </div>
                         <div class="form-group">
                             <label for="hall_id">Balai</label>
@@ -122,7 +121,7 @@
                         <div class="form-group">
                             <label for="image">Gambar</label>
                             <input class="form-control" id="image" type="file" name="image"
-                                placeholder="upload gambar" required />
+                                placeholder="upload gambar" />
                             <small class="text-danger">Max ukuran 1MB</small>
                         </div>
                         <div class="form-group">
@@ -197,7 +196,6 @@
             $("#formEditable").attr('data-action', 'add').fadeIn(200);
             $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
             $("#title").focus();
-            $("#image").attr("required", true);
         }
 
         function closeForm() {
@@ -206,7 +204,6 @@
                 $("#reset").click();
                 $("#tag_post").tagsinput("removeAll");
                 $("#summernote").summernote('code', "");
-                $("#image").attr("required", true);
             })
         }
 
@@ -220,7 +217,6 @@
                         $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
                         $("#tag_post").tagsinput("removeAll");
                         let d = res.data;
-                        $("#image").removeAttr("required");
                         $("#id").val(d.id);
                         $("#title").val(d.title);
                         $("#ma_hall_menu_id").val(d.ma_hall_menu_id);
@@ -285,7 +281,6 @@
                 },
                 success: function(res) {
                     closeForm();
-                    $("#image").attr("required", true);
                     showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
                     refreshData();
                 },

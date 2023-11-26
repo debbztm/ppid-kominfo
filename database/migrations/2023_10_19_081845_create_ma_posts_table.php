@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -22,18 +21,18 @@ return new class extends Migration
             $table->foreign('ma_hall_menu_id')->references('id')
                 ->on('ma_hall_menus')
                 ->onUpdate('cascade');
-            $table->string('hall_menu');
+            $table->string('hall_menu')->nullable();
             $table->string('title');
             $table->string('seo');
             $table->longText('description');
-            $table->string('image');
-            $table->string('link');
-            $table->text('tag_post');
+            $table->string('image')->nullable();
+            $table->string('link')->nullable();
+            $table->text('tag_post')->nullable();
             $table->string('day');
             $table->timestamp('date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('is_hall')->nullable();
             $table->string('username', 50);
-            $table->string('phone', 50);
+            $table->string('phone', 50)->nullable();
             $table->enum('is_publish', ['Y', 'N'])->default('Y');
             $table->enum('type', ['0', '1', '2', '3', '4', '5'])->default('1');
             $table->timestamps();

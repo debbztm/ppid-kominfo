@@ -47,10 +47,11 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse no-margin no-padding">
                         <ul class="nav navbar-nav">
-                            <li class=""><a href="index.html">Home</a></li>
+                            <li class=""><a href="{{ route('home') }}" class="main-menu">Home</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Profil <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle main-menu" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false">Profil <span
+                                        class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="">Profil Dinas</a></li>
                                     <li><a href="">Sejarah Dinas</a></li>
@@ -61,8 +62,8 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Balai/UPT <span
+                                <a href="#" class="dropdown-toggle main-menu" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false">Balai/UPT <span
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     @foreach ($halls as $hall)
@@ -73,12 +74,12 @@
                                     @endforeach
                                 </ul>
                             </li>
-                            <li><a class="" href="#">Berita </a></li>
-                            <li><a class="" href="gallery.html">Gallery</a></li>
+                            <li><a class="main-menu" href="#">Berita </a></li>
+                            <li><a class="main-menu" href="gallery.html">Gallery</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Pengaduan <span
-                                        class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle main-menu" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false">Pengaduan <span
+                                        class="caret "></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="blog.html">Pengaduan Subsidi Listrik</a></li>
                                     <li><a href="blog-single.html">Pengaduan ASN</a></li>
@@ -87,8 +88,8 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Portal Data <span
+                                <a href="#" class="dropdown-toggle main-menu" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false">Portal Data <span
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     @foreach ($portalData as $pd)
@@ -97,8 +98,8 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Regulasi <span
+                                <a href="#" class="dropdown-toggle main-menu" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false">Regulasi <span
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     @foreach ($regulations as $rg)
@@ -110,22 +111,50 @@
                                     @endforeach
                                 </ul>
                             </li>
-                            <li><a class="green-nav" href="">Unduh</a></li>
+                            <li><a class="main-menu" href="">Unduh</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">Gallery <span
+                                <a href="#" class="dropdown-toggle main-menu" data-toggle="dropdown"
+                                    role="button" aria-haspopup="true" aria-expanded="false">Gallery <span
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="">Foto</a></li>
                                     <li><a href="">Video</a></li>
                                 </ul>
                             </li>
-                            <li><a class="green-nav" href="">Hubungi Kami</a></li>
+                            <li><a class="main-menu" href="">Hubungi Kami</a></li>
 
                         </ul>
-                    </div><!--/.nav-collapse -->
+                    </div>
+                    <!--/.nav-collapse -->
                 </nav>
             </div>
+        </div>
+        <div class="ticker-container">
+            <div class="ticker-caption">
+                <p style="color:white">Breaking News</p>
+            </div>
+            <ul>
+                <div class="finished not-active" style="transition: all 0.25s ease-in-out 0s;">
+                    <li style="width: 1750px;"><span>PEMBUKAAN PENDAFTARAN PENGANGKATAN DAN PENGAMBILAN
+                            SUMPH AT JANJI ADVOKAT DI PENGADILAN TINGGI JAWA TENGAH </span></li>
+                </div>
+                <div class="finished ticker-active" style="transition: all 0.25s ease-in-out 0s;">
+                    <li style="width: 1750px;"><span>PENGUMUMAN PENDAHULUAN UJIAN PROFESI ADVOKAT</span>
+                    </li>
+                </div>
+                <div class="finished not-active" style="transition: all 0.25s ease-in-out 0s;">
+                    <li style="width: 1750px;"><span>PENGUMUMAN PENDAHULUAN UJIAN PROFESI ADVOKAT</span>
+                    </li>
+                </div>
+                <div class="finished not-active" style="transition: all 0.25s ease-in-out 0s;">
+                    <li style="width: 1750px;"><span>Pengumuman Daftar Nama - nama Kartu Tanda Pengenal
+                            Advokat ( KTPA ) PERADI</span></li>
+                </div>
+                <div class="finished not-active" style="transition: all 0.25s ease-in-out 0s;">
+                    <li style="width: 1750px;"><span>Pengambilan Kartu Tanda Advokat PERADI Periode
+                            2015-2018</span></li>
+                </div>
+            </ul>
         </div>
     </div>
 </header>

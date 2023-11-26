@@ -131,26 +131,23 @@ class PostController extends Controller
             $rules = [
                 "title" => "required|string",
                 "ma_hall_menu_id" => "nullable",
-                "link" => "required|string",
-                "phone" => "required|string",
-                "hall_id" => "nullable",
+
                 "description" => "required|string",
                 "is_publish" => "required|string|in:Y,N",
                 "type" => "required|integer",
-                "tag_post" => "required|string",
-                "image" => "required|image|max:1024|mimes:giv,svg,jpeg,png,jpg"
+                "image" => "nullable"
             ];
+
+            if ($request->file('image')) {
+                $rules['image'] .= '|image|max:1024|mimes:giv,svg,jpeg,png,jpg';
+            }
 
             $messages = [
                 "title.required" => "Judul harus diisi",
-                "link.required" => "Link harus diisi",
-                "phone.required" => "No WA harus diisi",
                 "description.required" => "Deskripsi harus diisi",
                 "is_publish.required" => "Status harus diisi",
                 "is_publish.in" => "Status tidak sesuai",
                 "type.required" => "Tipe harus diisi",
-                "tag_post.required" => "Tags harus diisi",
-                "image.required" => "Gambar harus diisi",
                 "image.image" => "Gambar yang di upload tidak valid",
                 "image.max" => "Ukuran gambar maximal 1MB",
                 "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg"
@@ -164,7 +161,9 @@ class PostController extends Controller
                 ], 400);
             }
 
-            $data['image'] = $request->file('image')->store('assets/news', 'public');
+            if ($request->file('image')) {
+                $data['image'] = $request->file('image')->store('assets/news', 'public');
+            }
             $data["seo"] = Str::slug($data["title"]);
             $data["day"] = Helper::currentDay();
             $data["date"] = Helper::currentDate();
@@ -176,7 +175,7 @@ class PostController extends Controller
             MaPost::create($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil dibuat"
+                "message" => "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
             if ($request->file("image")) {
@@ -197,13 +196,10 @@ class PostController extends Controller
                 "id" => "required|integer",
                 "title" => "required|string",
                 "ma_hall_menu_id" => "nullable",
-                "link" => "required|string",
-                "phone" => "required|string",
                 "hall_id" => "nullable",
                 "description" => "required|string",
                 "is_publish" => "required|string|in:Y,N",
                 "type" => "required|integer",
-                "tag_post" => "required|string",
                 "image" => "nullable"
             ];
 
@@ -215,13 +211,10 @@ class PostController extends Controller
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",
                 "title.required" => "Judul harus diisi",
-                "link.required" => "Link harus diisi",
-                "phone.required" => "No WA harus diisi",
                 "description.required" => "Deskripsi harus diisi",
                 "is_publish.required" => "Status harus diisi",
                 "is_publish.in" => "Status tidak sesuai",
                 "type.required" => "Tipe harus diisi",
-                "tag_post.required" => "Tags harus diisi",
                 "image.image" => "Gambar yang di upload tidak valid",
                 "image.max" => "Ukuran gambar maximal 1MB",
                 "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg"

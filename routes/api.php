@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,8 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
     return $request->user();
 });
 
+// HOME
+Route::get('/agenda', [HomeController::class, 'getAgenda']);
 // AUTH
 Route::group(["middleware" => "guest"], function () {
     Route::post("/auth/register", [AuthController::class, "register"]);

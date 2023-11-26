@@ -11,14 +11,14 @@ $(document).ready(function(){
 
 
 
-	$('#clock').countdown('2015/12/29', function(event) {
-	   var $this = $(this).html(event.strftime(''
+	// $('#clock').countdown('2015/12/29', function(event) {
+	//    var $this = $(this).html(event.strftime(''
 	    
-	     + '<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">days</span> <span class="karla fz-60 green-6f">%d</span><span class="year karala fz-14 gray-777">2015</span></div>  '
-	     + '<div class="time-p mt-80 text-center"><span class="hr poppins text-uppercase d-black">hours</span> <span class="karla fz-60 green-6f">%H</span><span class="year karala fz-14 gray-777">2015</span></div>  '
-	     + '<div class="time-p mt-80 text-center"><span class="min poppins text-uppercase d-black">mins</span> <span class="karla fz-60 green-6f">%M</span><span class="year karala fz-14 gray-777">2015</span></div>  '
-	     + '<div class="time-p mt-80 text-center"><span class="sec poppins text-uppercase d-black">secs</span> <span class="karla fz-60 green-6f">%S</span><span class="year karala fz-14 gray-777">2015</span></div> '));
- 	});
+	//      + '<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">days</span> <span class="karla fz-60 green-6f">%d</span><span class="year karala fz-14 gray-777">2015</span></div>  '
+	//      + '<div class="time-p mt-80 text-center"><span class="hr poppins text-uppercase d-black">hours</span> <span class="karla fz-60 green-6f">%H</span><span class="year karala fz-14 gray-777">2015</span></div>  '
+	//      + '<div class="time-p mt-80 text-center"><span class="min poppins text-uppercase d-black">mins</span> <span class="karla fz-60 green-6f">%M</span><span class="year karala fz-14 gray-777">2015</span></div>  '
+	//      + '<div class="time-p mt-80 text-center"><span class="sec poppins text-uppercase d-black">secs</span> <span class="karla fz-60 green-6f">%S</span><span class="year karala fz-14 gray-777">2015</span></div> '));
+ 	// });
  	$(".causes").owlCarousel({
         autoPlay: 3000, //Set AutoPlay to 3 seconds
         items: 3,
