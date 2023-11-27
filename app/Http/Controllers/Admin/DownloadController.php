@@ -16,6 +16,14 @@ class DownloadController extends Controller
         return view("pages.admin.download", compact("title"));
     }
 
+    //FRONTEND
+    public function homeDownload()
+    {
+        $title = "Download - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $downloads = MaDownload::orderBy('id', 'desc')->get();
+        return view('pages.front.download', compact('title', 'downloads'));
+    }
+
     // HANDLER API
     public function datatable(Request $request)
     {
