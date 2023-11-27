@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('title', $title)
+@push('styles')
+    <style>
+        .test-sldier.banner>.owl-wrapper-outer>.owl-wrapper>.owl-item {
+            width: 285px !important;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="container-fluid no-padding">
         <div class="main-slider">
@@ -135,7 +142,7 @@
             </div>
         </div>
     </section>
-    <section class="recent-causes mt-150 mb-150">
+    <section class="recent-causes mb-150">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -191,10 +198,10 @@
     </section>
 
     {{-- testimoni --}}
-    <section class="testimonials mt-150 mb-150">
+    <section class="testimonials gray-f9f9-bg">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center">
+                <div class="col-md-12 text-center mt-100">
                     <h3 class=" black h-sep">Testimoni<span class="text-ultra-bold"> </span> </h3>
                 </div>
             </div>
@@ -215,6 +222,28 @@
                                         alt="">
                                 </div>
                             </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- banner --}}
+    <section class="testimonials banner mb-100">
+        <div class="container">
+            <div class="row mt-100">
+                <div class="col-md-12">
+                    <div class="test-sldier banner">
+                        @foreach ($link as $key => $link)
+                            <a href="{{ $link->url }}">
+                                <div class="item">
+                                    <div class="position-r pull-left">
+                                        <img class="" src="{{ Storage::url($link->image) }}"
+                                            alt="{{ $link->title }}" style="max-width: 250px !important;">
+                                    </div>
+                                </div>
+                            </a>
                         @endforeach
                     </div>
                 </div>
