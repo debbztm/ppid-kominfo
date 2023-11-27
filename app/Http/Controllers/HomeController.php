@@ -10,6 +10,9 @@ use App\Models\MaReview;
 use App\Models\MaSetting;
 use App\Models\MaSlide;
 use App\Models\MaAgenda;
+use App\Models\MaGallery;
+use App\Models\MaImageGallery;
+use App\Models\MaVideo;
 use App\Models\Page;
 use Illuminate\Http\Request;
 
@@ -44,6 +47,13 @@ class HomeController extends Controller
         $news5 = MaPost::where("is_publish", "Y")->where("type", "5")->orderBy("date", "desc")->get();
         $agenda = MaAgenda::orderBy('time', 'desc')->first();
         $reviews = MaReview::orderBy('id', 'desc')->limit(10)->get();
+        // $gallery = MaGallery::where('title', 'HOME')->first();
+        // $imggallery = [];
+        // if ($gallery) {
+        //     $imggallery = MaImageGallery::where('ma_gallery_id', $gallery->id)->orderBy('id', 'desc')->limit(4)->get();
+        // }
+        $imggallery = MaImageGallery::orderBy('id', 'desc')->limit(4)->get();
+        $video = MaVideo::orderBy('id', 'desc')->first();
         return view(
             "pages.front.home",
             compact(
@@ -57,7 +67,9 @@ class HomeController extends Controller
                 'officialppid',
                 'news5',
                 'agenda',
-                'reviews'
+                'reviews',
+                'imggallery',
+                'video'
             )
         );
     }

@@ -5,6 +5,11 @@
         .test-sldier.banner>.owl-wrapper-outer>.owl-wrapper>.owl-item {
             width: 285px !important;
         }
+
+        iframe {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+        }
     </style>
 @endpush
 @section('content')
@@ -37,14 +42,6 @@
                 <div class="col-md-12">
                     <div class="causes">
                         @foreach ($news as $key => $news)
-                            {{-- <div class="item">
-                                <div class="cause-content text-center">
-                                    <h3 class="martel text-semi-bold d-black mb-5">{{ $hm->title }}</h3>
-                                    <p class="lh-22 mt-10 mb-10">{{ $hm->description }}</p>
-                                    <a class="fz-14 mt-20 btn-green-br"
-                                        href="http://{{ $hm->url }}">Selengkapnya...</a>
-                                </div>
-                            </div> --}}
                             <div class="item">
                                 <div class="causes-img text-center">
                                     <img src="{{ Storage::url($news->image) }}"alt="{{ $news->title }}"
@@ -171,6 +168,7 @@
             </div>
         </div>
     </section>
+    {{-- agenda --}}
     <section class="mt-100">
         <div class="container">
             <div class="row">
@@ -197,6 +195,48 @@
         </div>
     </section>
 
+    {{-- foto --}}
+    <section class="recent-causes mb-150 gray-f9f9-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3 class="text-uppercase black h-sep">Gallery <span class="text-ultra-bold"></span> </h3>
+                </div>
+            </div>
+            <div class="row mt-20">
+                <div class="col-md-6">
+                    <div class="row">
+                        @foreach ($imggallery as $img)
+                            <div class="col-md-6 mt-15 cause-main">
+                                <div class="item">
+                                    <div class="causes-img text-center">
+                                        <img src="{{ Storage::url($img->image) }}"alt="foto" class="img-responsive"
+                                            style="min-width:250px!important; height: 250px!important; margin: 0 auto; object-fit:cover;">
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-12 mt-15">
+                            @if ($video)
+                                <iframe width="100%" height="100%"
+                                    src="//www.youtube.com/embed/{{ $video->link }}?showinfo=0&amp;iv_load_policy=3&amp;controls=0"
+                                    frameborder="0" allowfullscreen=""></iframe>
+                            @else
+                                <iframe width="100%" height="100%"
+                                    src="//www.youtube.com/embed/?showinfo=0&amp;iv_load_policy=3&amp;controls=0"
+                                    frameborder="0" allowfullscreen=""></iframe>
+                            @endif
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     {{-- testimoni --}}
     <section class="testimonials gray-f9f9-bg">
         <div class="container">
@@ -274,12 +314,7 @@
                     localTime[2] = "PM"
                 }
                 $('#clock').countdown('', function(event) {
-                    let elementAgenda
-                    // var $this = $(this).html(event.strftime('' +elementAgenda  ));
-                    var $this = $(this).html(event.strftime(''
-
-                        +
-
+                    var $this = $(this).html(event.strftime('' +
                         `<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">Hari</span> <span class="karla fz-60 green-6f">${localDate[0]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>   ` +
                         `<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">Bulan</span> <span class="karla fz-60 green-6f">${localDate[1]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>   ` +
                         `<div class="time-p mt-80 text-center"><span class="hr poppins text-uppercase d-black">Jam</span> <span class="karla fz-60 green-6f">${localTime[0]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  ` +
