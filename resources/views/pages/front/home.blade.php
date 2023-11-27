@@ -196,7 +196,7 @@
     </section>
 
     {{-- foto --}}
-    <section class="recent-causes mb-150 gray-f9f9-bg">
+    <section class="recent-causes mb-50 gray-f9f9-bg">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -207,14 +207,16 @@
                 <div class="col-md-6">
                     <div class="row">
                         @foreach ($imggallery as $img)
-                            <div class="col-md-6 mt-15 cause-main">
-                                <div class="item">
-                                    <div class="causes-img text-center">
-                                        <img src="{{ Storage::url($img->image) }}"alt="foto" class="img-responsive"
-                                            style="min-width:250px!important; height: 250px!important; margin: 0 auto; object-fit:cover;">
+                            <a href="/gallery">
+                                <div class="col-md-6 mt-15 cause-main">
+                                    <div class="item">
+                                        <div class="causes-img text-center">
+                                            <img src="{{ Storage::url($img->image) }}"alt="foto" class="img-responsive"
+                                                style="min-width:250px!important; height: 250px!important; margin: 0 auto; object-fit:cover;">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                 </div>
@@ -237,6 +239,40 @@
             </div>
         </div>
     </section>
+
+    {{-- infografis --}}
+    <section class="projects">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3 class=" black h-sep">Info <span class="text-ultra-bold">Grafis</span> </h3>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div id="Container" class="mt-100">
+                <div class="row">
+                    @foreach ($infografis as $ig)
+                        <div class="col-md-15 no-padding-left mix edu">
+                            <div class="project-img position-r">
+                                <img class="img-responsive" src="{{ Storage::url($ig->image) }}" alt="infografis">
+                                <div class="project-hover">
+                                    <div class="project-hover-content">
+                                        <div class="progress-status mt-25">
+                                            <div class="barWrapper">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     {{-- testimoni --}}
     <section class="testimonials gray-f9f9-bg">
         <div class="container">

@@ -24,7 +24,7 @@ class HomeController extends Controller
         $slide = MaSlide::where("is_publish", "Y")->orderBy('order', 'asc')->get();
         $meta = MaSetting::first();
         $hmanggaran = Page::where("category", "homeanggaran")->get();
-        $infografis = Infographic::all();
+        $infografis = Infographic::orderBy('id', 'desc')->limit(5)->get();
         $link = MaLink::orderBy("id", "desc")->get();
         $officialppid = MaOfficialPpidProfile::all();
         $news1 = MaPost::where("is_publish", "Y")->where("type", "1")->orderBy("date", "desc")->first();
