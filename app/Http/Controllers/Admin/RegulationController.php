@@ -111,12 +111,10 @@ class RegulationController extends Controller
                 [
                     "title" => "required|string",
                     "is_url" => "nullable|in:0,1",
-                    "type" => "required|integer",
                 ],
                 [
                     "title.required" => "Judul harus diisi",
                     "is_url.in" => "Status url tidak valid",
-                    "type.required" => "Tipe harus diisi",
                 ]
             );
             if ($validator->fails()) {
@@ -151,14 +149,12 @@ class RegulationController extends Controller
                     "id" => "required|integer",
                     "title" => "required|string",
                     "is_url" => "nullable|in:0,1",
-                    "type" => "required|integer",
                 ],
                 [
                     "id.required" => "Data ID harus diisi",
                     "id.integer" => "Type ID tidak sesuai",
                     "title.required" => "Judul harus diisi",
                     "is_url.in" => "Status url tidak valid",
-                    "type.required" => "Tipe harus diisi",
                 ]
             );
             if ($validator->fails()) {
@@ -197,7 +193,6 @@ class RegulationController extends Controller
             $rules = [
                 "id" => "required|integer",
                 "is_url" => "required|in:0,1",
-                "type" => "required|integer",
             ];
 
             $messages = [
@@ -205,7 +200,6 @@ class RegulationController extends Controller
                 "id.integer" => "Type ID tidak sesuai",
                 "is_url.required" => "Status Url harus diisi",
                 "is_url.in" => "Status Url tidak sesuai",
-                "type.required" => "Tipe harus diisi",
             ];
 
             $validator = Validator::make($data, $rules, $messages);

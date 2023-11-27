@@ -194,9 +194,45 @@
             </div>
         </div>
     </section>
+    {{-- Regulation & Download --}}
+    <section class="gray-f9f9-bg">
+        <div class="container">
+            <div class="row mb-100 ">
+                <div class="col-md-6 col-sm-4 mt-150">
+                    <div class="card" style="border: 2px solid #333333; padding:20px;">
+                        <div class="contact-info clearfix">
+                            <div class="pull-left">
+                                <h3 class="black text-bold mb-30">Regulasi</h3>
+                                @foreach ($regulation as $key => $reg)
+                                    <a href="/regulation/{{ $reg->seo }}" class="text-muted">
+                                        <h4 class="mt-15">{{ $key + 1 }}. {{ $reg->title }} </h4>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-4 mt-150">
+                    <div class="card" style="border: 2px solid #333333; padding:20px;">
+                        <div class="contact-info clearfix">
+                            <div class="pull-left">
+                                <h3 class="black text-bold mb-30">Downlad</h3>
+                                @foreach ($download as $key => $dw)
+                                    <a href="{{ Storage::url($dw->file) }}" download="{{ $dw->title }}"
+                                        class="text-muted" target="_blank">
+                                        <h4 class="mt-15">{{ $key + 1 }}. {{ $dw->title }} </h4>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     {{-- foto --}}
-    <section class="recent-causes mb-50 gray-f9f9-bg">
+    <section class="recent-causes mb-50">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -241,7 +277,7 @@
     </section>
 
     {{-- infografis --}}
-    <section class="projects">
+    <section class="projects gray-f9f9-bg">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -272,9 +308,8 @@
         </div>
     </section>
 
-
     {{-- testimoni --}}
-    <section class="testimonials gray-f9f9-bg">
+    <section class="testimonials">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center mt-100">
@@ -306,9 +341,9 @@
     </section>
 
     {{-- banner --}}
-    <section class="testimonials banner mb-100">
+    <section class="testimonials banner gray-f9f9-bg">
         <div class="container">
-            <div class="row mt-100">
+            <div class="row mt-100 mb-100">
                 <div class="col-md-12">
                     <div class="test-sldier banner">
                         @foreach ($link as $key => $link)

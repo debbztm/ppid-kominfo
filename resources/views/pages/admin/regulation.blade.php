@@ -23,7 +23,6 @@
                                 <tr>
                                     <th class="all">#</th>
                                     <th class="all">Judul</th>
-                                    <th class="all">Type</th>
                                     <th class="all">Url</th>
                                     <td class="all">Status URL</td>
                                 </tr>
@@ -57,14 +56,6 @@
                             <label for="title">Judul</label>
                             <input class="form-control" id="title" type="text" name="title"
                                 placeholder="masukkan judul regulasi" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="type">Tipe</label>
-                            <select class="form-control form-control" id="type" name="type" required>
-                                <option value="">Pilih Tipe</option>
-                                <option value="1">Tipe 1</option>
-                                <option value="2">TIpe 2</option>
-                            </select>
                         </div>
                         <div class="form-group">
                             <label for="url">Url</label>
@@ -121,8 +112,6 @@
                 }, {
                     data: "title"
                 }, {
-                    data: "type"
-                }, {
                     data: "url"
                 }, {
                     data: "is_url",
@@ -162,7 +151,6 @@
                         $("#title").val(d.title);
                         $("#url").val(d.url);
                         $("#is_url").val(d.is_url);
-                        $("#type").val(d.type)
                     })
                 },
                 error: function(err) {
@@ -180,7 +168,6 @@
             formData.append("title", $("#title").val());
             formData.append("url", $("#url").val());
             formData.append("is_url", parseInt($("#is_url").val() == "" ? 0 : $("#is_url").val()));
-            formData.append('type', parseInt($("#type").val() == "" ? 1 : $("#type").val()));
             saveData(formData, $("#formEditable").attr("data-action"));
             return false;
         });

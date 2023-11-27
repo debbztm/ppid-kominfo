@@ -10,8 +10,10 @@ use App\Models\MaReview;
 use App\Models\MaSetting;
 use App\Models\MaSlide;
 use App\Models\MaAgenda;
+use App\Models\MaDownload;
 use App\Models\MaGallery;
 use App\Models\MaImageGallery;
+use App\Models\MaRegulation;
 use App\Models\MaVideo;
 use App\Models\Page;
 use Illuminate\Http\Request;
@@ -54,6 +56,8 @@ class HomeController extends Controller
         // }
         $imggallery = MaImageGallery::orderBy('id', 'desc')->limit(4)->get();
         $video = MaVideo::orderBy('id', 'desc')->first();
+        $regulation = MaRegulation::orderBy('id', 'desc')->where('is_url', '1')->limit(10)->get();
+        $download = MaDownload::orderBy('id', 'desc')->limit(10)->get();
         return view(
             "pages.front.home",
             compact(
@@ -69,7 +73,9 @@ class HomeController extends Controller
                 'agenda',
                 'reviews',
                 'imggallery',
-                'video'
+                'video',
+                'regulation',
+                'download'
             )
         );
     }

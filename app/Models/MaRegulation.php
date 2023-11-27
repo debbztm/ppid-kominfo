@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MaRegulation extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'seo', 'url', 'is_url', 'type'];
+    protected $fillable = ['title', 'seo', 'url', 'is_url'];
 
     public function maRegulationFiles()
     {
