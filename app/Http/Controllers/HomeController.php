@@ -56,7 +56,7 @@ class HomeController extends Controller
         // }
         $imggallery = MaImageGallery::orderBy('id', 'desc')->limit(4)->get();
         $video = MaVideo::orderBy('id', 'desc')->first();
-        $regulation = MaRegulation::orderBy('id', 'desc')->where('is_url', '1')->limit(10)->get();
+        $regulation = MaRegulation::orderBy('id', 'desc')->where('is_url', '0')->limit(10)->get();
         $download = MaDownload::orderBy('id', 'desc')->limit(10)->get();
         return view(
             "pages.front.home",
