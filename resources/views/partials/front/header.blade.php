@@ -75,16 +75,17 @@
                                 </ul>
                             </li>
                             <li><a class="main-menu" href="#">Berita </a></li>
-                            <li><a class="main-menu" href="gallery.html">Gallery</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle main-menu" data-toggle="dropdown"
                                     role="button" aria-haspopup="true" aria-expanded="false">Pengaduan <span
                                         class="caret "></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="blog.html">Pengaduan Subsidi Listrik</a></li>
-                                    <li><a href="blog-single.html">Pengaduan ASN</a></li>
-                                    <li><a href="blog-single.html">Keberatan Informasi Publik</a></li>
-                                    <li><a href="blog-single.html">LaporGub</a></li>
+                                    <li><a href="http://subsidi.djk.esdm.go.id"">Pengaduan Subsidi Listrik</a></li>
+                                    <li><a href="https://ppidnew.esdm.jatengprov.go.id/formulir-pengaduan-asn">Pengaduan
+                                            ASN</a></li>
+                                    <li><a href="https://ppidnew.esdm.jatengprov.go.id/formulir-keberatan">Keberatan
+                                            Informasi Publik</a></li>
+                                    <li><a href="http://laporgub.jatengprov.go.id">LaporGub</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -102,11 +103,11 @@
                                     role="button" aria-haspopup="true" aria-expanded="false">Regulasi <span
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    @foreach ($regulations as $rg)
-                                        @if ($rg->is_url == '1')
-                                            <li><a href="{{ $rg->url }}">{{ $rg->title }}</a></li>
+                                    @foreach ($regulations as $reg)
+                                        @if ($reg->is_url == '1')
+                                            <li><a href="{{ $reg->url }}">{{ $reg->title }}</a></li>
                                         @else
-                                            <li><a href="regulation/{{ $rg->seo }}">{{ $rg->title }}</a></li>
+                                            <li><a href="regulation/{{ $reg->seo }}">{{ $reg->title }}</a></li>
                                         @endif
                                     @endforeach
                                 </ul>
@@ -121,8 +122,7 @@
                                     <li><a href="">Video</a></li>
                                 </ul>
                             </li>
-                            <li><a class="main-menu" href="">Hubungi Kami</a></li>
-
+                            <li><a class="main-menu" href="{{ route('home-contact') }}">Hubungi Kami</a></li>
                         </ul>
                     </div>
                     <!--/.nav-collapse -->

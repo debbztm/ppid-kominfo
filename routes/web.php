@@ -39,6 +39,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name("home");
 Route::get('/download', [DownloadController::class, 'homeDownload'])->name('home-download');
+Route::get('/contact', [ContactController::class, 'homeContact'])->name('home-contact');
+Route::post('/contact/create', [ContactController::class, 'create'])->name('create-contact');
 Route::get('/kelola', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // Dashboard

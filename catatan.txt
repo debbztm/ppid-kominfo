@@ -155,4 +155,15 @@ catatan revisi
 - logout (ok)
 
 
-buat dashboard role user
+buat dashboard role user (ok)
+
+home (ok)
+profil
+balai/upt
+berita
+pengaduan
+portal data
+regulasi
+unduk (ok)
+gallery
+hubungi kami (ok)

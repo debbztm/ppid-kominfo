@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MaContact;
+use App\Models\MaSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,6 +14,46 @@ class ContactController extends Controller
     {
         $title = "Hubungi Kami";
         return view('pages.admin.contact-us', compact('title'));
+    }
+
+    public function create(Request $request)
+    {
+        try {
+            $data = $request->all();
+            $rules = [
+                "name" => "required|string",
+                "email" => "required|string",
+                "phone" => "required|string",
+                "message" => "required|string",
+            ];
+
+            $messages = [
+                "name.required" => "Nama harus diisi",
+                "email.required" => "Email harus diisi",
+                "phone.required" => "Phone harus diisi",
+                "message.required" => "Pesan harus diisi",
+            ];
+
+            $validator = Validator::make($data, $rules, $messages);
+            if ($validator->fails()) {
+                return redirect()->route('home-contact');
+            }
+            $data['ip_address'] = $_SERVER['REMOTE_ADDR'];
+            $data['access_from'] = $_SERVER['HTTP_USER_AGENT'];
+
+            MaContact::create($data);
+            return redirect()->route('home-contact');
+        } catch (\Exception $err) {
+            return redirect()->route('home-contact');
+        }
+    }
+
+    // FRONT END
+    public function homeContact()
+    {
+        $title = "Hubingi Kami - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $setting = MaSetting::first();
+        return view('pages.front.contact', compact('title', 'setting'));
     }
 
     //HANDLER API
@@ -113,5 +154,4 @@ class ContactController extends Controller
             ], 500);
         }
     }
-
 }
