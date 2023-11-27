@@ -375,7 +375,7 @@
                 let data = res.data;
 
                 moment.locale('id');
-                let localDate = moment(data.time).format("ddd-MMM-YYYY")
+                let localDate = moment(data.time).format("DD-MMM-YYYY")
                 localDate = localDate.split("-")
                 let hour = data.hour;
                 let localTime = hour.replace(" AM", "").replace(" PM", "").split(":")
@@ -386,7 +386,7 @@
                 }
                 $('#clock').countdown('', function(event) {
                     var $this = $(this).html(event.strftime('' +
-                        `<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">Hari</span> <span class="karla fz-60 green-6f">${localDate[0]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>   ` +
+                        `<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">Tanggal</span> <span class="karla fz-60 green-6f">${localDate[0]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>   ` +
                         `<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">Bulan</span> <span class="karla fz-60 green-6f">${localDate[1]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>   ` +
                         `<div class="time-p mt-80 text-center"><span class="hr poppins text-uppercase d-black">Jam</span> <span class="karla fz-60 green-6f">${localTime[0]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  ` +
                         `<div class="time-p mt-80 text-center"><span class="min poppins text-uppercase d-black">Menit</span> <span class="karla fz-60 green-6f">${localTime[1]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  ` +
