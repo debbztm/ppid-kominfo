@@ -3,6 +3,7 @@
     $portalData = \App\Models\PortalData::where('is_active', 'Y')->get();
     $regulations = \App\Models\MaRegulation::all();
     $halls = \App\Models\Hall::all();
+    $polling = \App\Models\MaPolling::first();
 @endphp
 <!doctype html>
 <html class="no-js" lang="">
@@ -151,6 +152,30 @@
         $('.ticker-container').on('mouseout', function() {
             canTick = true;
         });
+
+        function addSurvey() {
+            var selectedRadio = document.querySelector('input[name="vote"]:checked');
+            if (selectedRadio) {
+                var selectedValue = {
+                    vote: selectedRadio.value
+                };
+                $.ajax({
+                    url: "/api/polling/update",
+                    data: JSON.stringify(selectedValue),
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function(res) {
+                        console.log("result :", res)
+                        window.location.href = "/polling";
+                    },
+                    error: function(err) {
+                        console.log("error :", err)
+                    }
+
+                })
+            }
+        }
     </script>
 
 </body>

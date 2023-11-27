@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\InfographicController;
 use App\Http\Controllers\Admin\LinkController;
 use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PollingController;
 use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -44,6 +45,8 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
 
 // HOME
 Route::get('/agenda', [HomeController::class, 'getAgenda']);
+Route::post('/polling/update', [PollingController::class, 'update']);
+
 // AUTH
 Route::group(["middleware" => "guest"], function () {
     Route::post("/auth/register", [AuthController::class, "register"]);
@@ -242,5 +245,4 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/update-profile", [HallController::class, 'updateSaveProfile']);
         Route::post("/update-contact", [HallController::class, 'updateSaveContact']);
     });
-
 });

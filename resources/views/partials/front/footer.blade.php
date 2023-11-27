@@ -28,14 +28,36 @@
                     </ul> --}}
                 </div>
                 <div class="col-md-2 col-md-offset-1 col-sm-3">
-                    <h6 class="text-uppercase text-bold gray-e8 bb display-ib">Jejak Pendapat</h6>
-                    {{-- <ul class="list-unstyled useful-links">
-                        <li><a href="#">How to Donate</a></li>
-                        <li><a href="#">Donation List</a></li>
-                        <li><a href="#">Recent Causes</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul> --}}
-                    {{-- <a href="#" class="f-donate text-uppercase martel text-bold mt-30">Donate now!</a> --}}
+                    <h5 class="text-uppercase text-bold gray-e8 bb display-ib">Jejak Pendapat</h5>
+                    @if ($polling)
+                        <ul class="polling list-unstyled useful-links">
+                            <h4 class="ubuntu fz-14 gray-aaa display-block">{{ $polling->question }}</h4>
+                            <br>
+                            <li class="col-md-12 no-padding ubuntu fz-14 gray-aaa display-block"
+                                style="color:rgb(149, 149, 149)">
+                                <input type="radio" name="vote" value="1" required> {{ $polling->answer1 }}
+                            </li>
+                            <li class="col-md-12 no-padding ubuntu fz-14 gray-aaa display-block"
+                                style="color:rgb(149, 149, 149)">
+                                <input type="radio" name="vote" value="2" required> {{ $polling->answer2 }}
+                            </li>
+                            <li class="col-md-12 no-padding ubuntu fz-14 gray-aaa display-block"
+                                style="color:rgb(149, 149, 149)">
+                                <input type="radio" name="vote" value="3" required> {{ $polling->answer3 }}
+                            </li>
+                            <li class="col-md-12 no-padding ubuntu fz-14 gray-aaa display-block"
+                                style="color:rgb(149, 149, 149)">
+                                <input type="radio" name="vote" value="4" required> {{ $polling->answer4 }}
+                            </li>
+                        </ul>
+                        <li>
+                            <a href="javascript:void(0)" onclick="addSurvey()"
+                                class="f-donate text-uppercase martel text-bold mt-30 "style="float:left; padding: 0 8px !important; background-color:#e65d4f !important; border:none !important; border-radius: 3px !important; line-height: 30px !important;">Pilih</a>
+                            <a href="/polling" class="f-donate text-uppercase martel text-bold mt-30 "
+                                style="float:right; padding: 0 8px !important; background-color: #3498db !important; border: none !important; border-radius: 3px !important; line-height: 30px !important;">Lihat
+                                Hasil</a>
+                        </li>
+                    @endif
                 </div>
                 <div class="col-md-3 col-sm-3">
                     <h6 class="text-uppercase text-bold gray-e8 bb display-ib">Kontak Kami</h6>

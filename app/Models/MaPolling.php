@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MaPolling extends Model
 {
     use HasFactory;
+    protected $table = "ma_pollings";
     protected $fillable = [
         'question',
         'answer1',

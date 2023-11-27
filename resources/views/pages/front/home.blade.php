@@ -149,7 +149,8 @@
                         <div class="item" style="height: 400px !important;">
                             <div class="causes-img text-center">
                                 <img src="{{ Storage::url($news5->image) }}"alt="{{ $news5->title }}"
-                                    class="img-responsive" style="width:300px!important; height: 150px!important">
+                                    class="img-responsive"
+                                    style="width:300px!important; height: 150px!important; margin: 0 auto;">
                             </div>
                             <div class="cause-content text-center" style="padding: 2px !important;">
                                 <p class="martel text-semi-bold d-black mt-5">{!! Illuminate\Support\Str::limit($news5->title, 40) !!}</p>
@@ -176,7 +177,7 @@
                                         {{ $agenda->time }} <span class="three-pm">{{ $agenda->hour }}</span></span>
                                 @endif
                             </div>
-                            <img class="pull-right mt-10" src="img/calendar.png" alt="">
+                            <img class="pull-right mt-10" src="{{ asset('frontend/img/calendar.png') }}" alt="">
                         </div>
 
                         <div id="clock"></div>
@@ -207,10 +208,11 @@
                                         alt="{{ $review->name }}" style="min-height:250px !important;">
                                 </div>
                                 <div class="display-ib pull-left test-text">
-                                    <img src="img/quote-open.png" alt="">
+                                    <img src="{{ asset('frontend/img/quote-open.png') }}" alt="">
                                     <h4 class="fz-17 d-black text-bold mt-30">{{ $review->name }}</h4>
                                     <p class="mt-25">{{ $review->review }} </p>
-                                    <img class="pull-right mt-30" src="img/quote-close.png" alt="">
+                                    <img class="pull-right mt-30" src="{{ asset('frontend/img/quote-close.png') }}"
+                                        alt="">
                                 </div>
                             </div>
                         @endforeach
@@ -231,24 +233,18 @@
             dataType: "json",
             success: function(res) {
                 let data = res.data;
-                console.log("res :", res)
 
                 moment.locale('id');
                 let localDate = moment(data.time).format("ddd-MMM-YYYY")
-                console.log("new :", localDate)
                 localDate = localDate.split("-")
-                console.log("local time :", localDate)
                 let hour = data.hour;
                 let localTime = hour.replace(" AM", "").replace(" PM", "").split(":")
-                console.log("format :", hour, localTime)
                 if (hour.includes("AM")) {
                     localTime[2] = "AM"
                 } else {
                     localTime[2] = "PM"
                 }
-                console.log("formarted hour :", localTime[2])
                 $('#clock').countdown('', function(event) {
-                    console.log("MASUKKK")
                     let elementAgenda
                     // var $this = $(this).html(event.strftime('' +elementAgenda  ));
                     var $this = $(this).html(event.strftime(''
