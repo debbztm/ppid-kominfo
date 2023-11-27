@@ -79,7 +79,7 @@
             e.preventDefault()
             let title
             if (route == "profile") {
-                title = "Profile"
+                title = "Profile Dinas"
             } else if (route == "history") {
                 title = "Sejarah Dinas"
             } else if (route == "vision") {
@@ -89,7 +89,7 @@
             } else if (route == "organization") {
                 title = "Organisasi"
             } else if (route == "official") {
-                title = "Profile Pejabat"
+                title = "Profil Pejabat"
             }
             let formData = new FormData();
             formData.append("id", parseInt($("#id").val()));

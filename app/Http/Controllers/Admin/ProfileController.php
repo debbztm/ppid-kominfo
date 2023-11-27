@@ -12,7 +12,7 @@ class ProfileController extends Controller
 {
     public function profile()
     {
-        $title = "Profile";
+        $title = "Profile Dinas";
         return view('pages.admin.profile', compact('title'));
     }
 
@@ -45,6 +45,18 @@ class ProfileController extends Controller
         $title = "Profil Pejabat";
         return view('pages.admin.profile', compact('title'));
     }
+
+    // FOR FRONTEND
+    public function homeProfile($slug)
+    {
+        $title = "Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $option = MaOption::where("seo", $slug)->first();
+        if ($option) {
+            $title = $option->title;
+        }
+        return view("pages.front.profile", compact("title", "option"));
+    }
+
 
     // HANDER API
 
@@ -114,13 +126,15 @@ class ProfileController extends Controller
                     // update
                     if ($request->file("file")) {
                         unset($data["file"]);
-                        unlink(public_path("storage/" . $profile->file));
+                        if($profile->file){
+                            unlink(public_path("storage/" . $profile->file));
+                        }
                         $data["file"] = $request->file("file")->store("assets/profile", "public");
                     }
                     $profile->update($data);
                     return response()->json([
                         "status" => "success",
-                        "message" => "Data berhasil diperbarui"
+                        "message" => "Data berhasil diperbarui",
                     ]);
                 }
             }
@@ -137,7 +151,7 @@ class ProfileController extends Controller
             ]);
         } catch (\Exception $err) {
             if ($request->file("file")) {
-                unlink(public_path("storage/assets/option/" . $request->file->hashName()));
+                unlink(public_path("storage/assets/profile/" . $request->file->hashName()));
             }
             return response()->json([
                 "status" => "error",

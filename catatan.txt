@@ -158,7 +158,7 @@ catatan revisi
 buat dashboard role user (ok)
 
 home (ok)
-profil
+profil (ok)
 balai/upt
 berita
 pengaduan
