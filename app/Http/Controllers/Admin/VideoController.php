@@ -19,7 +19,7 @@ class VideoController extends Controller
     public function homeVideo()
     {
         $title = "Gallery Video - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
-        $videos = MaVideo::paginate(6);
+        $videos = MaVideo::paginate(12);
         return view("pages.front.video-gallery", compact("title", "videos"));
     }
     // HANDLER API

@@ -115,7 +115,7 @@
                                 </ul>
                             </li>
                             <li><a class="main-menu" href="{{ route('home-download') }}">Unduh</a></li>
-                            <li><a class="main-menu" href="">Agenda</a></li>
+                            <li><a class="main-menu" href="{{ route('home-agenda') }}">Agenda</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle main-menu" data-toggle="dropdown"
                                     role="button" aria-haspopup="true" aria-expanded="false">Gallery <span

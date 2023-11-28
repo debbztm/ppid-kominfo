@@ -41,6 +41,7 @@ Route::get('/', [HomeController::class, 'index'])->name("home");
 Route::get("/profile/{seo}", [ProfileController::class, 'homeProfile'])->name('home-profile');
 Route::get('regulation/{seo}', [RegulationController::class, 'homeRegulation'])->name('home-regulation');
 Route::get('/download', [DownloadController::class, 'homeDownload'])->name('home-download');
+Route::get('/agenda', [AgendaController::class, 'homeAgenda'])->name("home-agenda");
 Route::get('/gallery/photo', [GalleryController::class, 'homeGallery'])->name('home-img-gallery');
 Route::get('/gallery/video', [VideoController::class, 'homeVideo'])->name('home-video-gallery');
 Route::get('/contact', [ContactController::class, 'homeContact'])->name('home-contact');

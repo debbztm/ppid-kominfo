@@ -4,14 +4,14 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/featherlight.css') }}">
     <style>
-        .video-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            /* Jarak antar thumbnail */
+        /* .video-gallery {
+                display: flex;
+                flex-wrap: wrap;
+                /* gap: 10px; */
+        /* Jarak antar thumbnail */
         }
 
-        .video-gallery a {
+        */ .video-gallery a {
             cursor: pointer;
         }
 
@@ -55,21 +55,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3 class=" black h-sep">Gallery Photo</span> </h3>
+                    <h3 class=" black h-sep">Gallery Video</span> </h3>
                 </div>
             </div>
             <div class="row mt-50">
                 <div class="video-gallery">
                     @foreach ($videos as $video)
-                        <a href="javascript:void(0);" onclick="playVideo('https://www.youtube.com/embed/{{$video->link}}')">
-                            <img src="https://i.ytimg.com/vi/{{ $video->link }}/hqdefault.jpg" alt="{{ $video->title }}">
-                        </a>
+                        <div class="col-md-3 mt-10">
+                            <a href="javascript:void(0);"
+                                onclick="playVideo('https://www.youtube.com/embed/{{ $video->link }}')">
+                                <img src="https://i.ytimg.com/vi/{{ $video->link }}/hqdefault.jpg"
+                                    alt="{{ $video->title }}" width="100%">
+                            </a>
+                        </div>
                     @endforeach
-                </div>
-                <div id="videoModal" class="modal">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <iframe id="videoFrame" width="60%" height="50%" src="" frameborder="0"
-                        allowfullscreen></iframe>
                 </div>
             </div>
 
@@ -80,6 +79,10 @@
             </div>
         </div>
     </section>
+    <div id="videoModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <iframe id="videoFrame" width="60%" height="50%" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
 @endsection
 @push('scripts')
     <script src="{{ asset('frontend/js/featherlight.js') }}"></script>

@@ -18,6 +18,14 @@ class AgendaController extends Controller
         return view("pages.admin.agenda", compact("title"));
     }
 
+    // FOR FRONTEND
+    public function homeAgenda()
+    {
+        $title = "Agenda - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $agenda = MaAgenda::all();
+        return view('pages.front.agenda', compact("title", "agenda"));
+    }
+
     // HANDLER API
     public function dataTable(Request $request)
     {
@@ -129,7 +137,7 @@ class AgendaController extends Controller
             MaAgenda::create($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil dibuat"
+                "message" => "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
             return response()->json([
@@ -184,7 +192,7 @@ class AgendaController extends Controller
             $agenda->update($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil diperbarui"
+                "message" => "Data berhasil diperbarui"
             ]);
         } catch (\Exception $err) {
             return response()->json([
