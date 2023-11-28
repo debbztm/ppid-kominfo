@@ -96,7 +96,7 @@ class RegulationFileController extends Controller
                 "ma_regulation_id" => "required|integer",
                 "title" => "required|string",
                 "description" => "required|string",
-                "file" => "required|max:5120|mimes:doc,docx,pdf,png,xls,xlsx"
+                "file" => "required|max:51200|mimes:doc,docx,pdf,png,xls,xlsx"
             ];
 
             $message = [

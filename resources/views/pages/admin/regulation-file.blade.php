@@ -65,7 +65,7 @@
                             <label for="file">File Regulasi</label>
                             <input class="form-control" id="file" type="file" name="file"
                                 placeholder="upload gambar" required />
-                            <small class="text-danger">Max ukuran 1MB</small>
+                            <small class="text-danger">Max ukuran 50MB</small>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-sm btn-primary" type="submit" id="submit">

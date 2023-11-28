@@ -107,7 +107,9 @@
                                         @if ($reg->is_url == '1')
                                             <li><a href="{{ $reg->url }}">{{ $reg->title }}</a></li>
                                         @else
-                                            <li><a href="regulation/{{ $reg->seo }}">{{ $reg->title }}</a></li>
+                                            <li><a
+                                                    href="{{ route('home-regulation', $reg->seo) }}">{{ $reg->title }}</a>
+                                            </li>
                                         @endif
                                     @endforeach
                                 </ul>

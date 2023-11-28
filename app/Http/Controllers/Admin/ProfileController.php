@@ -47,10 +47,10 @@ class ProfileController extends Controller
     }
 
     // FOR FRONTEND
-    public function homeProfile($slug)
+    public function homeProfile($seo)
     {
         $title = "Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
-        $option = MaOption::where("seo", $slug)->first();
+        $option = MaOption::where("seo", $seo)->first();
         if ($option) {
             $title = $option->title;
         }

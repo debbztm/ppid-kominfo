@@ -16,6 +16,15 @@ class RegulationController extends Controller
         return view("pages.admin.regulation", compact("title"));
     }
 
+
+    // FOR FRONTEND
+    public function homeRegulation($seo)
+    {
+        $title = "Regulasi - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $regulation = MaRegulation::with('maRegulationFiles')->where("seo", $seo)->first();
+        return view('pages.front.regulation', compact("title", "regulation"));
+    }
+
     // HANDLE API
     public function dataTable(Request $request)
     {

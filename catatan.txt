@@ -161,9 +161,9 @@ home (ok)
 profil (ok)
 balai/upt
 berita
-pengaduan
+pengaduan (ok)
 portal data
-regulasi
+regulasi (ok)
 unduk (ok)
 gallery
 hubungi kami (ok)
