@@ -8,10 +8,13 @@ use Illuminate\Http\Request;
 
 class PollingController extends Controller
 {
-    public function index()
+    // FOR FRONTEND
+    public function homePolling()
     {
-        $title = "Hasil Jejak Pendapat";
-        return view('pages.front.polling', compact('title'));
+        $title = "Jejak Pendapat - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $titlePage = "Hasil Jejak Pendapat";
+        $polling = MaPolling::first();
+        return view("pages.front.polling", compact("title",'titlePage', "polling"));
     }
 
     //HANDLER API

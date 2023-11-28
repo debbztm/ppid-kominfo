@@ -165,9 +165,9 @@
                     method: "POST",
                     dataType: "json",
                     contentType: "application/json",
-                    success: function(res) {
-                        console.log("result :", res)
-                        window.location.href = "/polling";
+                        success: function(res) {
+                            console.log("result :", res)
+                        window.location.href = "{{ route('home-polling') }}";
                     },
                     error: function(err) {
                         console.log("error :", err)

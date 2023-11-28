@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\InfographicController;
 use App\Http\Controllers\Admin\LinkController;
 use App\Http\Controllers\Admin\OfficialPpidProfileController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PollingController;
 use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -48,6 +49,7 @@ Route::get('/gallery/photo', [GalleryController::class, 'homeGallery'])->name('h
 Route::get('/gallery/video', [VideoController::class, 'homeVideo'])->name('home-video-gallery');
 Route::get('/contact', [ContactController::class, 'homeContact'])->name('home-contact');
 Route::post('/contact/create', [ContactController::class, 'create'])->name('create-contact');
+Route::get('/polling', [PollingController::class, 'homePolling'])->name('home-polling');
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // AUTH

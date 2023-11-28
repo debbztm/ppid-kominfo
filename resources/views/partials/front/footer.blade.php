@@ -44,7 +44,8 @@
                         <li class="mb-100">
                             <a href="javascript:void(0)" onclick="addSurvey()"
                                 class="f-donate text-uppercase martel text-bold mt-30 "style="float:left; padding: 0 8px !important; background-color:#e65d4f !important; border:none !important; border-radius: 3px !important; line-height: 30px !important;">Pilih</a>
-                            <a href="/polling" class="f-donate text-uppercase martel text-bold mt-30 "
+                            <a href="{{ route('home-polling') }}"
+                                class="f-donate text-uppercase martel text-bold mt-30 "
                                 style="float:right; padding: 0 8px !important; background-color: #3498db !important; border: none !important; border-radius: 3px !important; line-height: 30px !important;">Lihat
                                 Hasil</a>
                         </li>
