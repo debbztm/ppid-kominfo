@@ -82,7 +82,7 @@
     <div id="videoModal" class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
         <iframe id="videoFrame" width="60%" height="50%" src="" frameborder="0" allowfullscreen></iframe>
-    </div>
+    </div>  
 @endsection
 @push('scripts')
     <script src="{{ asset('frontend/js/featherlight.js') }}"></script>

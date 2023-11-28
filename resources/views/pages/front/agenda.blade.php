@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('title', $title)
 @push('styles')
@@ -36,59 +37,6 @@
     </style>
 @endpush
 @section('content')
-    @php
-        function tgl_indo($tgl)
-        {
-            date_default_timezone_set('Asia/Jakarta');
-            $date = date('Y-m-d', strtotime($tgl));
-            $pecah = explode('-', $date);
-            $tanggal = $pecah[2];
-            $bulan = bulan($pecah[1]);
-            $tahun = $pecah[0];
-            return $tanggal . ' ' . $bulan . ' ' . $tahun;
-        }
-        function bulan($bln)
-        {
-            switch ($bln) {
-                case 1:
-                    return 'Januari';
-                    break;
-                case 2:
-                    return 'Februari';
-                    break;
-                case 3:
-                    return 'Maret';
-                    break;
-                case 4:
-                    return 'April';
-                    break;
-                case 5:
-                    return 'Mei';
-                    break;
-                case 6:
-                    return 'Juni';
-                    break;
-                case 7:
-                    return 'Juli';
-                    break;
-                case 8:
-                    return 'Agustus';
-                    break;
-                case 9:
-                    return 'September';
-                    break;
-                case 10:
-                    return 'Oktober';
-                    break;
-                case 11:
-                    return 'Nopember';
-                    break;
-                case 12:
-                    return 'Desember';
-                    break;
-            }
-        }
-    @endphp
     <section class="container mt-150 mb-150">
         <table class="styled-table">
             <thead>
@@ -106,7 +54,7 @@
                         <td width="5%">{{ $key + 1 }}</td>
                         <td width="40%">{!! $ag->title !!}</td>
                         <td width="25%">{{ $ag->place }}</td>
-                        <td width="15%">{{ tgl_indo($ag->date) }}</td>
+                        <td width="15%">{!! (new \App\Helpers\Helper)->tgl_indo($ag->date) !!}</td>
                         <td width="10%">{{ $ag->hour }}</td>
                         </td>
                     </tr>

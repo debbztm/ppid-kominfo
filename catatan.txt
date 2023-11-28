@@ -162,7 +162,7 @@ profil (ok)
 balai/upt
 berita
 pengaduan (ok)
-portal data
+portal data (ok)
 regulasi (ok)
 unduh (ok)
 agenda (ok)
@@ -170,3 +170,4 @@ gallery
   - photo (ok)
   - video (ok)
 hubungi kami (ok)
+pooling

@@ -39,15 +39,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name("home");
 Route::get("/profile/{seo}", [ProfileController::class, 'homeProfile'])->name('home-profile');
-Route::get('regulation/{seo}', [RegulationController::class, 'homeRegulation'])->name('home-regulation');
+Route::get("/news", [PostController::class, 'homePost'])->name('home-news');
+Route::get("/news/read/{id}/{seo}", [PostController::class, 'homePostDetail'])->name('read-news');
+Route::get('/regulation/{seo}', [RegulationController::class, 'homeRegulation'])->name('home-regulation');
 Route::get('/download', [DownloadController::class, 'homeDownload'])->name('home-download');
 Route::get('/agenda', [AgendaController::class, 'homeAgenda'])->name("home-agenda");
 Route::get('/gallery/photo', [GalleryController::class, 'homeGallery'])->name('home-img-gallery');
 Route::get('/gallery/video', [VideoController::class, 'homeVideo'])->name('home-video-gallery');
 Route::get('/contact', [ContactController::class, 'homeContact'])->name('home-contact');
 Route::post('/contact/create', [ContactController::class, 'create'])->name('create-contact');
-Route::get('/kelola', [AuthController::class, 'login'])->name('login');
+
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+// AUTH
+Route::group(["middleware" => "guest"], function () {
+    Route::get('/kelola', [AuthController::class, 'login'])->name('login');
+});
 // Dashboard
 Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

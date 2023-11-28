@@ -24,6 +24,24 @@ class PostController extends Controller
         return view("pages.admin.post", compact("title", 'hall_menus', 'halls', "hall_id"));
     }
 
+    // FOR FRONTEND
+    public function homePost()
+    {
+        $title = "Berita - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $news = MaPost::orderBy('id', 'ASC')->paginate(8);
+        return view('pages.front.news', compact('title', 'news'));
+    }
+
+    public function homePostDetail($id, $seo)
+    {
+        $title = "Berita - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $news = MaPost::where('id', $id)->first();
+        if ($news) {
+            $title = $news->title;
+        }
+        return view("pages.front.news-detail", compact("title", "news"));
+    }
+
     // HANDLE API
     public function dataTable(Request $request)
     {

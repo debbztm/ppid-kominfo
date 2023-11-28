@@ -45,13 +45,14 @@
                             <div class="item">
                                 <div class="causes-img text-center">
                                     <img src="{{ Storage::url($news->image) }}"alt="{{ $news->title }}"
-                                        class="img-responsive">
+                                        class="img-responsive"
+                                        style="width:300px!important; height: 150px!important; margin: 0 auto;">
                                 </div>
                                 <div class="cause-content text-center">
-                                    <h5 class="martel text-semi-bold d-black mt-10">{!! Illuminate\Support\Str::limit($news->title, 150) !!}</h5>
+                                    <h5 class="martel text-semi-bold d-black mt-10">{!! Illuminate\Support\Str::limit($news->title, 100) !!}</h5>
                                     <p class="lh-22 mt-10">{!! Illuminate\Support\Str::limit($news->description, 150) !!}...</p>
                                     <a class="fz-14 mt-20 btn-green-br"
-                                        href="berita/read/{{ $news->id }}/{{ $news->seo }}">Selengkapnya...</a>
+                                        href="{{ route('read-news', ['id' => $news->id, 'seo' => $news->seo]) }}">Selengkapnya...</a>
                                 </div>
                             </div>
                         @endforeach
@@ -157,10 +158,10 @@
                                     style="width:300px!important; height: 150px!important; margin: 0 auto;">
                             </div>
                             <div class="cause-content text-center" style="padding: 2px !important;">
-                                <p class="martel text-semi-bold d-black mt-5">{!! Illuminate\Support\Str::limit($news5->title, 40) !!}</p>
-                                <div class="lh-22 mt-10">{!! Illuminate\Support\Str::limit($news5->description, 80) !!}...</div>
+                                <p class="martel text-semi-bold d-black mt-5">{!! Illuminate\Support\Str::limit($news5->title, 50) !!}</p>
+                                <div class="lh-22 mt-10">{!! Illuminate\Support\Str::limit($news5->description, 80) !!}</div>
                                 <a class="fz-14 mt-20 btn-green-br"
-                                    href="berita/read/{{ $news5->id }}/{{ $news5->seo }}">Selengkapnya...</a>
+                                    href="{{ route('read-news', ['id' => $news5->id, 'seo' => $news5->seo]) }}">Selengkapnya...</a>
                             </div>
                         </div>
                     </div>

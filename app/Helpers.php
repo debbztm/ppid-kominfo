@@ -49,6 +49,9 @@ class Helper
     return $tanggal . ' ' . $bulan . ' ' . $tahun;
   }
 
+}
+
+if (!function_exists('bulan')) {
   function bulan($bln)
   {
     switch ($bln) {
