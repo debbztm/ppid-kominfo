@@ -17,15 +17,6 @@
                     <a class="twitter-timeline" data-height="300" href="https://twitter.com/ESDMJateng">Tweets by
                         ESDMJateng</a>
                     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-                    {{-- <ul class="list-unstyled useful-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Meet The Team</a></li>
-                        <li><a href="#">Volunteers</a></li>
-                        <li><a href="#">Service Provided</a></li>
-                        <li><a href="#">Latest News</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul> --}}
                 </div>
                 <div class="col-md-2 col-md-offset-1 col-sm-3">
                     <h5 class="text-uppercase text-bold gray-e8 bb display-ib">Jejak Pendapat</h5>
@@ -50,7 +41,7 @@
                                 <input type="radio" name="vote" value="4" required> {{ $polling->answer4 }}
                             </li>
                         </ul>
-                        <li>
+                        <li class="mb-100">
                             <a href="javascript:void(0)" onclick="addSurvey()"
                                 class="f-donate text-uppercase martel text-bold mt-30 "style="float:left; padding: 0 8px !important; background-color:#e65d4f !important; border:none !important; border-radius: 3px !important; line-height: 30px !important;">Pilih</a>
                             <a href="/polling" class="f-donate text-uppercase martel text-bold mt-30 "
@@ -69,44 +60,8 @@
                     <a href="https://info.flagcounter.com/ixn2"><img
                             src="https://s11.flagcounter.com/count/ixn2/bg_0B121F/txt_FFFFFF/border_0B121F/columns_3/maxflags_12/viewers_0/labels_0/pageviews_0/flags_0/percent_0/"
                             alt="Flag Counter" border="0"></a>
-
-                    {{-- <form class="mt-50" action="#">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Email Address">
-                            <div class="input-group-addon"><a href="#"><img
-                                        src="{{ asset('frontend/img/submit.png') }}" alt=""></a></div>
-                        </div>
-                    </form> --}}
-
-
                 </div>
             </div>
-            {{-- <div class="row mt-80">
-                <div class="col-md-6 col-sm-6">
-                    <div class="footer-d-v clearfix">
-                        <div class="pull-left">
-                            <h5 class="fz-18 text-bold">Help & Support Now</h5>
-                            <span class="fz-14 ubuntu gray-777 display-block mt-15">Might as well say Would you
-                                Could be you be mine? </span>
-                        </div>
-                        <div class="pull-right mt-6">
-                            <a class="btn-prime tri-b text-uppercase" href="#">donate</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                    <div class="footer-d-v clearfix">
-                        <div class="pull-left">
-                            <h5 class="fz-18 text-bold">Join As Volunteer</h5>
-                            <span class="fz-14 ubuntu gray-777 display-block mt-15">Might as well say Would you
-                                Could be you be mine? </span>
-                        </div>
-                        <div class="pull-right mt-6">
-                            <a class="btn-prime tri-b text-uppercase" href="#">Volunteer</a>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
     <div class="lower-footer">

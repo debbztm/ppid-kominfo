@@ -2175,7 +2175,7 @@ p.quote{
     -o-transition: all .5s ease ;
     transition: all .5s ease ;
 }
-.gallery-overlay-content > img:hover{
+.gallery-overlay-content:hover{
     cursor: pointer;
 }
 .gallery-item > h5{

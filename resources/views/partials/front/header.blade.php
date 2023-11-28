@@ -115,13 +115,14 @@
                                 </ul>
                             </li>
                             <li><a class="main-menu" href="{{ route('home-download') }}">Unduh</a></li>
+                            <li><a class="main-menu" href="">Agenda</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle main-menu" data-toggle="dropdown"
                                     role="button" aria-haspopup="true" aria-expanded="false">Gallery <span
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="">Foto</a></li>
-                                    <li><a href="">Video</a></li>
+                                    <li><a href="{{ route('home-img-gallery') }}">Foto</a></li>
+                                    <li><a href="{{ route('home-video-gallery') }}">Video</a></li>
                                 </ul>
                             </li>
                             <li><a class="main-menu" href="{{ route('home-contact') }}">Hubungi Kami</a></li>

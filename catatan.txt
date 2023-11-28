@@ -164,6 +164,9 @@ berita
 pengaduan (ok)
 portal data
 regulasi (ok)
-unduk (ok)
+unduh (ok)
+agenda
 gallery
+  - photo (ok)
+  - video
 hubungi kami (ok)

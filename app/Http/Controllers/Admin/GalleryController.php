@@ -16,6 +16,15 @@ class GalleryController extends Controller
         return view("pages.admin.gallery", compact("title"));
     }
 
+    // FOR FRONTEND
+    public function homeGallery()
+    {
+        $title = "Gallery Photo - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $galleries = MaGallery::with('maImageGalleries')->paginate(1);
+        return view("pages.front.image-gallery", compact("title", "galleries"));
+    }
+
+
     // HANDLE API
     public function dataTable(Request $request)
     {
