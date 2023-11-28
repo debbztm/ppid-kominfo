@@ -54,7 +54,7 @@
                         <td width="5%">{{ $key + 1 }}</td>
                         <td width="40%">{!! $ag->title !!}</td>
                         <td width="25%">{{ $ag->place }}</td>
-                        <td width="15%">{!! (new \App\Helpers\Helper)->tgl_indo($ag->date) !!}</td>
+                        <td width="15%">{!! (new \App\Helpers\Helper)->tgl_indo($ag->time) !!}</td>
                         <td width="10%">{{ $ag->hour }}</td>
                         </td>
                     </tr>

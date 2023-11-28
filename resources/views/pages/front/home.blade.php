@@ -188,7 +188,8 @@
 
                         <div id="clock"></div>
                         <div class="btns mt-50">
-                            <a class="text-uppercase martel fz-14 btn-prime tri-b" href="/agenda">Lihat semua agenda</a>
+                            <a class="text-uppercase martel fz-14 btn-prime tri-b"
+                                href="{{ route('home-agenda') }}">Lihat semua agenda</a>
                         </div>
                     </div>
                 </div>
@@ -244,7 +245,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         @foreach ($imggallery as $img)
-                            <a href="/gallery">
+                            <a href="{{route('home-img-gallery')}}">
                                 <div class="col-md-6 mt-15 cause-main">
                                     <div class="item">
                                         <div class="causes-img text-center">
