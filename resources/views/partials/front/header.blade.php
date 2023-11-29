@@ -69,7 +69,7 @@
                                     @foreach ($halls as $hall)
                                         <li>
                                             <a
-                                                href="balai/profil/{{ $hall->id }}/{{ $hall->seo }}">{{ $hall->name }}</a>
+                                                href="{{ route('home-hall', ['id' => $hall->id, 'seo' => $hall->seo]) }}">{{ $hall->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>

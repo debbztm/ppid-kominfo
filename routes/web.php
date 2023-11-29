@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name("home");
 Route::get("/profile/{seo}", [ProfileController::class, 'homeProfile'])->name('home-profile');
+Route::get('/hall/{id}/{seo}', [HallController::class, 'homeHall'])->name('home-hall');
 Route::get("/news", [PostController::class, 'homePost'])->name('home-news');
 Route::get("/news/read/{id}/{seo}", [PostController::class, 'homePostDetail'])->name('read-news');
 Route::get('/regulation/{seo}', [RegulationController::class, 'homeRegulation'])->name('home-regulation');

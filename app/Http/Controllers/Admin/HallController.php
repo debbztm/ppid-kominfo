@@ -32,6 +32,13 @@ class HallController extends Controller
         return view('pages.admin.hall-contact', compact('title'));
     }
 
+    // FOR FRONTEND
+    public function homeHall($id)
+    {
+        $title = "Balai/UPT - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        return view('pages.front.hall', compact('title'));
+    }
+
     // HANDLE API
     public function dataTable(Request $request)
     {
