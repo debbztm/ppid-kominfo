@@ -6,10 +6,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 mt-100 pull-right">
-                <form action="{{route('home-news')}}" method="GET">
+                <form action="{{ route('home-news') }}" method="GET">
                     <div class="input-group">
                         <input type="text" class="form-control" name="s" placeholder="Cari berita..">
-                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                        <div class="input-group-addon">
+                            <button type="submit" style="background:none !important; border: none !important">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
