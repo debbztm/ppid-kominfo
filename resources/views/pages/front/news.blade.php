@@ -4,7 +4,17 @@
 @endpush
 @section('content')
     <div class="container">
-        <div class="row mt-100 mb-150">
+        <div class="row">
+            <div class="col-md-4 mt-100 pull-right">
+                <form action="{{route('home-news')}}" method="GET">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="s" placeholder="Cari berita..">
+                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-100 mb-50">
             @foreach ($news as $new)
                 <div class="col col-md-4 mt-10" style="height: 600px !important;">
                     <div class="blog-post">

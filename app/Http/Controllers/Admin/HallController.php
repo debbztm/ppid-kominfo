@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hall;
+use App\Models\MaPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -33,10 +34,13 @@ class HallController extends Controller
     }
 
     // FOR FRONTEND
-    public function homeHall($id)
+    public function homeHall($id, $seo)
     {
         $title = "Balai/UPT - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
-        return view('pages.front.hall', compact('title'));
+        $hall = Hall::where('id', $id)->where('seo', $seo)->first();
+        $news = MaPost::where('hall_id', $id)->orderBy('id', 'desc')->paginate(9);
+
+        return view('pages.front.hall', compact('title', 'hall', 'news'));
     }
 
     // HANDLE API

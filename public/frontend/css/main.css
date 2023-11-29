@@ -758,7 +758,7 @@ a:hover{
    .nav.navbar-nav > li > a:focus::after,
    .nav.navbar-nav > li.active > a::after {
         left: 0;
-        border-bottom: 3px solid #5cb85c;
+        border-bottom: 3px solid #fee50f;
     }
    .navbar-default {
         background-color: transparent;

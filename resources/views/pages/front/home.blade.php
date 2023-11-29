@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('title', $title)
 @push('styles')
+    <link rel="stylesheet"
+        href="'https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap'">
     <style>
         .test-sldier.banner>.owl-wrapper-outer>.owl-wrapper>.owl-item {
             width: 285px !important;
@@ -9,6 +11,54 @@
         iframe {
             width: 100%;
             aspect-ratio: 16 / 10;
+        }
+
+
+        @import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+
+
+        .reg-down ol {
+            padding-left: 30px;
+            list-style: inherit !important;
+        }
+
+        .reg-down ol li {
+            list-style: decimal !important;
+            list-style-position: !important;
+        }
+
+        .reg-down li {
+            color: #4f4f4f;
+            padding-left: 16px;
+            margin-top: 24px;
+            position: relative;
+            font-size: 16px;
+            line-height: 20px;
+        }
+
+        .reg-down li:before {
+            content: "";
+            display: block;
+            height: 42px;
+            width: 42px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            position: absolute;
+            top: -10px;
+            left: -33px;
+        }
+
+        .reg-down strong {
+            color: #292929;
+        }
+
+        .reg-down ol.alternating-colors li:nth-child(odd):before {
+            border-color: #5cb85c;
+        }
+
+        .reg-down ol.alternating-colors li:nth-child(even):before {
+            border-color: #fee50f;
         }
     </style>
 @endpush
@@ -98,7 +148,7 @@
                 <div class="col-md-2 col-sm-6 mt-70">
                     <div id="canvas-holder" class="clearfix">
                         <div class="round-bar-status pull-left text-center">
-                            <h2 class="white text-semi-bold">{{ $meta->application }}</h2>
+                            <h2 class="white text-semi-bold" style="font-size:20px">{{ $meta->application }}</h2>
                             <h5 class="fz-13 text-semi-bold white text-uppercase mt-10">Permohonan</h5>
                         </div>
                     </div>
@@ -106,7 +156,7 @@
                 <div class="col-md-2 col-sm-6 mt-70">
                     <div id="canvas-holder1" class="clearfix">
                         <div class="round-bar-status pull-left text-center">
-                            <h2 class="white text-semi-bold">{{ $meta->granted }}</h2>
+                            <h2 class="white text-semi-bold" style="font-size:20px">{{ $meta->granted }}</h2>
                             <h5 class="fz-13 text-semi-bold white text-uppercase mt-10">Dikabulkan</h5>
                         </div>
                     </div>
@@ -114,7 +164,7 @@
                 <div class="col-md-2 col-sm-6 mt-70">
                     <div id="canvas-holder2" class="clearfix">
                         <div class="round-bar-status pull-left text-center">
-                            <h2 class="white text-semi-bold">{{ $meta->objected }}</h2>
+                            <h2 class="white text-semi-bold" style="font-size:20px">{{ $meta->objected }}</h2>
                             <h5 class="fz-13 text-semi-bold white text-uppercase mt-10">Keberatan</h5>
                         </div>
                     </div>
@@ -122,7 +172,7 @@
                 <div class="col-md-2 col-sm-6 mt-70">
                     <div id="canvas-holder3" class="clearfix">
                         <div class="round-bar-status pull-left text-center">
-                            <h2 class="white text-semi-bold">{{ $meta->rejected }}</h2>
+                            <h2 class="white text-semi-bold" style="font-size:20px">{{ $meta->rejected }}</h2>
                             <h5 class="fz-13 text-semi-bold white text-uppercase mt-10">Ditolak</h5>
                         </div>
                     </div>
@@ -130,7 +180,7 @@
                 <div class="col-md-2 col-sm-6 mt-70">
                     <div id="canvas-holder" class="clearfix">
                         <div class="round-bar-status pull-left text-center">
-                            <h2 class="white text-semi-bold">{{ $meta->ikm }}</h2>
+                            <h2 class="white text-semi-bold" style="font-size:20px">{{ $meta->ikm }}</h2>
                             <h5 class="fz-13 text-semi-bold white text-uppercase mt-10">IKM</h5>
                         </div>
                     </div>
@@ -201,30 +251,46 @@
         <div class="container">
             <div class="row mb-100 ">
                 <div class="col-md-6 col-sm-4 mt-150">
-                    <div class="card" style="border: 2px solid #333333; padding:20px;">
+                    <div class="card mz-auto">
                         <div class="contact-info clearfix">
-                            <div class="pull-left">
-                                <h3 class="black text-bold mb-30">Regulasi</h3>
-                                @foreach ($regulation as $key => $reg)
-                                    <a href="/regulation/{{ $reg->seo }}" class="text-muted">
-                                        <h4 class="mt-15">{{ $key + 1 }}. {{ $reg->title }} </h4>
-                                    </a>
-                                @endforeach
+                            <div class="reg-down">
+                                <h3 class="text-uppercase text-center black h-sep mb-50"> <span
+                                        class="text-ultra-bold">Regulasi</span> </h3>
+                                <ol class="alternating-colors" style="padding: 0 15% !important;">
+                                    @foreach ($regulation as $key => $reg)
+                                        <li class="mt-30">
+                                            <strong>
+
+                                                <a href="/regulation/{{ $reg->seo }}" class="text-muted">
+                                                    <h5 class="mt-15">{{ $reg->title }} </h5>
+                                                </a>
+                                            </strong>
+                                        </li>
+                                    @endforeach
+                                </ol>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-4 mt-150">
-                    <div class="card" style="border: 2px solid #333333; padding:20px;">
+                    <div class="card">
                         <div class="contact-info clearfix">
-                            <div class="pull-left">
-                                <h3 class="black text-bold mb-30">Downlad</h3>
-                                @foreach ($download as $key => $dw)
-                                    <a href="{{ Storage::url($dw->file) }}" download="{{ $dw->title }}"
-                                        class="text-muted" target="_blank">
-                                        <h4 class="mt-15">{{ $key + 1 }}. {{ $dw->title }} </h4>
-                                    </a>
-                                @endforeach
+                            <div class="reg-down">
+                                <h3 class="text-uppercase text-center black h-sep mb-50"> <span
+                                        class="text-ultra-bold">Download</span> </h3>
+
+                                <ol class="alternating-colors" style="padding: 0 15% !important;">
+                                    @foreach ($download as $key => $dw)
+                                        <li class="mt-30">
+                                            <strong>
+                                                <a href="{{ Storage::url($dw->file) }}" download="{{ $dw->title }}"
+                                                    class="text-muted" target="_blank">
+                                                    <h5 class="mt-15">{{ $dw->title }} </h5>
+                                                </a>
+                                            </strong>
+                                        </li>
+                                    @endforeach
+                                </ol>
                             </div>
                         </div>
                     </div>
@@ -245,7 +311,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         @foreach ($imggallery as $img)
-                            <a href="{{route('home-img-gallery')}}">
+                            <a href="{{ route('home-img-gallery') }}">
                                 <div class="col-md-6 mt-15 cause-main">
                                     <div class="item">
                                         <div class="causes-img text-center">

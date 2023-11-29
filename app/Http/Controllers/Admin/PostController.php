@@ -25,17 +25,24 @@ class PostController extends Controller
     }
 
     // FOR FRONTEND
-    public function homePost()
+    public function homePost(Request $request)
     {
+        $data = $request->all();
         $title = "Berita - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
-        $news = MaPost::orderBy('id', 'ASC')->paginate(8);
+        $news = MaPost::where(function ($query) use ($request) {
+            if (($s = $request->s)) {
+                $query->orWhere('title', 'LIKE', '%' . $s . '%')
+                    ->orWhere('description', 'LIKE', '%' . $s . '%')
+                    ->get();
+            }
+        })->orderBy('id', 'desc')->paginate(12);
         return view('pages.front.news', compact('title', 'news'));
     }
 
     public function homePostDetail($id, $seo)
     {
         $title = "Berita - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
-        $news = MaPost::where('id', $id)->first();
+        $news = MaPost::where('id', $id)->where('seo', $seo)->first();
         if ($news) {
             $title = $news->title;
         }
