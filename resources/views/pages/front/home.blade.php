@@ -143,7 +143,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1 col-sm-0">
+                <div class="col-md-3 col-sm-0">
                 </div>
                 <div class="col-md-2 col-sm-6 mt-70">
                     <div id="canvas-holder" class="clearfix">
@@ -169,6 +169,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-3 col-sm-0">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-0">
+                </div>
                 <div class="col-md-2 col-sm-6 mt-70">
                     <div id="canvas-holder3" class="clearfix">
                         <div class="round-bar-status pull-left text-center">
@@ -185,7 +191,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-1 col-sm-0">
+                <div class="col-md-4 col-sm-0">
                 </div>
             </div>
         </div>
