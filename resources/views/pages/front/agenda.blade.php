@@ -33,11 +33,13 @@
         .styled-table tbody tr:last-of-type {
             border-bottom: 2px solid #fab20b;
         }
+
         /* Mengatur ukuran input pencarian dan posisinya */
         .dataTables_wrapper .dataTables_filter {
             float: right;
             text-align: right;
             padding: 0;
+            padding-left: 0.5em;
             margin: 0;
         }
 
@@ -78,16 +80,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($agenda as $key => $ag)
-                    <tr>
-                        <td width="5%">{{ $key + 1 }}</td>
-                        <td width="40%">{!! $ag->title !!}</td>
-                        <td width="25%">{{ $ag->place }}</td>
-                        <td width="15%">{!! (new \App\Helpers\Helper())->tgl_indo($ag->time) !!}</td>
-                        <td width="10%">{{ $ag->hour }}</td>
-                        </td>
-                    </tr>
-                @endforeach --}}
                 </tbody>
             </table>
         </div>
@@ -127,9 +119,11 @@
                     data: "place"
                 }, {
                     width: "10%",
+                    class: "text-center",
                     data: "time"
                 }, {
                     width: "10%",
+                    class: "text-center",
                     data: "hour"
                 }],
                 pageLength: 25,

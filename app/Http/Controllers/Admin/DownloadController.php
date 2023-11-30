@@ -232,4 +232,36 @@ class DownloadController extends Controller
             ], 500);
         }
     }
+
+    // API FRONTEND
+    public function homeDataTable(Request $request)
+    {
+        $query = MaDownload::query();
+
+        if ($request->query("search")) {
+            $searchValue = $request->query("search")['value'];
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('title', 'like', '%' . $searchValue . '%')->orWhere('description', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        $data = $query->orderBy('created_at', 'desc')
+            ->skip($request->query('start'))
+            ->limit($request->query('length'))
+            ->get();
+
+        $output = $data->map(function ($item, $index) {
+            $item['no'] = $index + 1;
+            $item['download'] = '<a href="' . Storage::url($item->file) . '" download="' . $item->title . '" target="_blank">Download</a>';
+            return $item;
+        });
+
+        $total = MaDownload::count();
+        return response()->json([
+            'draw' => $request->query('draw'),
+            'recordsFiltered' => $total,
+            'recordsTotal' => $total,
+            'data' => $output,
+        ]);
+    }
 }

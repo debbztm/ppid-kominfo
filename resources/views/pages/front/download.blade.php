@@ -33,29 +33,93 @@
         .styled-table tbody tr:last-of-type {
             border-bottom: 2px solid #fab20b;
         }
+
+        /* Mengatur ukuran input pencarian dan posisinya */
+        .dataTables_wrapper .dataTables_filter {
+            float: right;
+            text-align: right;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dataTables_wrapper .dataTables_filter input {
+            width: 200px;
+            /* Sesuaikan ukuran sesuai preferensi Anda */
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            padding-left: 0.5em;
+            margin-left: 10px;
+        }
+
+        /* Mengatur tampilan elemen "Show Entries" */
+        .dataTables_wrapper .dataTables_length {
+            float: left;
+            margin: 0;
+        }
+
+        /* Mengatur tampilan tombol "Previous" dan "Next" */
+        .dataTables_wrapper .dataTables_paginate {
+            float: right;
+            margin: 0;
+        }
     </style>
 @endpush
 @section('content')
     <section class="container mt-150 mb-150">
-        <table class="styled-table">
+        <table class="styled-table dataTable" id="downloadTable">
             <thead>
                 <tr>
                     <th>No</th>
                     <th class="text-center">Nama File</th>
+                    <th class="text-center">Deskripsi</th>
                     <th class="text-center">Download</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($downloads as $key => $d)
-                    <tr>
-                        <td width="5%">{{ $key + 1 }}</td>
-                        <td width="75%">{{ $d->title }}</td>
-                        <td width="20%" class="text-center"><a href="{{ Storage::url($d->file) }}" download="{{ $d->title }}" target="_blank">Download</a>
-                        </td>
-                    </tr>
-                @endforeach
             </tbody>
         </table>
 
     </section>
 @endsection
+@push('scripts')
+    <script src="{{ asset('frontend/js/jquery-1.11.3.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/datatables/datatables.min.js') }}"></script>
+    <script>
+        $(function() {
+            dataTable();
+        })
+
+        function dataTable() {
+            const url = "/api/download/datatable";
+            dTable = $("#downloadTable").DataTable({
+                searching: true,
+                orderng: false,
+                lengthChange: true,
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                searchDelay: 1000,
+                paging: true,
+                lengthChange: false,
+                // lengthMenu: [5, 10, 25, 50, 100],
+                ajax: url,
+                columns: [{
+                    width: "5%",
+                    data: "no"
+                }, {
+                    width: "25%",
+                    data: "title"
+                },{
+                    width: "35%",
+                    data: "title"
+                },  {
+                    width: "20%",
+                    class: "text-center",
+                    data: "download"
+                }],
+                pageLength: 25,
+            });
+        }
+    </script>
+@endpush
