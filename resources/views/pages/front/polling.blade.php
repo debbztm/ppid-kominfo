@@ -38,7 +38,7 @@
 
                         <strong>{{ $polling->answer3 }}</strong><span class="pull-right">{{ $polling->vote3 }} Vote</span>
                         <div class="progress">
-                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
+                            <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"
                                 style="width:{{ round(($polling->vote3 / $total) * 100) }}%;"
                                 aria-valuenow="{{ round(($polling->vote3 / $total) * 100) }}" aria-valuemin="0"
                                 aria-valuemax="100"></div>
@@ -46,7 +46,7 @@
 
                         <strong>{{ $polling->answer4 }}</strong><span class="pull-right">{{ $polling->vote4 }} Vote</span>
                         <div class="progress">
-                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
+                            <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"
                                 style="width:{{ round(($polling->vote4 / $total) * 100) }}%;"
                                 aria-valuenow="{{ round(($polling->vote4 / $total) * 100) }}" aria-valuemin="0"
                                 aria-valuemax="100"></div>

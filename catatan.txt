@@ -159,7 +159,7 @@ buat dashboard role user (ok)
 
 home (ok)
 profil (ok)
-balai/upt
+balai/upt (ok)
 berita (ok)
 pengaduan (ok)
 portal data (ok)
@@ -171,3 +171,5 @@ gallery
   - video (ok)
 hubungi kami (ok)
 pooling (ok)
+
+tambah statistik dashboard (ok)
