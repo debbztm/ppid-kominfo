@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Hall;
 use App\Models\MaAgenda;
 use App\Models\MaPost;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -43,8 +44,11 @@ class HallController extends Controller
         if ($hall) {
             $news =  MaPost::where('hall_id', $hall->id)->orderBy('id', 'desc')->paginate(9);
         }
-        $user = json_decode(Cookie::get("user"));
-        $agenda = MaAgenda::where("username", $user->username)->orderBy('time', 'desc')->get();
+        $user = User::where('hall_id', $hall->id)->first();
+        $agenda = [];
+        if ($user) {
+            $agenda = MaAgenda::where("username", $user->username)->orderBy('time', 'desc')->get();
+        }
         // var_dump($agenda);
 
         return view('pages.front.hall', compact('title', 'hall', 'news', 'agenda'));
