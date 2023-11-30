@@ -94,7 +94,7 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('profile/tupoksi', [ProfileController::class, 'tupoksi'])->name('tupoksi');
     Route::get('profile/organization', [ProfileController::class, 'organization'])->name('organization');
     Route::get('profile/official', [ProfileController::class, 'official'])->name('official');
-
+    Route::get('account', [AuthController::class, 'account'])->name('account'); //account
     //FOR ROLE USER
     Route::get('hall-profile', [HallController::class, 'hallProfile'])->name('hall-profile'); // profile balai
     Route::get('hall-contact', [HallController::class, 'hallContact'])->name('hall-contact'); // kotak balai

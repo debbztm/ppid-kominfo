@@ -45,6 +45,7 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
 
 // HOME
 Route::get('/agenda', [HomeController::class, 'getAgenda']);
+Route::get("/agenda/datatable", [AgendaController::class, "homeDataTable"]);
 Route::post('/polling/update', [PollingController::class, 'update']);
 
 // AUTH
@@ -238,7 +239,11 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/create-update", [ProfileController::class, 'createAndUpdate']);
     });
 
-
+    // CHANGE PASS
+    Route::group(["prefix" => "user"], function () {
+        Route::get("/detail", [AuthController::class, "detail"]);
+        Route::post("/update", [AuthController::class, "update"]);
+    });
     // FOR ROLE USER
     Route::group(["prefix" => "hall-profile"], function () {
         Route::get("/detail", [HallController::class, 'getHallProfileContact']);

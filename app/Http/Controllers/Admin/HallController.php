@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hall;
+use App\Models\MaAgenda;
 use App\Models\MaPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -38,9 +39,15 @@ class HallController extends Controller
     {
         $title = "Balai/UPT - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
         $hall = Hall::where('id', $id)->where('seo', $seo)->first();
-        $news = MaPost::where('hall_id', $id)->orderBy('id', 'desc')->paginate(9);
+        $news = false;
+        if ($hall) {
+            $news =  MaPost::where('hall_id', $hall->id)->orderBy('id', 'desc')->paginate(9);
+        }
+        $user = json_decode(Cookie::get("user"));
+        $agenda = MaAgenda::where("username", $user->username)->orderBy('time', 'desc')->get();
+        // var_dump($agenda);
 
-        return view('pages.front.hall', compact('title', 'hall', 'news'));
+        return view('pages.front.hall', compact('title', 'hall', 'news', 'agenda'));
     }
 
     // HANDLE API

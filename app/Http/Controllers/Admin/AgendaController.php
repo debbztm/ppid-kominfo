@@ -238,4 +238,35 @@ class AgendaController extends Controller
             ], 500);
         }
     }
+
+    // API FRONTEND
+    public function homeDataTable(Request $request)
+    {
+        $query = MaAgenda::query();
+
+        if ($request->query("search")) {
+            $searchValue = $request->query("search")['value'];
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('title', 'like', '%' . $searchValue . '%')->orWhere('place', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        $data = $query->orderBy('created_at', 'desc')
+            ->skip($request->query('start'))
+            ->limit($request->query('length'))
+            ->get();
+
+        $output = $data->map(function ($item, $index) {
+            $item['no'] = $index + 1;
+            return $item;
+        });
+
+        $total = MaAgenda::count();
+        return response()->json([
+            'draw' => $request->query('draw'),
+            'recordsFiltered' => $total,
+            'recordsTotal' => $total,
+            'data' => $output,
+        ]);
+    }
 }

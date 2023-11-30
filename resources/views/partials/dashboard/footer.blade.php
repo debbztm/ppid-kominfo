@@ -20,8 +20,7 @@
             </ul>
         </nav>
         <div class="copyright ml-auto">
-            2018, made with <i class="fa fa-heart heart text-danger"></i> by <a
-                href="http://www.themekita.com">ThemeKita</a>
+                Copyright © 2023 Dinas Energi Sumber Daya Mineral (ESDM) Provinsi Jawa Tengah. All right reserved | ESDM Jateng
         </div>
     </div>
 </footer>

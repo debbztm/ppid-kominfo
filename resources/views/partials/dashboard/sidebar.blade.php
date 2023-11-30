@@ -52,12 +52,19 @@
                             <p>Slide</p>
                         </a>
                     </li>
-                    <li class="nav-item ml-3 {{ $routename == 'news' ? 'active' : '' }}">
-                        <a href="{{ route('news') }}">
-                            <i class="fas fa-newspaper"></i>
-                            <p>Berita</p>
-                        </a>
-                    </li>
+                @endif
+
+                {{-- PUBLIC --}}
+                <li class="nav-item ml-3 {{ $routename == 'news' ? 'active' : '' }}">
+                    <a href="{{ route('news') }}">
+                        <i class="fas fa-newspaper"></i>
+                        <p>Berita</p>
+                    </a>
+                </li>
+
+
+                {{-- ADMIN --}}
+                @if ($role == 'ADMIN')
                     <li class="nav-item ml-3 {{ $routename == 'pages' ? 'active' : '' }}">
                         <a href="{{ route('pages') }}">
                             <i class="fas fa-money-bill-alt"></i>
@@ -225,6 +232,12 @@
                     </li>
                 @endif
 
+                <li class="nav-item ml-3 {{ $routename == 'account' ? 'active' : '' }}">
+                    <a href="{{ route('account') }}">
+                        <i class="fas fa-user-cog"></i>
+                        <p>Setting Akun</p>
+                    </a>
+                </li>
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>

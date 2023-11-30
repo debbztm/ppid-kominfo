@@ -43,6 +43,38 @@
         .conteudo.visivel {
             display: block;
         }
+
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table thead tr {
+            background-color: #fab20b;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #fab20b;
+        }
     </style>
 @endpush
 @section('content')
@@ -54,45 +86,85 @@
                     <ul id="abas" class="teste text-center">
                         <li class="selecionada"><a id="aba_profile">Profile</a></li>
                         <li><a id="aba_news">Berita</a></li>
+                        <li><a id="aba_ageda">Agenda</a></li>
                         <li><a id="aba_contact">Kontak</a></li>
                     </ul>
                     <div id="conteudos">
                         <div id="conteudo_profile" class="conteudo visivel">
-                            {!! $hall->profile !!}
+                            @if ($hall)
+                                {!! $hall->profile !!}
+                                @if ($hall->image)
+                                    <div class="mt-50">
+                                        <img class="img-responsive" src="{{ Storage::url($hall->image) }}"
+                                            alt="{{ $hall->title }}"
+                                            style="width:450px!important; margin: 0 auto; image-fit:cover !important;">
+                                    </div>
+                                @endif
+                            @endif
                         </div>
                         <div id="conteudo_news" class="conteudo">
-                            <div class="row mt-100 mb-50">
-                                @foreach ($news as $new)
-                                    <div class="col col-md-4 mt-10" style="height: 600px !important;">
-                                        <div class="blog-post">
-                                            <div class="blog-post-img">
-                                                <img class="img-responsive" src="{{ Storage::url($new->image) }}"
-                                                    alt="{{ $new->title }}"
-                                                    style="width:350px!important; height: 200px!important; margin: 0 auto; image-fit:cover !important;">
-                                                <div class="blog-post-date"><img
-                                                        src="{{ asset('frontend/img/blog-c.png') }}" alt=""><span
-                                                        class="white martel fz-13 text-uppercase">{!! (new \App\Helpers\Helper())->tgl_indo($new->date) !!}</span>
+                            @if ($news)
+                                <div class="row mt-100 mb-50">
+                                    @foreach ($news as $new)
+                                        <div class="col col-md-4 mt-10" style="height: 600px !important;">
+                                            <div class="blog-post">
+                                                <div class="blog-post-img">
+                                                    <img class="img-responsive" src="{{ Storage::url($new->image) }}"
+                                                        alt="{{ $new->title }}"
+                                                        style="width:350px!important; height: 200px!important; margin: 0 auto; image-fit:cover !important;">
+                                                    <div class="blog-post-date"><img
+                                                            src="{{ asset('frontend/img/blog-c.png') }}"
+                                                            alt=""><span
+                                                            class="white martel fz-13 text-uppercase">{!! (new \App\Helpers\Helper())->tgl_indo($new->date) !!}</span>
+                                                    </div>
                                                 </div>
+                                                <h5 class="black-23 mt-20">
+                                                    {{ Illuminate\Support\Str::limit($new->title, 100) }}
+                                                </h5>
+                                                <h6 class="ubuntu fz-13 gray-777 mt-20">Dibuat oleh {{ $new->username }}
+                                                </h6>
+                                                <p class="mt-20 lh-28">{!! Illuminate\Support\Str::limit($new->description, 200) !!}</p>
+                                                <div class="mt-10">
+                                                    <a href="{{ route('read-news', ['id' => $new->id, 'seo' => $new->seo]) }}"
+                                                        class="btn-green-br lh-40  no-radius">Selengkapnya</a>
+                                                </div>
+                                                <hr class="ed-divider mt-40">
                                             </div>
-                                            <h5 class="black-23 mt-20">{{ Illuminate\Support\Str::limit($new->title, 100) }}
-                                            </h5>
-                                            <h6 class="ubuntu fz-13 gray-777 mt-20">Dibuat oleh {{ $new->username }}</h6>
-                                            <p class="mt-20 lh-28">{!! Illuminate\Support\Str::limit($new->description, 200) !!}</p>
-                                            <div class="mt-10">
-                                                <a href="{{ route('read-news', ['id' => $new->id, 'seo' => $new->seo]) }}"
-                                                    class="btn-green-br lh-40  no-radius">Selengkapnya</a>
-                                            </div>
-                                            <hr class="ed-divider mt-40">
                                         </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 mx-auto text-center">
-                                    {{ $news->links() }}
+                                    @endforeach
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-12 mx-auto text-center">
+                                        {{ $news->links() }}
+                                    </div>
+                                </div>
+                            @endif
 
+                        </div>
+                        <div id="conteudo_agenda" class="conteudo visivel">
+                            <table class="table styled-table dataTable" id="agendaTable">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Agenda</th>
+                                        <th class="text-center">Tempat</th>
+                                        <th class="text-center">Tanggal</th>
+                                        <th class="text-center">Jam</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($agenda as $key => $ag)
+                                        <tr>
+                                            <td width="5%">{{ $key + 1 }}</td>
+                                            <td width="40%">{!! $ag->title !!}</td>
+                                            <td width="25%">{{ $ag->place }}</td>
+                                            <td width="15%">{!! (new \App\Helpers\Helper())->tgl_indo($ag->time) !!}</td>
+                                            <td width="10%">{{ $ag->hour }}</td>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                         <div id="conteudo_contact" class="conteudo">
                             <div class="row">
@@ -102,7 +174,8 @@
                                         <div class="pull-left">
                                             <h5 class="fz-15 black text-bold mb-10">Phone / WhatsApp</h5>
                                             @if ($hall)
-                                                <span class="ubuntu fz-14 gray-777 lh-22">Phone {{ $hall->phone }} <br>WA :
+                                                <span class="ubuntu fz-14 gray-777 lh-22">Phone {{ $hall->phone }} <br>WA
+                                                    :
                                                     {{ $hall->whatsapp }}</span>
                                             @endif
                                         </div>
