@@ -86,7 +86,7 @@
                     <ul id="abas" class="teste text-center">
                         <li class="selecionada"><a id="aba_profile">Profile</a></li>
                         <li><a id="aba_news">Berita</a></li>
-                        <li><a id="aba_ageda">Agenda</a></li>
+                        <li><a id="aba_agenda">Agenda</a></li>
                         <li><a id="aba_contact">Kontak</a></li>
                     </ul>
                     <div id="conteudos">
