@@ -96,7 +96,7 @@
                                 <div class="causes-img text-center">
                                     <img src="{{ Storage::url($news->image) }}"alt="{{ $news->title }}"
                                         class="img-responsive"
-                                        style="width:300px!important; height: 150px!important; margin: 0 auto;">
+                                        style="width:100%!important; height: 150px!important; margin: 0 auto; object-fit:cover !important;">
                                 </div>
                                 <div class="cause-content text-center">
                                     <h5 class="martel text-semi-bold d-black mt-10">{!! Illuminate\Support\Str::limit($news->title, 100) !!}</h5>
@@ -196,50 +196,57 @@
             </div>
         </div>
     </section>
+    {{-- Berita & Agenda --}}
     <section class="recent-causes mb-150">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h3 class="text-uppercase black h-sep">Berita <span class="text-ultra-bold"></span> </h3>
-                    <p class="fz-16 gray-666 mt-50">Berita terbaru dari ppid kominfo</p>
+                    <p class="fz-16 gray-666 mt-50">Berita dan Agenda terkini</p>
                 </div>
             </div>
             <div class="row mt-20">
-                @foreach ($news5 as $key => $news5)
-                    <div class="col-md-4 mt-50 cause-main">
-                        <div class="item" style="height: 400px !important;">
-                            <div class="causes-img text-center">
-                                <img src="{{ Storage::url($news5->image) }}"alt="{{ $news5->title }}"
-                                    class="img-responsive"
-                                    style="width:300px!important; height: 150px!important; margin: 0 auto;">
+                <div class="col-md-6">
+                    <div class="row">
+                        @foreach ($news5 as $key => $news5)
+                            <div class="col-md-4 col-sm-3 col-xs-6 mt-50 cause-main">
+                                <div class="item" style="height: 300px !important;">
+                                    <div class="causes-img text-center">
+                                        <img src="{{ Storage::url($news5->image) }}"alt="{{ $news5->title }}"
+                                            class="img-responsive"
+                                            style="width:150px!important; max-height: 75px!important; margin: 0 auto;">
+                                    </div>
+                                    <div class="cause-content text-center" style="padding: 2px !important;">
+                                        <p class="martel text-semi-bold d-black mt-5" style="font-size: 12px !important;">
+                                            {!! Illuminate\Support\Str::limit($news5->title, 30) !!}</p>
+                                        <div class="lh-22 mt-10"
+                                            style="font-size:10px !important; font-weight: 200 !important;">
+                                            {!! Illuminate\Support\Str::limit($news5->description, 50) !!}</div>
+                                        <a class="fz-14 mt-20 btn-green-br"
+                                            href="{{ route('read-news', ['id' => $news5->id, 'seo' => $news5->seo]) }}">Selengkapnya...</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="cause-content text-center" style="padding: 2px !important;">
-                                <p class="martel text-semi-bold d-black mt-5">{!! Illuminate\Support\Str::limit($news5->title, 50) !!}</p>
-                                <div class="lh-22 mt-10">{!! Illuminate\Support\Str::limit($news5->description, 80) !!}</div>
-                                <a class="fz-14 mt-20 btn-green-br"
-                                    href="{{ route('read-news', ['id' => $news5->id, 'seo' => $news5->seo]) }}">Selengkapnya...</a>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-    {{-- agenda --}}
-    <section class="mt-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-sm-8">
-                    <div class="count-down">
-                        <div class="count-header clearfix">
-                            <div class="pull-left">
-                                <h4 class="green-6f text-uppercase mb-15 text-semi-bold">Agenda Terbaru</h4>
-                                @if ($agenda)
-                                    <span class="karla gray-777 fz-14"><i class="fa fa-clock-o"></i>
-                                        {{ $agenda->time }} <span class="three-pm">{{ $agenda->hour }}</span></span>
-                                @endif
+                </div>
+                <div class="col-md-6">
+                    <div class="mt-50">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="count-header clearfix">
+                                    <div class="pull-left">
+                                        <h4 class="green-6f text-uppercase mb-15 text-semi-bold">Agenda Terbaru</h4>
+                                        @if ($agenda)
+                                            <span class="karla gray-777 fz-14"><i class="fa fa-clock-o"></i>
+                                                {{ $agenda->time }} <span
+                                                    class="three-pm">{{ $agenda->hour }}</span></span>
+                                        @endif
+                                    </div>
+                                    <img class="pull-right mt-10" src="{{ asset('frontend/img/calendar.png') }}"
+                                        alt="">
+                                </div>
                             </div>
-                            <img class="pull-right mt-10" src="{{ asset('frontend/img/calendar.png') }}" alt="">
                         </div>
 
                         <div id="clock"></div>
@@ -256,7 +263,7 @@
     <section class="gray-f9f9-bg">
         <div class="container">
             <div class="row mb-100 ">
-                <div class="col-md-6 col-sm-4 mt-150">
+                <div class="col-md-6 col-sm-6 mt-150">
                     <div class="card mz-auto">
                         <div class="contact-info clearfix">
                             <div class="reg-down">
@@ -278,7 +285,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-4 mt-150">
+                <div class="col-md-6 col-sm-6 mt-150">
                     <div class="card">
                         <div class="contact-info clearfix">
                             <div class="reg-down">
@@ -317,22 +324,23 @@
                 <div class="col-md-6">
                     <div class="row">
                         @foreach ($imggallery as $img)
-                            <a href="{{ route('home-img-gallery') }}">
-                                <div class="col-md-6 mt-15 cause-main">
+                            <div class="col-md-6 col-sm-6 col-xs-6   mt-15 cause-main">
+                                <a href="{{ route('home-img-gallery') }}">
                                     <div class="item">
                                         <div class="causes-img text-center">
-                                            <img src="{{ Storage::url($img->image) }}"alt="foto" class="img-responsive"
-                                                style="min-width:250px!important; height: 250px!important; margin: 0 auto; object-fit:cover;">
+                                            <img src="{{ Storage::url($img->image) }}"alt="foto"
+                                                class="img-responsive mt-20"
+                                                style="min-width:200px!important; height: 250px!important; margin: 0 auto; object-fit:cover;">
                                         </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>  
                         @endforeach
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
-                        <div class="col-12 mt-15">
+                        <div class="col-md-12 mt-15">
                             @if ($video)
                                 <iframe width="100%" height="100%"
                                     src="//www.youtube.com/embed/{{ $video->link }}?showinfo=0&amp;iv_load_policy=3&amp;controls=0"
@@ -460,11 +468,28 @@
                 }
                 $('#clock').countdown('', function(event) {
                     var $this = $(this).html(event.strftime('' +
-                        `<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">Tanggal</span> <span class="karla fz-60 green-6f">${localDate[0]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>   ` +
-                        `<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">Bulan</span> <span class="karla fz-60 green-6f">${localDate[1]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>   ` +
-                        `<div class="time-p mt-80 text-center"><span class="hr poppins text-uppercase d-black">Jam</span> <span class="karla fz-60 green-6f">${localTime[0]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  ` +
-                        `<div class="time-p mt-80 text-center"><span class="min poppins text-uppercase d-black">Menit</span> <span class="karla fz-60 green-6f">${localTime[1]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  ` +
-                        `<div class="time-p mt-80 text-center"><span class="min poppins text-uppercase d-black">Waktu</span> <span class="karla fz-60 green-6f">${localTime[2]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  `
+                        `<div class="row">` +
+
+                        `<div class="col-xs-4 col-sm-3 col-md-2">` +
+                        `<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">Tanggal</span> <span class="karla fz-20 green-6f">${localDate[0]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>   ` +
+                        `</div>` +
+
+                        `<div class="col-xs-4 col-sm-3 col-md-2">` +
+                        `<div class="time-p mt-80 text-center"><span class="days poppins text-uppercase d-black">Bulan</span> <span class="karla fz-20 green-6f">${localDate[1]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>   ` +
+                        `</div>` +
+
+                        `<div class="col-xs-4 col-sm-3 col-md-2">` +
+                        `<div class="time-p mt-80 text-center"><span class="hr poppins text-uppercase d-black">Jam</span> <span class="karla fz-20 green-6f">${localTime[0]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  ` +
+                        `</div>` +
+
+                        `<div class="col-xs-4 col-sm-3 col-md-2">` +
+                        `<div class="time-p mt-80 text-center"><span class="min poppins text-uppercase d-black">Menit</span> <span class="karla fz-20 green-6f">${localTime[1]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  ` +
+                        `</div>` +
+
+                        `<div class="col-xs-4 col-sm-3 col-md-2">` +
+                        `<div class="time-p mt-80 text-center"><span class="min poppins text-uppercase d-black">Waktu</span> <span class="karla fz-20 green-6f">${localTime[2]}</span><span class="year karala fz-14 gray-777">${localDate[2]}</span></div>  ` +
+                        `</div>`
+
                     ));
                 });
 

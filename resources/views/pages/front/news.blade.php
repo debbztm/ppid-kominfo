@@ -18,7 +18,7 @@
                 </form>
             </div>
         </div>
-        <div class="row mt-100 mb-50">
+        <div class="row mt-50 mb-50">
             @foreach ($news as $new)
                 <div class="col col-md-4 mt-10" style="height: 600px !important;">
                     <div class="blog-post">
