@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\MaRegulation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -25,6 +26,12 @@ class RegulationController extends Controller
         return view('pages.front.regulation', compact("title", "regulation"));
     }
 
+    public function homeListRegulation()
+    {
+        $title = "Regulasi - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $regulation = MaRegulation::all();
+        return view('pages.front.list-regulation', compact("title", "regulation"));
+    }
     // HANDLE API
     public function dataTable(Request $request)
     {
@@ -274,5 +281,37 @@ class RegulationController extends Controller
                 "message" => $err->getMessage()
             ], 500);
         }
+    }
+
+    // API FRONTEND
+    public function homeDataTable(Request $request)
+    {
+        $query = MaRegulation::query();
+
+        if ($request->query("search")) {
+            $searchValue = $request->query("search")['value'];
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('title', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        $data = $query->orderBy('created_at', 'desc')
+            ->skip($request->query('start'))
+            ->limit($request->query('length'))
+            ->get();
+
+        $output = $data->map(function ($item, $index) {
+            $item['no'] = $index + 1;
+            $item['detail'] = '<a class="badge badge-primary" href="' .  route('home-regulation', $item->seo) . '">Detail</a>';
+            return $item;
+        });
+
+        $total = MaRegulation::count();
+        return response()->json([
+            'draw' => $request->query('draw'),
+            'recordsFiltered' => $total,
+            'recordsTotal' => $total,
+            'data' => $output,
+        ]);
     }
 }

@@ -190,59 +190,53 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3 class="white h-sep">Permohonan <span class="text-ultra-bold">Informasi </span> </h3>
+                    <h3 class="white ">Permohonan <span class="text-ultra-bold">Informasi </span> </h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3 col-sm-0">
+                <div class="col-md-1 col-sm-0">
                 </div>
-                <div class="col-md-2 col-sm-6 mt-70">
+                <div class="col-md-2 col-sm-6 mt-40">
                     <div id="canvas-holder" class="clearfix">
                         <div class="round-bar-status pull-left text-center">
-                            <h2 class="white text-semi-bold" style="font-size:20px">{{ $meta->application }}</h2>
-                            <h5 class="fz-13 text-semi-bold white text-uppercase mt-10">Permohonan</h5>
+                            <h2 class="white text-semi-bold" style="font-size:50px">{{ $meta->application }}</h2>
+                            <h2 class="fz-13 text-semi-bold white text-uppercase mt-10">Permohonan</h2>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6 mt-70">
+                <div class="col-md-2 col-sm-6 mt-40">
                     <div id="canvas-holder1" class="clearfix">
                         <div class="round-bar-status pull-left text-center">
-                            <h2 class="white text-semi-bold" style="font-size:20px">{{ $meta->granted }}</h2>
-                            <h5 class="fz-13 text-semi-bold white text-uppercase mt-10">Dikabulkan</h5>
+                            <h2 class="white text-semi-bold" style="font-size:50px">{{ $meta->granted }}</h2>
+                            <h2 class="fz-13 text-semi-bold white text-uppercase mt-10">Dikabulkan</h2>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6 mt-70">
+                <div class="col-md-2 col-sm-6 mt-40">
                     <div id="canvas-holder2" class="clearfix">
                         <div class="round-bar-status pull-left text-center">
-                            <h2 class="white text-semi-bold" style="font-size:20px">{{ $meta->objected }}</h2>
-                            <h5 class="fz-13 text-semi-bold white text-uppercase mt-10">Keberatan</h5>
+                            <h2 class="white text-semi-bold" style="font-size:50px">{{ $meta->objected }}</h2>
+                            <h2 class="fz-13 text-semi-bold white text-uppercase mt-10">Keberatan</h2>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-0">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-0">
-                </div>
-                <div class="col-md-2 col-sm-6 mt-70">
+                <div class="col-md-2 col-sm-6 mt-40">
                     <div id="canvas-holder3" class="clearfix">
                         <div class="round-bar-status pull-left text-center">
-                            <h2 class="white text-semi-bold" style="font-size:20px">{{ $meta->rejected }}</h2>
-                            <h5 class="fz-13 text-semi-bold white text-uppercase mt-10">Ditolak</h5>
+                            <h2 class="white text-semi-bold" style="font-size:50px">{{ $meta->rejected }}</h2>
+                            <h2 class="fz-13 text-semi-bold white text-uppercase mt-10">Ditolak</h2>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6 mt-70">
+                <div class="col-md-2 col-sm-6 mt-40">
                     <div id="canvas-holder" class="clearfix">
                         <div class="round-bar-status pull-left text-center">
-                            <h2 class="white text-semi-bold" style="font-size:20px">{{ $meta->ikm }}</h2>
-                            <h5 class="fz-13 text-semi-bold white text-uppercase mt-10">IKM</h5>
+                            <h2 class="white text-semi-bold" style="font-size:50px">{{ $meta->ikm }}</h2>
+                            <h2 class="fz-13 text-semi-bold white text-uppercase mt-10">IKM</h2>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-0">
+                <div class="col-md-1 col-sm-0">
                 </div>
             </div>
         </div>
@@ -253,7 +247,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h3 class="text-uppercase black h-sep">Berita <span class="text-ultra-bold"></span> </h3>
-                    <p class="fz-16 gray-666 mt-50">Berita dan Agenda terkini</p>
+                    <p class="fz-16 gray-666 mt-50">Berita terkini</p>
                 </div>
             </div>
             <div class="row mt-20">
@@ -269,10 +263,11 @@
                                     </div>
                                     <div class="cause-content text-center" style="padding: 2px !important;">
                                         <p class="martel text-semi-bold d-black mt-5">
-                                            {{ Illuminate\Support\Str::limit(strip_tags($news->title), 50) }}
+                                            {{ $news5->id}}
+                                            {{ Illuminate\Support\Str::limit(strip_tags($news5->title), 50) }}
                                         </p>
                                         <p class="lh-22 mt-10">
-                                            {{ Illuminate\Support\Str::limit(strip_tags($news->description), 150) }}
+                                            {{ Illuminate\Support\Str::limit(strip_tags($news5->description), 150) }}
                                         </p>
                                         <a class="fz-14 mt-20 btn-green-br"
                                             href="{{ route('read-news', ['id' => $news5->id, 'seo' => $news5->seo]) }}">Selengkapnya...</a>
@@ -288,8 +283,26 @@
     {{-- Regulation & Download --}}
     <section class="gray-f9f9-bg">
         <div class="container">
-            <div class="row mb-50 ">
-                <div class="col-md-6 col-sm-6 mt-50">
+            <div class="row mb-20">
+                <div class="col-md-3"></div>
+                <div class="col-md-3 text-center">
+                    <div class="btns mt-25">
+                        <a class="text-uppercase martel fz-14 btn-prime tri-b" href="{{ route('home-list-regulation') }}"
+                            style="width: 265px;">
+                            REGULASI
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="btns mt-25">
+                        <a class="text-uppercase martel fz-14 btn-prime tri-b" href="{{ route('home-download') }}"
+                            style="width: 265px;">
+                            UNDUH
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+                {{-- <div class="col-md-6 col-sm-6 mt-50">
                     <div class="card mz-auto">
                         <div class="contact-info clearfix">
                             <div class="reg-down">
@@ -332,7 +345,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -400,7 +413,9 @@
                             <div class="project-img position-r">
                                 <div class="gallery-item mt-20">
                                     <div class="gallery-img">
-                                        <img class="img-responsive" src="{{ Storage::url($ig->image) }}" alt="infografis" style="width: 100%; height: 300px!important; object-fit:cover;">
+                                        <img class="img-responsive" src="{{ Storage::url($ig->image) }}"
+                                            alt="infografis"
+                                            style="width: 100%; height: 300px!important; object-fit:cover;">
                                         <div class="gallery-overlay"></div>
                                         <div class="gallery-overlay-content text-center"
                                             data-featherlight="{{ Storage::url($ig->image) }}">
@@ -454,7 +469,7 @@
                 <div class="col-md-12">
                     <div class="test-sldier banner">
                         @foreach ($link as $key => $link)
-                            <a href="{{ $link->url }}">
+                            <a href="http://{{ $link->url }}">
                                 <div class="item">
                                     <div class="position-r pull-left">
                                         <img class="" src="{{ Storage::url($link->image) }}"

@@ -67,13 +67,12 @@
 @endpush
 @section('content')
     <section class="container mt-150 mb-150">
-        <table class="styled-table dataTable" id="downloadTable">
+        <table class="styled-table dataTable" id="regulationTable">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th class="text-center">Nama File</th>
-                    <th class="text-center">Deskripsi</th>
-                    <th class="text-center">Download</th>
+                    <th class="text-center">Nama Regulasi</th>
+                    <th class="text-center">Detail</th>
                 </tr>
             </thead>
             <tbody>
@@ -91,8 +90,8 @@
         })
 
         function dataTable() {
-            const url = "/api/download/datatable";
-            dTable = $("#downloadTable").DataTable({
+            const url = "/api/regulation/datatable";
+            dTable = $("#regulationTable").DataTable({
                 searching: true,
                 orderng: false,
                 lengthChange: true,
@@ -108,15 +107,12 @@
                     width: "5%",
                     data: "no"
                 }, {
-                    width: "25%",
+                    width: "40%",
                     data: "title"
-                },{
-                    width: "35%",
-                    data: "description"
-                },  {
-                    width: "20%",
+                }, {
+                    width: "10%",
                     class: "text-center",
-                    data: "download"
+                    data: "detail"
                 }],
                 pageLength: 25,
             });

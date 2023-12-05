@@ -252,7 +252,8 @@ class DownloadController extends Controller
 
         $output = $data->map(function ($item, $index) {
             $item['no'] = $index + 1;
-            $item['download'] = '<a href="' . Storage::url($item->file) . '" download="' . $item->title . '" target="_blank">Download</a>';
+            $item['desctiption'] = strip_tags($item->description);
+            $item['download'] = '<a class="badge badge-primary" href="' . Storage::url($item->file) . '" download="' . $item->title . '" target="_blank">Download</a>';
             return $item;
         });
 

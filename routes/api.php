@@ -47,6 +47,7 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
 Route::get('/agenda', [HomeController::class, 'getAgenda']);
 Route::get("/agenda/datatable", [AgendaController::class, "homeDataTable"]);
 Route::get("/download/datatable", [DownloadController::class, "homeDataTable"]);
+Route::get("/regulation/datatable", [RegulationController::class, "homeDataTable"]);
 Route::post('/polling/update', [PollingController::class, 'update']);
 
 // AUTH

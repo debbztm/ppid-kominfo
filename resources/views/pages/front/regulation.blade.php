@@ -50,7 +50,7 @@
                     <tr>
                         <td width="5%">{{ $key + 1 }}</td>
                         <td width="75%">{{ $regfile->title }}</td>
-                        <td width="20%" class="text-center"><a href="{{ Storage::url($regfile->file) }}" download="{{ $regfile->title }}" target="_blank">Download</a>
+                        <td width="20%" class="text-center"><a class="badge badge-primary" href="{{ Storage::url($regfile->file) }}" download="{{ $regfile->title }}" target="_blank">Download</a>
                         </td>
                     </tr>
                 @endforeach

@@ -45,6 +45,7 @@ Route::get("/news", [PostController::class, 'homePost'])->name('home-news');
 // Rout::post('/news/search', [PostController::class, 'homePostSearch'])->name('home-news-search');
 Route::get("/news/read/{id}/{seo}", [PostController::class, 'homePostDetail'])->name('read-news');
 Route::get('/regulation/{seo}', [RegulationController::class, 'homeRegulation'])->name('home-regulation');
+Route::get('/regulation', [RegulationController::class, 'homeListRegulation'])->name('home-list-regulation');
 Route::get('/download', [DownloadController::class, 'homeDownload'])->name('home-download');
 Route::get('/agenda', [AgendaController::class, 'homeAgenda'])->name("home-agenda");
 Route::get('/gallery/photo', [GalleryController::class, 'homeGallery'])->name('home-img-gallery');
