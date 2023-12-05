@@ -248,7 +248,7 @@
         </div>
     </section>
     {{-- Berita --}}
-    <section class="recent-causes mb-50">
+    <section class="recent-causes">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -261,11 +261,11 @@
                     <div class="row">
                         @foreach ($news5 as $key => $news5)
                             <div class="col-md-3 col-sm-3 col-xs-6 mt-50 cause-main">
-                                <div class="item" style="height: 450px !important;">
+                                <div class="item" style="height: 500px !important;">
                                     <div class="causes-img text-center">
                                         <img src="{{ Storage::url($news5->image) }}"alt="{{ $news5->title }}"
                                             class="img-responsive"
-                                            style="width:100%!important; height: 250px!important; object-fit:cover; margin: 0 auto;">
+                                            style="width:100%!important; height: 200px!important; object-fit:cover; margin: 0 auto;">
                                     </div>
                                     <div class="cause-content text-center" style="padding: 2px !important;">
                                         <p class="martel text-semi-bold d-black mt-5">
@@ -450,7 +450,7 @@
     {{-- banner --}}
     <section class="testimonials banner gray-f9f9-bg">
         <div class="container">
-            <div class="row mt-100 mb-100">
+            <div class="row mt-50 mb-50">
                 <div class="col-md-12">
                     <div class="test-sldier banner">
                         @foreach ($link as $key => $link)
