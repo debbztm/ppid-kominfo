@@ -25,7 +25,7 @@ class HomeController extends Controller
         $title = "Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
         $slide = MaSlide::where("is_publish", "Y")->orderBy('order', 'asc')->get();
         $meta = MaSetting::first();
-        $hmanggaran = Page::where("category", "homeanggaran")->get();
+        // $hmanggaran = Page::where("category", "homeanggaran")->get();
         $infografis = Infographic::orderBy('id', 'desc')->limit(5)->get();
         $link = MaLink::orderBy("id", "desc")->get();
         $officialppid = MaOfficialPpidProfile::all();
@@ -46,7 +46,7 @@ class HomeController extends Controller
         if ($news4) {
             array_push($news, $news4);
         }
-        $news5 = MaPost::where("is_publish", "Y")->where("type", "5")->orderBy("date", "desc")->get();
+        $news5 = MaPost::where("is_publish", "Y")->where("type", "5")->limit(8)->orderBy("date", "desc")->get();
         $agenda = MaAgenda::orderBy('time', 'desc')->first();
         $reviews = MaReview::orderBy('id', 'desc')->limit(10)->get();
         // $gallery = MaGallery::where('title', 'HOME')->first();
@@ -65,7 +65,7 @@ class HomeController extends Controller
                 'slide',
                 'meta',
                 'news',
-                'hmanggaran',
+                // 'hmanggaran',
                 'infografis',
                 'link',
                 'officialppid',

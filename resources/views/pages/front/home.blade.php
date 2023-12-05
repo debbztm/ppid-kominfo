@@ -13,10 +13,7 @@
             aspect-ratio: 16 / 10;
         }
 
-
         @import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
-
-
 
         .reg-down ol {
             padding-left: 30px;
@@ -61,6 +58,8 @@
             border-color: #fee50f;
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('frontend/css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/featherlight.css') }}">
 @endpush
 @section('content')
     <div class="container-fluid no-padding">
@@ -68,27 +67,63 @@
             @foreach ($slide as $key => $slide)
                 <div class="item">
                     <div class="main-slider-img position-r">
-                        <img src="{{ Storage::url($slide->image) }}" alt="{{ $slide->title }}">
+                        <img src="{{ Storage::url($slide->image) }}" alt="{{ $slide->title }}"
+                            style="max-height: 75vh!important; object-fit: cover !important;">
                         <div class="overlay"></div>
-                        <div class="main-slider-content slide-2 text-center">
-                            <h3 class="white text-uppercase mt-25 position-r">{{ $slide->title }}
-                            </h3>
-                        </div>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
 
+    {{-- Information & Agenda --}}
+    <section class="mt-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 overcoming">
+                    <h4 class="d-black lh-33 h-sep">
+                        {{ $title }}
+                    </h4>
+                    <p class="lh-28 mt-50 fz-15">
+                        @if ($meta)
+                            {!! $meta->about !!}
+                        @endif
+                    </p>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="count-down">
+                        <div class="count-header clearfix">
+                            <div class="pull-left">
+                                <h4 class="green-6f text-uppercase mb-15 text-semi-bold">
+                                    Agenda Terbaru
+                                </h4>
+                                @if ($agenda)
+                                    <span class="karla gray-777 fz-14"><i class="fa fa-clock-o"></i>
+                                        {{ $agenda->time }} <span class="three-pm">{{ $agenda->hour }}</span></span>
+                                @endif
+                            </div>
+                            <img class="pull-right mt-10" src="img/calendar.png" alt="" />
+                        </div>
+
+                        <div id="clock"></div>
+                        <div class="btns mt-50">
+                            <a class="text-uppercase martel fz-14 btn-prime tri-b" href="{{ route('home-agenda') }}">Lihat
+                                semua agenda</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="recent-causes gray-f9f9-bg">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h3 class="text-uppercase black h-sep">Informasi <span class="text-ultra-bold">Publik</span> </h3>
-                    {{-- <p class="fz-16 gray-666 mt-50">Anggaran dan Keuangan</p> --}}
                 </div>
             </div>
-            <div class="row mt-70">
+            <div class="row mt-50">
                 <div class="col-md-12">
                     <div class="causes">
                         @foreach ($news as $key => $news)
@@ -99,8 +134,12 @@
                                         style="width:100%!important; height: 150px!important; margin: 0 auto; object-fit:cover !important;">
                                 </div>
                                 <div class="cause-content text-center">
-                                    <h5 class="martel text-semi-bold d-black mt-10">{!! Illuminate\Support\Str::limit($news->title, 100) !!}</h5>
-                                    <p class="lh-22 mt-10">{!! Illuminate\Support\Str::limit($news->description, 150) !!}...</p>
+                                    <h5 class="martel text-semi-bold d-black mt-10">
+                                        {{ Illuminate\Support\Str::limit(strip_tags($news->title), 75) }}
+                                    </h5>
+                                    <p class="lh-22 mt-10">
+                                        {{ Illuminate\Support\Str::limit(strip_tags($news->description), 150) }}
+                                    </p>
                                     <a class="fz-14 mt-20 btn-green-br"
                                         href="{{ route('read-news', ['id' => $news->id, 'seo' => $news->seo]) }}">Selengkapnya...</a>
                                 </div>
@@ -112,7 +151,8 @@
             </div>
         </div>
     </section>
-    <section class="staff mt-150">
+    {{-- Pejabat --}}
+    <section class="staff mt-50">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -124,6 +164,16 @@
                 @foreach ($officialppid as $ofc)
                     <div class="col-md-3 col-md-offset-1 staff-member position-r text-center col-sm-6">
                         <img class="img-responsive" src="{{ Storage::url($ofc->image) }}" alt="{{ $ofc->title1 }}">
+                        <div class="staff-hover">
+                            <ul class="staff-social list-inline">
+                                <li>
+                                    <a href="#"><i class="fa fa-users"></i></a>
+                                </li>
+                            </ul>
+                            <h6 class="white text-bold text-uppercase">{{ $ofc->title1 }}</h6>
+                            <span
+                                class="mt-15 ubuntu white text-medium text-uppercase display-block fz-11">{{ $ofc->title2 }}</span>
+                        </div>
                         <div class="staff-overlay">
                             <h6 class="white text-bold text-uppercase">{{ $ofc->title1 }}</h6>
                             <span
@@ -135,11 +185,12 @@
             </div>
         </div>
     </section>
-    <section class="our-help mt-150">
+    {{-- Permohonan --}}
+    <section class="our-help mt-50">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3 class=" white h-sep">Permohonan <span class="text-ultra-bold">Informasi </span> </h3>
+                    <h3 class="white h-sep">Permohonan <span class="text-ultra-bold">Informasi </span> </h3>
                 </div>
             </div>
             <div class="row">
@@ -196,8 +247,8 @@
             </div>
         </div>
     </section>
-    {{-- Berita & Agenda --}}
-    <section class="recent-causes mb-150">
+    {{-- Berita --}}
+    <section class="recent-causes mb-50">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -206,22 +257,23 @@
                 </div>
             </div>
             <div class="row mt-20">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="row">
                         @foreach ($news5 as $key => $news5)
-                            <div class="col-md-4 col-sm-3 col-xs-6 mt-50 cause-main">
-                                <div class="item" style="height: 300px !important;">
+                            <div class="col-md-3 col-sm-3 col-xs-6 mt-50 cause-main">
+                                <div class="item" style="height: 450px !important;">
                                     <div class="causes-img text-center">
                                         <img src="{{ Storage::url($news5->image) }}"alt="{{ $news5->title }}"
                                             class="img-responsive"
-                                            style="width:150px!important; max-height: 75px!important; margin: 0 auto;">
+                                            style="width:100%!important; height: 250px!important; object-fit:cover; margin: 0 auto;">
                                     </div>
                                     <div class="cause-content text-center" style="padding: 2px !important;">
-                                        <p class="martel text-semi-bold d-black mt-5" style="font-size: 12px !important;">
-                                            {!! Illuminate\Support\Str::limit($news5->title, 30) !!}</p>
-                                        <div class="lh-22 mt-10"
-                                            style="font-size:10px !important; font-weight: 200 !important;">
-                                            {!! Illuminate\Support\Str::limit($news5->description, 50) !!}</div>
+                                        <p class="martel text-semi-bold d-black mt-5">
+                                            {{ Illuminate\Support\Str::limit(strip_tags($news->title), 50) }}
+                                        </p>
+                                        <p class="lh-22 mt-10">
+                                            {{ Illuminate\Support\Str::limit(strip_tags($news->description), 150) }}
+                                        </p>
                                         <a class="fz-14 mt-20 btn-green-br"
                                             href="{{ route('read-news', ['id' => $news5->id, 'seo' => $news5->seo]) }}">Selengkapnya...</a>
                                     </div>
@@ -230,40 +282,14 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="mt-50">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="count-header clearfix">
-                                    <div class="pull-left">
-                                        <h4 class="green-6f text-uppercase mb-15 text-semi-bold">Agenda Terbaru</h4>
-                                        @if ($agenda)
-                                            <span class="karla gray-777 fz-14"><i class="fa fa-clock-o"></i>
-                                                {{ $agenda->time }} <span
-                                                    class="three-pm">{{ $agenda->hour }}</span></span>
-                                        @endif
-                                    </div>
-                                    <img class="pull-right mt-10" src="{{ asset('frontend/img/calendar.png') }}"
-                                        alt="">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="clock"></div>
-                        <div class="btns mt-50">
-                            <a class="text-uppercase martel fz-14 btn-prime tri-b"
-                                href="{{ route('home-agenda') }}">Lihat semua agenda</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
     {{-- Regulation & Download --}}
     <section class="gray-f9f9-bg">
         <div class="container">
-            <div class="row mb-100 ">
-                <div class="col-md-6 col-sm-6 mt-150">
+            <div class="row mb-50 ">
+                <div class="col-md-6 col-sm-6 mt-50">
                     <div class="card mz-auto">
                         <div class="contact-info clearfix">
                             <div class="reg-down">
@@ -273,7 +299,6 @@
                                     @foreach ($regulation as $key => $reg)
                                         <li class="mt-30">
                                             <strong>
-
                                                 <a href="/regulation/{{ $reg->seo }}" class="text-muted">
                                                     <h5 class="mt-15">{{ $reg->title }} </h5>
                                                 </a>
@@ -285,7 +310,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6 mt-150">
+                <div class="col-md-6 col-sm-6 mt-50">
                     <div class="card">
                         <div class="contact-info clearfix">
                             <div class="reg-down">
@@ -313,14 +338,14 @@
     </section>
 
     {{-- foto --}}
-    <section class="recent-causes mb-50">
+    <section class="recent-causes">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h3 class="text-uppercase black h-sep">Gallery <span class="text-ultra-bold"></span> </h3>
                 </div>
             </div>
-            <div class="row mt-20">
+            <div class="row mt-30">
                 <div class="col-md-6">
                     <div class="row">
                         @foreach ($imggallery as $img)
@@ -334,7 +359,7 @@
                                         </div>
                                     </div>
                                 </a>
-                            </div>  
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -373,12 +398,12 @@
                     @foreach ($infografis as $ig)
                         <div class="col-md-15 no-padding-left mix edu">
                             <div class="project-img position-r">
-                                <img class="img-responsive" src="{{ Storage::url($ig->image) }}" alt="infografis">
-                                <div class="project-hover">
-                                    <div class="project-hover-content">
-                                        <div class="progress-status mt-25">
-                                            <div class="barWrapper">
-                                            </div>
+                                <div class="gallery-item mt-20">
+                                    <div class="gallery-img">
+                                        <img class="img-responsive" src="{{ Storage::url($ig->image) }}" alt="infografis" style="width: 100%; height: 300px!important; object-fit:cover;">
+                                        <div class="gallery-overlay"></div>
+                                        <div class="gallery-overlay-content text-center"
+                                            data-featherlight="{{ Storage::url($ig->image) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -445,6 +470,7 @@
     </section>
 @endsection
 @push('scripts')
+    <script src="{{ asset('frontend/js/featherlight.js') }}"></script>
     <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
 

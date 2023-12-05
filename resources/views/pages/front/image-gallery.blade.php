@@ -23,9 +23,9 @@
                                 <div class="gallery-img">
                                     <img class="img-responsive" src="{{ Storage::url($img->image) }}" alt="">
                                     <div class="gallery-overlay"></div>
-                                    <div class="gallery-overlay-content text-center" data-featherlight="{{ Storage::url($img->image) }}">
-                                        {{-- <img data-featherlight="{{ Storage::url($img->image) }}"
-                                            src="{{ asset('frontend/img/locked.png') }}" alt=""> --}}
+                                    <div class="gallery-overlay-content text-center"
+                                        data-featherlight="{{ Storage::url($img->image) }}">
+
                                     </div>
                                 </div>
                             </div>

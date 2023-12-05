@@ -106,7 +106,7 @@
                             @if ($news)
                                 <div class="row mt-100 mb-50">
                                     @foreach ($news as $new)
-                                        <div class="col col-md-4 mt-10" style="height: 600px !important;">
+                                        <div class="col col-md-4 mt-20" style="height: 600px !important;">
                                             <div class="blog-post">
                                                 <div class="blog-post-img">
                                                     <img class="img-responsive" src="{{ Storage::url($new->image) }}"
@@ -119,11 +119,13 @@
                                                     </div>
                                                 </div>
                                                 <h5 class="black-23 mt-20">
-                                                    {{ Illuminate\Support\Str::limit($new->title, 100) }}
+                                                    {{ Illuminate\Support\Str::limit(strip_tags($new->title), 100) }}
                                                 </h5>
                                                 <h6 class="ubuntu fz-13 gray-777 mt-20">Dibuat oleh {{ $new->username }}
                                                 </h6>
-                                                <p class="mt-20 lh-28">{!! Illuminate\Support\Str::limit($new->description, 200) !!}</p>
+                                                <p class="mt-20 lh-28">
+                                                    {{ Illuminate\Support\Str::limit(strip_tags($new->description), 200) }}
+                                                </p>
                                                 <div class="mt-10">
                                                     <a href="{{ route('read-news', ['id' => $new->id, 'seo' => $new->seo]) }}"
                                                         class="btn-green-br lh-40  no-radius">Selengkapnya</a>
@@ -141,7 +143,7 @@
                             @endif
 
                         </div>
-                        <div id="conteudo_agenda" class="conteudo visivel">
+                        <div id="conteudo_agenda" class="conteudo">
                             <table class="table styled-table dataTable" id="agendaTable">
                                 <thead>
                                     <tr>

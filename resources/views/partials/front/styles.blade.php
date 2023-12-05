@@ -14,7 +14,6 @@
         color: #fee50f !important;
     }
 
-
     .ticker-container {
         height: 60px;
         width: 100%;
