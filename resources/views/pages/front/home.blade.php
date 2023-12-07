@@ -302,50 +302,6 @@
                     </div>
                 </div>
                 <div class="col-md-3"></div>
-                {{-- <div class="col-md-6 col-sm-6 mt-50">
-                    <div class="card mz-auto">
-                        <div class="contact-info clearfix">
-                            <div class="reg-down">
-                                <h3 class="text-uppercase text-center black h-sep mb-50"> <span
-                                        class="text-ultra-bold">Regulasi</span> </h3>
-                                <ol class="alternating-colors" style="padding: 0 15% !important;">
-                                    @foreach ($regulation as $key => $reg)
-                                        <li class="mt-30">
-                                            <strong>
-                                                <a href="/regulation/{{ $reg->seo }}" class="text-muted">
-                                                    <h5 class="mt-15">{{ $reg->title }} </h5>
-                                                </a>
-                                            </strong>
-                                        </li>
-                                    @endforeach
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 mt-50">
-                    <div class="card">
-                        <div class="contact-info clearfix">
-                            <div class="reg-down">
-                                <h3 class="text-uppercase text-center black h-sep mb-50"> <span
-                                        class="text-ultra-bold">Download</span> </h3>
-
-                                <ol class="alternating-colors" style="padding: 0 15% !important;">
-                                    @foreach ($download as $key => $dw)
-                                        <li class="mt-30">
-                                            <strong>
-                                                <a href="{{ Storage::url($dw->file) }}" download="{{ $dw->title }}"
-                                                    class="text-muted" target="_blank">
-                                                    <h5 class="mt-15">{{ $dw->title }} </h5>
-                                                </a>
-                                            </strong>
-                                        </li>
-                                    @endforeach
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </section>
