@@ -120,7 +120,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3 class="text-uppercase black h-sep">Informasi <span class="text-ultra-bold">Publik</span> </h3>
+                    <h3 class="text-uppercase black h-sep">Informasi <span class="text-ultra-bold">Publika</span> </h3>
                 </div>
             </div>
             <div class="row mt-50">
