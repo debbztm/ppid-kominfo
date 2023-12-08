@@ -22,6 +22,24 @@
 <body>
     @include('partials.front.header')
     @yield('content')
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #fab20b; color: white;">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="searchModalLabel">Cari Informasi Disini</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        style="margin-top: -30px">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"> 
+                    <input type="text" id="searchInputModal" class="form-control" style="background-color: #ffe6ab;"
+                        placeholder="Masukan pencarian..." />
+                    <ul id="searchResults" class="search-results" style="margin-top: -5px"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
     @include('partials.front.footer')
     @include('partials.front.scripts')
     @stack('scripts')
@@ -217,6 +235,64 @@
         Please ensure Javascript is enabled for purposes of
         <a href="https://userway.org">website accessibility</a>
     </noscript>
+
+    <script>
+        // Ambil elemen-elemen yang diperlukan
+        const btnSearch = document.getElementById('btnSearch');
+        const searchInputModal = document.getElementById('searchInputModal');
+        // const searchResultsModal = document.getElementById('searchResultsModal');
+        const searchResults = $("#searchResults");
+
+        // Fungsi untuk melakukan pencarian berita (contoh)
+        function searchNews(query) {
+            // Lakukan pencarian berita dan tampilkan hasilnya di searchResultsModal
+            // Contoh: Ajax request untuk mendapatkan hasil pencarian
+            console.log("seach term :", query)
+            if (query.length === 0) {
+                searchResults.html("");
+                return;
+            }
+
+            if (query == "") {
+                searchResults.empty();
+            } else {
+                $.getJSON(
+                    `/api/news?search=${query}`,
+                    function(data) {
+                        console.log("data :", data)
+                        searchResults.empty();
+
+                        $.each(data.data, function(index, result) {
+                            const li = $("<li>").css({
+                                display: "flex",
+                                alignItems: "center",
+                            });
+
+                            let image = result.image;
+                            let title = result.title;
+                            li.append(image, title);
+                            searchResults.append(li);
+                        });
+                    }
+                );
+            }
+        }
+
+        // Tambahkan event listener untuk tombol pencarian di modal
+        btnSearch.addEventListener('click', function() {
+            // Kosongkan input pencarian ketika modal terbuka
+            searchInputModal.value = '';
+            //kosongkan list pencarian
+            searchResults.empty();
+
+            // Tambahkan event listener untuk input pencarian modal
+            searchInputModal.addEventListener('input', function() {
+                const query = searchInputModal.value;
+                // Lakukan pencarian realtime dan tampilkan hasilnya
+                searchNews(query);
+            });
+        });
+    </script>
 
 </body>
 

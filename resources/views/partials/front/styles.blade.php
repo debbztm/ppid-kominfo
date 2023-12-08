@@ -91,7 +91,7 @@
         .ticker-container .ticker-caption {
             height: 100%;
             width: 150px;
-            background: url({{asset('frontend/img/ticker-caption-bg.png')}});
+            background: url({{ asset('frontend/img/ticker-caption-bg.png') }});
         }
 
         .ticker-container .ticker-caption p {
@@ -120,5 +120,31 @@
         .ticker-container ul div.remove {
             top: -40px;
         }
+    }
+
+    /* ELEMENT INPUT SEARCH */
+    .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 99999 !important;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .search-results li {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        color: black;
+        border-bottom-right-radius: 5px;
+    }
+
+    .search-results li:last-child {
+        border-bottom: none;
     }
 </style>

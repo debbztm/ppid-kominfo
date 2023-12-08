@@ -48,6 +48,7 @@ Route::get('/agenda', [HomeController::class, 'getAgenda']);
 Route::get("/agenda/datatable", [AgendaController::class, "homeDataTable"]);
 Route::get("/download/datatable", [DownloadController::class, "homeDataTable"]);
 Route::get("/regulation/datatable", [RegulationController::class, "homeDataTable"]);
+Route::get("/news", [PostController::class, 'search']);
 Route::post('/polling/update', [PollingController::class, 'update']);
 
 // AUTH

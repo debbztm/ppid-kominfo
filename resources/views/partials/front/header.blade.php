@@ -15,7 +15,8 @@
                     <a href="{{ $meta->facebook }}" class="fa fa-facebook"></a>
                     <a href="{{ $meta->twitter }}" class="fa fa-twitter"></a>
                     <a href="{{ $meta->instagram }}" class="fa fa-instagram"></a>
-                    <a href="{{ $meta->youtube }}" class="fa fa-youtube"></a>
+                    {{-- <a href="{{ $meta->youtube }}" class="fa fa-youtube"></a> --}}
+                    <a class="fa fa-search" id="btnSearch" data-toggle="modal" data-target="#searchModal"></a>
                 </div>
             </div>
         </div>

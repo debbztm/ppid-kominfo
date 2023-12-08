@@ -368,4 +368,42 @@ class PostController extends Controller
             ], 500);
         }
     }
+
+    // API SEARCH FOR FRONTEND
+    public function search(Request $request)
+    {
+        $query = MaPost::query();
+
+        if ($request->query("search")) {
+            $searchValue = $request->query("search");
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('title', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        $data = $query->orderBy('date', 'desc')
+            ->where('is_publish', 'Y')
+            ->get();
+        $output = $data->map(function ($item) {
+            $image = '<img src="' . Storage::url($item->image) . '" alt="" style="width:100px!important; height:75px!important object-fit: cover!important; margin-right:10px" 
+                                    class="" alt="' . $item->title . '">';
+            $title = "
+                <div>
+                    <p>
+                        <a href='" . route('read-news', ['id' => $item->id, 'seo' => $item->seo]) . "' style='font-weight: 600'>" . Str::limit(strip_tags($item->title), 75) . "</a>
+                    </p>
+                    <small class='text-muted'>
+                        ". Str::limit(strip_tags($item->description), 100) ."
+                    </small>
+                </div>
+            ";
+            $item['image'] = $image;
+            $item['title'] = $title;
+            return $item;
+        });
+        return response()->json([
+            'status' => 'success',
+            'data' => $output
+        ]);
+    }
 }
