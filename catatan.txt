@@ -173,3 +173,28 @@ hubungi kami (ok)
 pooling (ok)
 
 tambah statistik dashboard (ok)
+
+
+PPID
+ -> MODEL   (PublicInformation) -> (PublicInformationNews) -> (PublicInformationFiles) <berelasi dari kiri ke kanan>
+    -> PublicInformation
+      - id
+      - title
+      - description
+
+    -> PublicInformationNews 
+      - id
+      - title
+      - seo
+      - description
+      - image
+      - is_publish
+      - views
+      - public_information_id
+
+    -> PublicInformationFile
+      - id
+      - title
+      - file
+      - public_information_news_id
+
