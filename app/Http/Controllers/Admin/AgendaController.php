@@ -45,6 +45,7 @@ class AgendaController extends Controller
             $query->where("username", $user->username);
         }
 
+        $recordsFiltered = $query->count();
         $data = $query->orderBy('created_at', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -68,7 +69,7 @@ class AgendaController extends Controller
         $total = MaAgenda::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);
@@ -251,6 +252,8 @@ class AgendaController extends Controller
             });
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy('created_at', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -264,7 +267,7 @@ class AgendaController extends Controller
         $total = MaAgenda::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);

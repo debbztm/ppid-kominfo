@@ -64,6 +64,8 @@ class HallController extends Controller
             $query->where("name", "like", "%" . $searchValue . "%");
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy("id", "desc")
             ->skip($request->query("start"))
             ->limit($request->query("length"))
@@ -86,7 +88,7 @@ class HallController extends Controller
         $total = Hall::count();
         return response()->json([
             "draw" => $request->query("draw"),
-            "recordsFiltered" => $total,
+            "recordsFiltered" => $recordsFiltered,
             "recordsTotal" => $total,
             "data" => $output
         ]);

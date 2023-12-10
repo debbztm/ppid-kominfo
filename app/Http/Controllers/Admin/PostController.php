@@ -68,6 +68,8 @@ class PostController extends Controller
             $query->where("username", $user->username);
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy('date', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -119,7 +121,7 @@ class PostController extends Controller
         $total = MaPost::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);

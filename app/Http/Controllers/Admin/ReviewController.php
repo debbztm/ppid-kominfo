@@ -29,6 +29,8 @@ class ReviewController extends Controller
             });
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy('created_at', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -58,7 +60,7 @@ class ReviewController extends Controller
         $total = MaReview::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);
@@ -118,7 +120,7 @@ class ReviewController extends Controller
             MaReview::create($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil dibuat"
+                "message" => "Data berhasil dibuat"
             ]);
         } catch (Exception $err) {
             if ($request->file("image")) {
@@ -182,7 +184,7 @@ class ReviewController extends Controller
             $existing->update($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil diperbarui"
+                "message" => "Data berhasil diperbarui"
             ]);
         } catch (Exception $err) {
             if ($request->file("image")) {

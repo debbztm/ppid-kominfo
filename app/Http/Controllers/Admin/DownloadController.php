@@ -37,6 +37,8 @@ class DownloadController extends Controller
             });
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy('created_at', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -59,7 +61,7 @@ class DownloadController extends Controller
         $total = MaDownload::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);
@@ -120,7 +122,7 @@ class DownloadController extends Controller
             MaDownload::create($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil dibuat"
+                "message" => "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
             if ($request->file("file")) {
@@ -245,6 +247,9 @@ class DownloadController extends Controller
             });
         }
 
+        // Hitung jumlah record setelah filter pencarian
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy('created_at', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -260,7 +265,7 @@ class DownloadController extends Controller
         $total = MaDownload::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);

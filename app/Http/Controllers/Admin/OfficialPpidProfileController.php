@@ -30,6 +30,8 @@ class OfficialPpidProfileController extends Controller
             });
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy("created_at", "desc")
             ->skip($request->query("start"))
             ->limit($request->query("length"))
@@ -60,7 +62,7 @@ class OfficialPpidProfileController extends Controller
         $total = MaOfficialPpidProfile::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);

@@ -19,7 +19,7 @@ class VideoController extends Controller
     public function homeVideo()
     {
         $title = "Gallery Video - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
-        $videos = MaVideo::orderBy('id','DESC')->paginate(12);
+        $videos = MaVideo::orderBy('id', 'DESC')->paginate(12);
         return view("pages.front.video-gallery", compact("title", "videos"));
     }
     // HANDLER API
@@ -33,6 +33,8 @@ class VideoController extends Controller
                 $query->where('title', 'like', '%' . $searchValue . '%');
             });
         }
+
+        $recordsFiltered = $query->count();
 
         $data = $query->orderBy('created_at', 'desc')
             ->skip($request->query('start'))
@@ -56,7 +58,7 @@ class VideoController extends Controller
         $total = MaVideo::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);
@@ -111,7 +113,7 @@ class VideoController extends Controller
             MaVideo::create($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil dibuat"
+                "message" => "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
             return response()->json([

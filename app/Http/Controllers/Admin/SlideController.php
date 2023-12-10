@@ -256,6 +256,8 @@ class SlideController extends Controller
             });
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy('order', 'asc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -307,7 +309,7 @@ class SlideController extends Controller
         $total = MaSlide::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);

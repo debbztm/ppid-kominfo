@@ -44,6 +44,8 @@ class RegulationController extends Controller
             });
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy('created_at', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -87,7 +89,7 @@ class RegulationController extends Controller
         $total = MaRegulation::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);
@@ -295,6 +297,8 @@ class RegulationController extends Controller
             });
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy('created_at', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -302,14 +306,14 @@ class RegulationController extends Controller
 
         $output = $data->map(function ($item, $index) {
             $item['no'] = $index + 1;
-            $item['detail'] = '<a class="badge badge-primary" href="' .  route('home-regulation', $item->seo) . '">Detail</a>';
+            $item['detail'] = '<a class="badge badge-primary" href="' . route('home-regulation', $item->seo) . '">Detail</a>';
             return $item;
         });
 
         $total = MaRegulation::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);

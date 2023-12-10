@@ -33,6 +33,8 @@ class UserController extends Controller
             });
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy('created_at', 'asc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -77,7 +79,7 @@ class UserController extends Controller
         $total = User::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);

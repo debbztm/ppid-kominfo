@@ -46,14 +46,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($regulation->maRegulationFiles as $key => $regfile)
+                @forelse ($regulation->maRegulationFiles as $key => $regfile)
                     <tr>
                         <td width="5%">{{ $key + 1 }}</td>
                         <td width="75%">{{ $regfile->title }}</td>
                         <td width="20%" class="text-center"><a class="badge badge-primary" href="{{ Storage::url($regfile->file) }}" download="{{ $regfile->title }}" target="_blank">Download</a>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="3" class="text-center">File Regulasi Kosong</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
 

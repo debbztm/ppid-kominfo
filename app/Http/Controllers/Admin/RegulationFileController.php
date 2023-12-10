@@ -36,6 +36,8 @@ class RegulationFileController extends Controller
             });
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->where("ma_regulation_id", $regulation_id)->orderBy('created_at', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -58,7 +60,7 @@ class RegulationFileController extends Controller
         $total = MaRegulationFile::where("ma_regulation_id", $regulation_id)->count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);
@@ -129,7 +131,7 @@ class RegulationFileController extends Controller
             MaRegulationFile::create($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil dibuat"
+                "message" => "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
             if ($request->file("file")) {
@@ -203,7 +205,7 @@ class RegulationFileController extends Controller
             $regulationFile->update($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil diperbarui"
+                "message" => "Data berhasil diperbarui"
             ]);
         } catch (\Exception $err) {
             if ($request->file("file")) {

@@ -27,6 +27,8 @@ class PortalDataController extends Controller
             });
         }
 
+        $recordsFiltered = $query->count();
+
         $data = $query->orderBy('created_at', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
@@ -53,7 +55,7 @@ class PortalDataController extends Controller
                             <span class="slider"></span>
                         </div>
                     </div>' :
-                    '<div class="text-center">
+                '<div class="text-center">
                         <span class="label-switch">NonActive</span>
                     </div>
                     <div class="input-row">
@@ -70,7 +72,7 @@ class PortalDataController extends Controller
         $total = PortalData::count();
         return response()->json([
             'draw' => $request->query('draw'),
-            'recordsFiltered' => $total,
+            'recordsFiltered' => $recordsFiltered,
             'recordsTotal' => $total,
             'data' => $output,
         ]);
@@ -128,7 +130,7 @@ class PortalDataController extends Controller
             PortalData::create($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil dibuat"
+                "message" => "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
             return response()->json([
