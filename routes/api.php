@@ -16,6 +16,9 @@ use App\Http\Controllers\Admin\PollingController;
 use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\PublicInformationController;
+use App\Http\Controllers\Admin\PublicInformationNewsController;
+use App\Http\Controllers\Admin\PublicInformationFilesController;
 use App\Http\Controllers\Admin\RegulationController;
 use App\Http\Controllers\Admin\RegulationFileController;
 use App\Http\Controllers\Admin\ReviewController;
@@ -87,6 +90,34 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/update", [PostController::class, "update"]);
         Route::post("/update-status", [PostController::class, "updateStatus"]);
         Route::delete("/", [PostController::class, "destroy"]);
+    });
+
+    // PUBLIC INFORMATION
+    Route::group(["prefix" => "public-information"], function () {
+        Route::get("datatable", [PublicInformationController::class, "dataTable"]);
+        Route::get("{id}/detail", [PublicInformationController::class, "getDetail"]);
+        Route::post("/create", [PublicInformationController::class, "create"]);
+        Route::post("/update", [PublicInformationController::class, "update"]);
+        Route::delete("/", [PublicInformationController::class, "destroy"]);
+    });
+
+    // PUBLIC INFORMATION NEWS
+    Route::group(["prefix" => "public-information-news"], function () {
+        Route::get("datatable", [PublicInformationNewsController::class, "dataTable"]);
+        Route::get("{id}/detail", [PublicInformationNewsController::class, "getDetail"]);
+        Route::post("/create", [PublicInformationNewsController::class, "create"]);
+        Route::post("/update", [PublicInformationNewsController::class, "update"]);
+        Route::post("/update-status", [PublicInformationNewsController::class, "updateStatus"]);
+        Route::delete("/", [PublicInformationNewsController::class, "destroy"]);
+    });
+
+    // PUBLIC INFORMATION FILE
+    Route::group(["prefix" => "public-information-file"], function () {
+        Route::get("{public_information_news_id}/datatable", [PublicInformationFilesController::class, "dataTable"]);
+        Route::get("{id}/detail", [PublicInformationFilesController::class, "getDetail"]);
+        Route::post("/create", [PublicInformationFilesController::class, "create"]);
+        Route::post("/update", [PublicInformationFilesController::class, "update"]);
+        Route::delete("/", [PublicInformationFilesController::class, "destroy"]);
     });
 
     // PAGE/HOME ANGGARAN

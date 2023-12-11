@@ -3,31 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\MaRegulation;
-use App\Models\MaRegulationFile;
+use App\Models\PublicInformation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
-class RegulationFileController extends Controller
+class PublicInformationController extends Controller
 {
     public function index()
     {
-        $title = "File Regulasi";
-        return view("pages.admin.regulation-file", compact("title"));
+        $title = "Informasi Public";
+        return view("pages.admin.public-information.index", compact("title"));
     }
 
     // HANDLER API
-    public function dataTable(Request $request, $regulation_id)
+    public function dataTable(Request $request)
     {
-        $isRegulationExist = MaRegulation::find($regulation_id);
-        if (!$isRegulationExist) {
-            return response()->json([
-                "status" => "error",
-                "message" => "Data Regulasi tidak ditemukan",
-            ], 404);
-        }
-
-        $query = MaRegulationFile::query();
+        $query = PublicInformation::query();
 
         if ($request->query("search")) {
             $searchValue = $request->query("search")['value'];
@@ -35,7 +27,7 @@ class RegulationFileController extends Controller
                 $query->where('title', 'like', '%' . $searchValue . '%');
             });
         }
-        $query->where("ma_regulation_id", $regulation_id);
+
         $recordsFiltered = $query->count();
 
         $data = $query->orderBy('created_at', 'desc')
@@ -53,11 +45,14 @@ class RegulationFileController extends Controller
                                 <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
                             </div>
                         </div>";
+
+            $description = "<p>" . Str::limit(strip_tags($item->description), 150) . "</p>";
             $item['action'] = $action;
+            $item['description'] = $description;
             return $item;
         });
 
-        $total = MaRegulationFile::where("ma_regulation_id", $regulation_id)->count();
+        $total = PublicInformation::count();
         return response()->json([
             'draw' => $request->query('draw'),
             'recordsFiltered' => $recordsFiltered,
@@ -69,7 +64,7 @@ class RegulationFileController extends Controller
     public function getDetail($id)
     {
         try {
-            $data = MaRegulationFile::find($id);
+            $data = PublicInformation::find($id);
 
             if (!$data) {
                 return response()->json([
@@ -95,23 +90,14 @@ class RegulationFileController extends Controller
         try {
             $data = $request->all();
             $rules = [
-                "ma_regulation_id" => "required|integer",
                 "title" => "required|string",
-                "description" => "required|string",
-                "file" => "required|max:51200|mimes:doc,docx,pdf,png,xls,xlsx"
             ];
 
-            $message = [
-                "ma_regulation_id.required" => "ID Regulasi harus diisi",
-                "ma_regulation_id.integer" => "Type ID Regulasi tidak valid",
-                "title.required" => "Judul file harus diisi",
-                "description.required" => "Deksripsi harus diisi",
-                "file.required" => "File harus diisi",
-                "file.max" => "Ukuran file maximal 50MB",
-                "file.mimes" => "Format file harus doc/docx/pdf/png/xls/xlsx"
+            $messages = [
+                "title.required" => "Judul harus diisi",
             ];
-            $validator = Validator::make($data, $rules, $message);
 
+            $validator = Validator::make($data, $rules, $messages);
             if ($validator->fails()) {
                 return response()->json([
                     "status" => "error",
@@ -119,31 +105,18 @@ class RegulationFileController extends Controller
                 ], 400);
             }
 
-            $regulation = MaRegulation::find($data['ma_regulation_id']);
-            if (!$regulation) {
-                return response()->json([
-                    "status" => "error",
-                    "message" => "Data Regulasi tidak ditemukan"
-                ], 404);
-            }
-
-            $data["file"] = $request->file("file")->store("assets/regulationfile", "public");
-            MaRegulationFile::create($data);
+            PublicInformation::create($data);
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
-            if ($request->file("file")) {
-                unlink(public_path("storage/assets/regulationfile/" . $request->file->hashName()));
-            }
             return response()->json([
                 "status" => "error",
-                "message" => $err->getMessage()
+                "message" => $err->getMessage(),
             ], 500);
         }
     }
-
 
     public function update(Request $request)
     {
@@ -151,28 +124,16 @@ class RegulationFileController extends Controller
             $data = $request->all();
             $rules = [
                 "id" => "required|integer",
-                "ma_regulation_id" => "required|integer",
                 "title" => "required|string",
-                "description" => "required|string",
-                "file" => "nullable"
             ];
 
-            if ($request->file("file")) {
-                $rules["file"] .= "|max:5120|mimes:doc,docx,pdf,png,xls,xlsx";
-            }
-
-            $message = [
+            $messages = [
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",
-                "ma_regulation_id.required" => "ID Regulasi harus diisi",
-                "ma_regulation_id.integer" => "Type ID Regulasi tidak valid",
-                "title.required" => "Judul file harus diisi",
-                "description.required" => "Deksripsi harus diisi",
-                "file.max" => "Ukuran file maximal 50MB",
-                "file.mimes" => "Format file harus doc/docx/pdf/png/xls/xlsx"
+                "title.required" => "Judul harus diisi",
             ];
-            $validator = Validator::make($data, $rules, $message);
 
+            $validator = Validator::make($data, $rules, $messages);
             if ($validator->fails()) {
                 return response()->json([
                     "status" => "error",
@@ -180,40 +141,23 @@ class RegulationFileController extends Controller
                 ], 400);
             }
 
-            $regulation = MaRegulation::find($data['ma_regulation_id']);
-            if (!$regulation) {
-                return response()->json([
-                    "status" => "error",
-                    "message" => "Data Regulasi tidak ditemukan"
-                ], 404);
-            }
-
-            $regulationFile = MaRegulationFile::find($data["id"]);
-            if (!$regulationFile) {
+            $item = PublicInformation::find($data['id']);
+            if (!$item) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
 
-            unset($data["file"]);
-            if ($request->file("file")) {
-                unlink(public_path("storage/" . $regulationFile->file));
-                $data["file"] = $request->file("file")->store("assets/regulationfile", "public");
-            }
-
-            $regulationFile->update($data);
+            $item->update($data);
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil diperbarui"
             ]);
         } catch (\Exception $err) {
-            if ($request->file("file")) {
-                unlink(public_path("storage/assets/regulationfile/" . $request->file->hashName()));
-            }
             return response()->json([
                 "status" => "error",
-                "message" => $err->getMessage()
+                "message" => $err->getMessage(),
             ], 500);
         }
     }
@@ -234,14 +178,14 @@ class RegulationFileController extends Controller
             }
 
             $id = $request->id;
-            $data = MaRegulationFile::find($id);
+            $data = PublicInformation::find($id);
             if (!$data) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
             }
-            unlink(public_path('storage/' . $data->file));
+
             $data->delete();
             return response()->json([
                 "status" => "success",

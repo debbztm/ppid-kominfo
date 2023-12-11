@@ -16,6 +16,9 @@ use App\Http\Controllers\Admin\PollingController;
 use App\Http\Controllers\Admin\PortalDataController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\PublicInformationController;
+use App\Http\Controllers\Admin\PublicInformationNewsController;
+use App\Http\Controllers\Admin\PublicInformationFilesController;
 use App\Http\Controllers\Admin\RegulationController;
 use App\Http\Controllers\Admin\RegulationFileController;
 use App\Http\Controllers\Admin\ReviewController;
@@ -67,6 +70,9 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('hall', [HallController::class, 'index'])->name('hall'); // balai
     Route::get('slide', [SlideController::class, 'index'])->name('slide'); // slide
     Route::get('news', [PostController::class, 'index'])->name('news'); // berita
+    Route::get('public-information', [PublicInformationController::class, 'index'])->name('public-information'); // informasi publik
+    Route::get('public-information-news', [PublicInformationNewsController::class, 'index'])->name('public-information-news'); // berita informasi publik
+    Route::get('public-information-file/{public_information_news_id}/detail', [PublicInformationFilesController::class, 'index'])->name('regulation-file'); // file informasi publik
     Route::get('pages', [PageController::class, 'index'])->name('pages'); // home anggaran
     Route::get('infographic', [InfographicController::class, 'index'])->name('infographic'); //  infografis
     Route::get('count-information', [CountInformationController::class, 'index'])->name('count-information'); //  jumlah informasi

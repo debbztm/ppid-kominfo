@@ -14,6 +14,15 @@ return new class extends Migration
         Schema::create('public_information_files', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string("title");
+            $table->longText("description")->nullable();
+            $table->string("file")->nullable();
+            $table->unsignedBigInteger("public_information_news_id");
+            $table->foreign("public_information_news_id")
+                ->references("id")
+                ->on("public_information_news")
+                ->onUpdate("cascade")
+                ->onDelete("cascade");
         });
     }
 

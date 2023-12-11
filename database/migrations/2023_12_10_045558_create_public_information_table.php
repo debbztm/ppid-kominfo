@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('public_information', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

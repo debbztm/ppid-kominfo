@@ -3,31 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\MaRegulation;
-use App\Models\MaRegulationFile;
+use App\Models\PublicInformationFile;
+use App\Models\PublicInformationNew;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class RegulationFileController extends Controller
+class PublicInformationFilesController extends Controller
 {
     public function index()
     {
-        $title = "File Regulasi";
-        return view("pages.admin.regulation-file", compact("title"));
+        $title = "File Berita Publik Informasi";
+        return view("pages.admin.public-information.file", compact("title"));
     }
 
     // HANDLER API
-    public function dataTable(Request $request, $regulation_id)
+    public function dataTable(Request $request, $public_information_news_id)
     {
-        $isRegulationExist = MaRegulation::find($regulation_id);
-        if (!$isRegulationExist) {
+        $isInformationfileExist = PublicInformationNew::find($public_information_news_id);
+        if (!$isInformationfileExist) {
             return response()->json([
                 "status" => "error",
-                "message" => "Data Regulasi tidak ditemukan",
+                "message" => "Data Berita Informasi Publik",
             ], 404);
         }
 
-        $query = MaRegulationFile::query();
+        $query = PublicInformationFile::query();
 
         if ($request->query("search")) {
             $searchValue = $request->query("search")['value'];
@@ -35,7 +35,7 @@ class RegulationFileController extends Controller
                 $query->where('title', 'like', '%' . $searchValue . '%');
             });
         }
-        $query->where("ma_regulation_id", $regulation_id);
+        $query->where("public_information_news_id", $public_information_news_id);
         $recordsFiltered = $query->count();
 
         $data = $query->orderBy('created_at', 'desc')
@@ -57,7 +57,7 @@ class RegulationFileController extends Controller
             return $item;
         });
 
-        $total = MaRegulationFile::where("ma_regulation_id", $regulation_id)->count();
+        $total = PublicInformationFile::where("public_information_news_id", $public_information_news_id)->count();
         return response()->json([
             'draw' => $request->query('draw'),
             'recordsFiltered' => $recordsFiltered,
@@ -69,7 +69,7 @@ class RegulationFileController extends Controller
     public function getDetail($id)
     {
         try {
-            $data = MaRegulationFile::find($id);
+            $data = PublicInformationFile::find($id);
 
             if (!$data) {
                 return response()->json([
@@ -95,15 +95,15 @@ class RegulationFileController extends Controller
         try {
             $data = $request->all();
             $rules = [
-                "ma_regulation_id" => "required|integer",
+                "public_information_news_id" => "required|integer",
                 "title" => "required|string",
                 "description" => "required|string",
                 "file" => "required|max:51200|mimes:doc,docx,pdf,png,xls,xlsx"
             ];
 
             $message = [
-                "ma_regulation_id.required" => "ID Regulasi harus diisi",
-                "ma_regulation_id.integer" => "Type ID Regulasi tidak valid",
+                "public_information_news_id.required" => "ID publik informasi berita harus diisi",
+                "public_information_news_id.integer" => "Type ID publik informasi berita  tidak valid",
                 "title.required" => "Judul file harus diisi",
                 "description.required" => "Deksripsi harus diisi",
                 "file.required" => "File harus diisi",
@@ -119,23 +119,23 @@ class RegulationFileController extends Controller
                 ], 400);
             }
 
-            $regulation = MaRegulation::find($data['ma_regulation_id']);
-            if (!$regulation) {
+            $pinw = PublicInformationNew::find($data['public_information_news_id']);
+            if (!$pinw) {
                 return response()->json([
                     "status" => "error",
-                    "message" => "Data Regulasi tidak ditemukan"
+                    "message" => "Data Berita Informasi Publik tidak ditemukan"
                 ], 404);
             }
 
-            $data["file"] = $request->file("file")->store("assets/regulationfile", "public");
-            MaRegulationFile::create($data);
+            $data["file"] = $request->file("file")->store("assets/pif", "public");
+            PublicInformationFile::create($data);
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
             if ($request->file("file")) {
-                unlink(public_path("storage/assets/regulationfile/" . $request->file->hashName()));
+                unlink(public_path("storage/assets/pif/" . $request->file->hashName()));
             }
             return response()->json([
                 "status" => "error",
@@ -151,7 +151,7 @@ class RegulationFileController extends Controller
             $data = $request->all();
             $rules = [
                 "id" => "required|integer",
-                "ma_regulation_id" => "required|integer",
+                "public_information_news_id" => "required|integer",
                 "title" => "required|string",
                 "description" => "required|string",
                 "file" => "nullable"
@@ -164,8 +164,8 @@ class RegulationFileController extends Controller
             $message = [
                 "id.required" => "Data ID harus diisi",
                 "id.integer" => "Type ID tidak sesuai",
-                "ma_regulation_id.required" => "ID Regulasi harus diisi",
-                "ma_regulation_id.integer" => "Type ID Regulasi tidak valid",
+                "public_information_news_id.required" => "ID Regulasi harus diisi",
+                "public_information_news_id.integer" => "Type ID Regulasi tidak valid",
                 "title.required" => "Judul file harus diisi",
                 "description.required" => "Deksripsi harus diisi",
                 "file.max" => "Ukuran file maximal 50MB",
@@ -180,16 +180,16 @@ class RegulationFileController extends Controller
                 ], 400);
             }
 
-            $regulation = MaRegulation::find($data['ma_regulation_id']);
-            if (!$regulation) {
+            $pinw = PublicInformationNew::find($data['public_information_news_id']);
+            if (!$pinw) {
                 return response()->json([
                     "status" => "error",
-                    "message" => "Data Regulasi tidak ditemukan"
+                    "message" => "Data Berita Informasi Publik tidak ditemukan"
                 ], 404);
             }
 
-            $regulationFile = MaRegulationFile::find($data["id"]);
-            if (!$regulationFile) {
+            $pif = PublicInformationFile::find($data["id"]);
+            if (!$pif) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
@@ -198,18 +198,18 @@ class RegulationFileController extends Controller
 
             unset($data["file"]);
             if ($request->file("file")) {
-                unlink(public_path("storage/" . $regulationFile->file));
-                $data["file"] = $request->file("file")->store("assets/regulationfile", "public");
+                unlink(public_path("storage/" . $pif->file));
+                $data["file"] = $request->file("file")->store("assets/pif", "public");
             }
 
-            $regulationFile->update($data);
+            $pif->update($data);
             return response()->json([
                 "status" => "success",
                 "message" => "Data berhasil diperbarui"
             ]);
         } catch (\Exception $err) {
             if ($request->file("file")) {
-                unlink(public_path("storage/assets/regulationfile/" . $request->file->hashName()));
+                unlink(public_path("storage/assets/pif/" . $request->file->hashName()));
             }
             return response()->json([
                 "status" => "error",
@@ -234,7 +234,7 @@ class RegulationFileController extends Controller
             }
 
             $id = $request->id;
-            $data = MaRegulationFile::find($id);
+            $data = PublicInformationFile::find($id);
             if (!$data) {
                 return response()->json([
                     "status" => "error",

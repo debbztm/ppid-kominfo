@@ -15,16 +15,16 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5 class="text-uppercase title">Berita</h5>
+                        <h5 class="text-uppercase title">Berita Informasi Publik</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-mini btn-info mr-1" onclick="return refreshData();">Refresh</button>
-                        <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah Berita</button>
+                        <button class="btn btn-mini btn-primary" onclick="return addData();">Tambah Data</button>
                     </div>
                 </div>
                 <div class="card-block">
                     <div class="table-responsive mt-3">
-                        <table class="table table-striped table-bordered nowrap dataTable" id="postTable">
+                        <table class="table table-striped table-bordered nowrap dataTable" id="informationPublicNewsTable">
                             <thead>
                                 <tr>
                                     <th class="all">#</th>
@@ -47,7 +47,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-left">
-                        <h5>Tambah / Edit Berita</h5>
+                        <h5>Tambah / Edit Data</h5>
                     </div>
                     <div class="card-header-right">
                         <button class="btn btn-sm btn-warning" onclick="return closeForm(this)" id="btnCloseForm">
@@ -63,33 +63,13 @@
                             <input class="form-control" id="title" type="text" name="title"
                                 placeholder="masukkan judul" required />
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="ma_hall_menu_id">Menu</label>
-                            <select class="form-control form-control" id="ma_hall_menu_id" name="menu">
-                                <option value="">Pilih Menu</option>
-                                @foreach ($hall_menus as $menu)
-                                    <option value="{{ $menu->id }}">{{ $menu->menu }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
                         <div class="form-group">
-                            <label for="link">Link</label>
-                            <input class="form-control" id="link" type="text" name="link"
-                                placeholder="masukkan link dengan format https://google.com..." />
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">WhatsApp</label>
-                            <input class="form-control" id="phone" type="text" name="phone"
-                                placeholder="masukkan no whatsapp dengan format 628xxxxxxxxxx tanpa spasi atau tanda baca" />
-                        </div>
-                        <div class="form-group">
-                            <label for="hall_id">Balai</label>
-                            <select class="form-control form-control" id="hall_id" name="{{ $hall_id ? '' : 'hall_id' }}"
-                                {{ $hall_id ? 'disabled' : '' }}>
-                                <option value="">Pilih Balai</option>
-                                @foreach ($halls as $hall)
-                                    <option value="{{ $hall->id }}" {{ $hall->id == $hall_id ? 'selected' : '' }}>
-                                        {{ $hall->name }}</option>
+                            <label for="hall_id">Informasi Publik</label>
+                            <select class="form-control form-control" id="public_information_id" required>
+                                <option value="">Pilih Informasi Publik</option>
+                                @foreach ($public_informations as $pi)
+                                    <option value="{{ $pi->id }}">
+                                        {{ $pi->title }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -100,23 +80,6 @@
                                 <option value="Y">Publish</option>
                                 <option value="N">Draft</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="type">Tipe</label>
-                            <select class="form-control form-control" id="type" name="type" required>
-                                <option value="">Pilih Tipe</option>
-                                <option value="1">Tipe 1</option>
-                                <option value="2">TIpe 2</option>
-                                <option value="3">TIpe 3</option>
-                                <option value="4">TIpe 4</option>
-                                <option value="5">TIpe 5</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="tag_post">Tags</label>
-                            <br>
-                            <input type="text" id="tag_post" name="tag_post" class="form-control w-100 h-100"
-                                data-role="tagsinput">
                         </div>
                         <div class="form-group">
                             <label for="image">Gambar</label>
@@ -144,7 +107,6 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('js/plugin/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('js/plugin/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
     <script src="{{ asset('js/plugin/summernote/summernote-bs4.min.js') }}"></script>
     <script>
         $('#summernote').summernote({
@@ -161,8 +123,8 @@
         })
 
         function dataTable() {
-            const url = "/api/admin/news/datatable";
-            dTable = $("#postTable").DataTable({
+            const url = "/api/admin/public-information-news/datatable";
+            dTable = $("#informationPublicNewsTable").DataTable({
                 searching: true,
                 orderng: true,
                 lengthChange: true,
@@ -202,30 +164,23 @@
             $("#formEditable").slideUp(200, function() {
                 $("#boxTable").removeClass("col-md-5").addClass("col-md-12");
                 $("#reset").click();
-                $("#tag_post").tagsinput("removeAll");
                 $("#summernote").summernote('code', "");
             })
         }
 
         function getData(id) {
             $.ajax({
-                url: `/api/admin/news/${id}/detail`,
+                url: `/api/admin/public-information-news/${id}/detail`,
                 method: "GET",
                 dataType: "json",
                 success: function(res) {
                     $("#formEditable").attr("data-action", "update").fadeIn(200, function() {
                         $("#boxTable").removeClass("col-md-12").addClass("col-md-5");
-                        $("#tag_post").tagsinput("removeAll");
                         let d = res.data;
                         $("#id").val(d.id);
                         $("#title").val(d.title);
-                        // $("#ma_hall_menu_id").val(d.ma_hall_menu_id);
-                        $("#hall_id").val(d.hall_id);
-                        $("#link").val(d.link);
-                        $("#phone").val(d.phone);
+                        $("#public_information_id").val(d.public_information_id);
                         $("#is_publish").val(d.is_publish);
-                        $("#type").val(d.type);
-                        $("#tag_post").tagsinput("add", d.tag_post);
                         $("#summernote").summernote('code', d.description);
                     })
                 },
@@ -242,14 +197,9 @@
             let formData = new FormData();
             formData.append("id", parseInt($("#id").val()));
             formData.append("title", $("#title").val());
-            // $("#ma_hall_menu_id").val() != "" && formData.append("ma_hall_menu_id", $("#ma_hall_menu_id").val());
-            $("#hall_id").val() != "" && formData.append("hall_id", $("#hall_id").val());
-            formData.append('link', $("#link").val());
-            formData.append("phone", $("#phone").val());
+            formData.append("public_information_id", $("#public_information_id").val());
             formData.append("description", $("#summernote").summernote('code'));
             formData.append("is_publish", $("#is_publish").val());
-            formData.append("type", parseInt($("#type").val()));
-            formData.append("tag_post", $("#tag_post").val());
             formData.append("image", document.getElementById("image").files[0]);
 
             // formData.forEach(function(value, key) {
@@ -271,7 +221,7 @@
 
         function saveData(data, action) {
             $.ajax({
-                url: action == "update" ? "/api/admin/news/update" : "/api/admin/news/create",
+                url: action == "update" ? "/api/admin/public-information-news/update" : "/api/admin/public-information-news/create",
                 contentType: false,
                 processData: false,
                 method: "POST",
@@ -296,7 +246,7 @@
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
-                    url: "/api/admin/news",
+                    url: "/api/admin/public-information-news",
                     method: "DELETE",
                     data: {
                         id: id
@@ -319,7 +269,7 @@
 
         function updateStatusData(data) {
             $.ajax({
-                url: "/api/admin/news/update-status",
+                url: "/api/admin/public-information-news/update-status",
                 contentType: false,
                 processData: false,
                 method: "POST",

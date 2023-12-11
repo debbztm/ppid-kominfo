@@ -174,7 +174,38 @@ pooling (ok)
 
 tambah statistik dashboard (ok)
 
+revisi :
+1. animasi belum keluar ? 
+2. berita dan informasi public bisa autoshare 
+3. berita dikelompokken per kategori
+4. 
+5. video ditampilkan 2 / 3 baris nge slide (ada judul dan waktu)
+6. menu pencarian (ok untuk berita)
+7. menu ppid
+8. footer (udah mentok)
+9. permohonan informasi huruf dibesarin (ok)
 
+
+catatan PENTING
+menu dashboard
+
+-> bagian berita ->
+  hilangkan input menu untuk berita (ok)
+
+
+-> flow fitur ppid (tiap menu memiliki deskripsi utama)
+  -> daftar informasi public (berisikan file)
+  -> daftar informasi setiap saat (berisikan file)
+  -> informasi serta merta berisi berita
+  -> informasi dikecualian berisi file 
+      -> informasi dikecualikan A
+        -> A1
+        -> A2
+      -> informasi dikecualian B
+        -> B1
+        -> B2
+  
+  
 PPID
  -> MODEL   (PublicInformation) -> (PublicInformationNews) -> (PublicInformationFiles) <berelasi dari kiri ke kanan>
     -> PublicInformation
@@ -197,4 +228,6 @@ PPID
       - title
       - file
       - public_information_news_id
+
+  by dashboard (done)
 

@@ -58,7 +58,7 @@ class RegulationController extends Controller
                             </button>
                             <div class='dropdown-menu' aria-labelledby='dropdown-{$item->id}' data-dropdown-out='fadeOut'>
                                 <a class='dropdown-item' onclick='return getData(\"{$item->id}\");' href='javascript:void(0);' title='Edit'>Edit</a>
-                                <a class='dropdown-item' href='/admin/regulation-file/$item->id/detail' title='Galery'>Regulation File</a>
+                                <a class='dropdown-item' href='/admin/regulation-file/$item->id/detail' title='Regulation File'>Regulation File</a>
                                 <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
                             </div>
                         </div>";
