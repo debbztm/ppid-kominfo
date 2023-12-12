@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
 <script src="{{ asset('frontend/js/modernizr-2.8.3.min.js') }}"></script>
 <style>
-    ul.nav.navbar-nav li .main-menu {
+    /* ul.nav.navbar-nav li .main-menu {
         color: #fee50f !important;
-    }
+    } */
 
     .ticker-container {
         height: 60px;

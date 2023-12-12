@@ -702,7 +702,8 @@ a:hover{
    }
    /*== MAIN NAV ==*/
    .main-nav {
-        background-color: #363636;
+        /* background-color: #363636; */
+        background-color: #FDC716;
         position: relative;
     }
     .main-nav.mt-20::after {
@@ -758,7 +759,8 @@ a:hover{
    .nav.navbar-nav > li > a:focus::after,
    .nav.navbar-nav > li.active > a::after {
         left: 0;
-        border-bottom: 3px solid #fee50f;
+        /* border-bottom: 3px solid #fee50f; */
+        border-bottom: 3px solid #fff;
     }
    .navbar-default {
         background-color: transparent;

@@ -65,18 +65,6 @@
 
                 {{-- ADMIN --}}
                 @if ($role == 'ADMIN')
-                    <li class="nav-item ml-3 {{ $routename == 'public-information' ? 'active' : '' }}">
-                        <a href="{{ route('public-information') }}">
-                            <i class="fas fa-info-circle"></i>
-                            <p>Informasi Publik</p>
-                        </a>
-                    </li>
-                    <li class="nav-item ml-3 {{ $routename == 'public-information-news' ? 'active' : '' }}">
-                        <a href="{{ route('public-information-news') }}">
-                            <i class="fas fa-file-alt"></i>
-                            <p>Data Informasi Publik</p>
-                        </a>
-                    </li>
                     <li class="nav-item ml-3 {{ $routename == 'pages' ? 'active' : '' }}">
                         <a href="{{ route('pages') }}">
                             <i class="fas fa-money-bill-alt"></i>
@@ -172,6 +160,30 @@
                         <a href="{{ route('setting') }}">
                             <i class="fas fa-cog"></i>
                             <p>Setting</p>
+                        </a>
+                    </li>
+                    <li class="nav-section">
+                        <span class="sidebar-mini-icon">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </span>
+                        <h4 class="text-section">Information</h4>
+                    </li>
+                    <li class="nav-item ml-3 {{ $routename == 'public-information' ? 'active' : '' }}">
+                        <a href="{{ route('public-information') }}">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Informasi Publik</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ml-3 {{ $routename == 'public-information-news' ? 'active' : '' }}">
+                        <a href="{{ route('public-information-news') }}">
+                            <i class="fas fa-list-alt"></i>
+                            <p>Daftar Informasi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item ml-3 {{ $routename == 'form' ? 'active' : '' }}">
+                        <a href="{{ route('form') }}">
+                            <i class="fas fa-clipboard"></i>
+                            <p>Formulir</p>
                         </a>
                     </li>
                     <li class="nav-section">

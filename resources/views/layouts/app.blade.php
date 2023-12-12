@@ -24,7 +24,7 @@
     @yield('content')
     <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
         <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #fab20b; color: white;">
+            <div class="modal-content" style="background-color: #FDC716; color: white;">
                 <div class="modal-header">
                     <h4 class="modal-title" id="searchModalLabel">Cari Informasi Disini</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"

@@ -229,5 +229,104 @@ PPID
       - file
       - public_information_news_id
 
-  by dashboard (done)
+    -> form permohonan informasi
+      - id
+      - name
+      - phone
+      - job
+      - address
+      - email
+      - image
+      - information
+      - purpose
+      - howtoget_information
+      - howtocopy_information
+      - type (request)
+
+    -> form keberatan
+      - id
+      - name
+      - phone
+      - job
+      - address
+      - email
+      - image
+      - information
+      - description
+      - reason
+      - type (objection)
+
+    -> form pengaduan asn
+      - id
+      - name
+      - phone
+      - address
+      - email
+      - image
+      - nameof_reported
+      - witness (Ya/Tidak)
+      - reported_identity
+      - information (kejadian / kesaksian)
+      - type (complaint)
+
+    -> form kepuasan
+      - id
+      - date
+      - name
+      - email
+      - phone
+      - job
+      - typeof_service
+      - evaluation1
+      - evaluation2
+      - evaluation3
+      - evaluation4
+      - evaluation5
+      - evaluation6
+      - evaluation7
+      - evaluation8
+      - evaluation9
+      - evaluation10
+      - suggestion
+      - type (satisfaction)
+
+rekap form_information
+  - id
+  - name
+  - phone
+  - job (nullable) -> permohonan, keberatan, kepuasan
+  - address (nullable) -> permohonan, keberatan, pengaduan
+  - email
+  - image (nullable) -> permohonan, keberatan, pengaduan
+  - information (nullable) -> permohonan, keberatan, pengaduan
+  - type (enum [request, objection, complaint, satisfaction])
+
+    PERMONAN
+  - purpose (nullable)
+  - howtoget_information (nullable)
+  - howtocopy_information (nullable)
+
+    KEBERATAN
+  - description (nullable)
+  - reason (nullable)
+
+    PENGADUAN
+  - nameof_reported (nullable)
+  - witness (enum [ya, tidak], nullable)
+  - reported_identity (nullable)
+
+    KEPUASAN
+  - date (nullable)
+  - typeof_service (nullable)
+  - evaluation1 (nullable)
+  - evaluation2 (nullable)
+  - evaluation3 (nullable)
+  - evaluation4 (nullable)
+  - evaluation5 (nullable)
+  - evaluation6 (nullable)
+  - evaluation7 (nullable)
+  - evaluation8 (nullable)
+  - evaluation9 (nullable)
+  - evaluation10 (nullable)
+  - suggestion (nullable)
 

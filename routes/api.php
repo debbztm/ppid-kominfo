@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CountInformationController;
 use App\Http\Controllers\Admin\CustomTemplateController;
 use App\Http\Controllers\Admin\DownloadController;
+use App\Http\Controllers\Admin\FormInformationController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\HallController;
 use App\Http\Controllers\Admin\ImageGalleryController;
@@ -278,10 +279,20 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::get("/detail", [AuthController::class, "detail"]);
         Route::post("/update", [AuthController::class, "update"]);
     });
+
     // FOR ROLE USER
     Route::group(["prefix" => "hall-profile"], function () {
         Route::get("/detail", [HallController::class, 'getHallProfileContact']);
         Route::post("/update-profile", [HallController::class, 'updateSaveProfile']);
         Route::post("/update-contact", [HallController::class, 'updateSaveContact']);
+    });
+
+    // FORM INFORMATION
+    Route::group(["prefix" => "form"], function () {
+        Route::get("{type}/datatable", [FormInformationController::class, "dataTable"]);
+        Route::get("{id}/detail", [FormInformationController::class, "getDetail"]);
+        Route::post("/create", [FormInformationController::class, "create"]);
+        // Route::post("/update", [FormInformationController::class, "update"]);
+        Route::delete("/", [FormInformationController::class, "destroy"]);
     });
 });
