@@ -37,6 +37,28 @@ class FormInformationController extends Controller
         return view("pages.admin.form-information.satisfaction");
     }
 
+
+    // HOME PAGE
+    public function ohomeRequest()
+    {
+        return view("pages.front.form-information.request");
+    }
+
+    public function homeObjection()
+    {
+        return view("pages.front.form-information.objection");
+    }
+
+    public function homeComplaint()
+    {
+        return view("pages.front.form-information.complaint");
+    }
+
+    public function homeSatisfaction()
+    {
+        return view("pages.front.form-information.satisfaction");
+    }
+
     // HANDLER API
     public function dataTable(Request $request, $type)
     {

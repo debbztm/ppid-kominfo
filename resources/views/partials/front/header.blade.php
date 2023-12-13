@@ -9,6 +9,7 @@
                         <li><a class="text-uppercase" href="{{ route('home-agenda') }}">Agenda</a>|</li>
                         <li><a class="text-uppercase" href="{{ route('home-list-regulation') }}">Regulasi</a>|</li>
                         <li><a class="text-uppercase" href="{{ route('home-download') }}">Unduh</a>|</li>
+                        <li><a class="text-uppercase" href="{{ route('information-and-formulir') }}">Informasi & Formulir</a>|</li>
                     </ul>
                 </div>
                 <div class="col-md-3 top-social">

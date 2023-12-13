@@ -16,6 +16,7 @@ use App\Models\MaImageGallery;
 use App\Models\MaRegulation;
 use App\Models\MaVideo;
 use App\Models\Page;
+use App\Models\PublicInformation;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -82,28 +83,34 @@ class HomeController extends Controller
 
     // HANDLER API
     public function getAgenda()
-    { {
-            try {
-                $agenda = MaAgenda::orderBy('time', 'desc')->first();
+    {
+        try {
+            $agenda = MaAgenda::orderBy('time', 'desc')->first();
 
 
-                if (!$agenda) {
-                    return response()->json([
-                        "status" => "error",
-                        "message" => "Data tidak ditemukan",
-                    ], 404);
-                }
-
-                return response()->json([
-                    "status" => "success",
-                    "data" => $agenda
-                ]);
-            } catch (\Exception $err) {
+            if (!$agenda) {
                 return response()->json([
                     "status" => "error",
-                    "message" => $err->getMessage()
-                ], 500);
+                    "message" => "Data tidak ditemukan",
+                ], 404);
             }
+
+            return response()->json([
+                "status" => "success",
+                "data" => $agenda
+            ]);
+        } catch (\Exception $err) {
+            return response()->json([
+                "status" => "error",
+                "message" => $err->getMessage()
+            ], 500);
         }
+    }
+
+    public function informationAndFormulir()
+    {
+        $public_information = PublicInformation::all();
+        $title = "Information & Formulir - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        return view("pages.front.information-and-formulir", compact('title', 'public_information'));
     }
 }

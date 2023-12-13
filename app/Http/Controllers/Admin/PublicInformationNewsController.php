@@ -41,42 +41,42 @@ class PublicInformationNewsController extends Controller
 
         $output = $data->map(function ($item) {
             $action = " <div class='dropdown-primary dropdown open'>
-                             <button class='btn btn-sm btn-primary dropdown-toggle waves-effect waves-light' id='dropdown-{$item->id}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
-                                 Aksi
-                             </button>
-                             <div class='dropdown-menu' aria-labelledby='dropdown-{$item->id}' data-dropdown-out='fadeOut'>
-                                 <a class='dropdown-item' onclick='return getData(\"{$item->id}\");' href='javascript:void(0);' title='Edit'>Edit</a>
-                                    <a class='dropdown-item' href='/admin/public-information-file/$item->id/detail' title='File Berita'>File Informasi Publik</a>
-                                 <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
-                             </div>
-                         </div>";
+                            <button class='btn btn-sm btn-primary dropdown-toggle waves-effect waves-light' id='dropdown-{$item->id}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
+                                Aksi
+                            </button>
+                            <div class='dropdown-menu' aria-labelledby='dropdown-{$item->id}' data-dropdown-out='fadeOut'>
+                                <a class='dropdown-item' onclick='return getData(\"{$item->id}\");' href='javascript:void(0);' title='Edit'>Edit</a>
+                                <a class='dropdown-item' href='/admin/public-information-file/$item->id/detail' title='File Berita'>File Informasi Publik</a>
+                                <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
+                            </div>
+                        </div>";
 
             $is_publish = $item->is_publish == 'Y' ? '
-                     <div class="text-center">
-                         <span class="label-switch">Publish</span>
-                     </div>
-                     <div class="input-row">
-                         <div class="toggle_status on">
-                             <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Draft\');" />
-                             <span class="slider"></span>
-                         </div>
-                     </div>' :
-                '
-                     <div class="text-center">
-                         <span class="label-switch">Draft</span>
-                     </div>
-                     <div class="input-row">
-                         <div class="toggle_status off">
-                             <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Publish\');" />
-                             <span class="slider"></span>
-                         </div>
-                     </div>';
+                    <div class="text-center">
+                        <span class="label-switch">Publish</span>
+                    </div>
+                    <div class="input-row">
+                        <div class="toggle_status on">
+                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Draft\');" />
+                            <span class="slider"></span>
+                        </div>
+                    </div>' :
+            '
+                    <div class="text-center">
+                        <span class="label-switch">Draft</span>
+                    </div>
+                    <div class="input-row">
+                        <div class="toggle_status off">
+                            <input type="checkbox" onclick="return updateStatus(\'' . $item->id . '\', \'Publish\');" />
+                            <span class="slider"></span>
+                        </div>
+                    </div>';
             $image = '<div class="thumbnail">
-                             <div class="thumb">
-                                 <img src="' . Storage::url($item->image) . '" alt="" width="300px" height="300px" 
-                                 class="img-fluid img-thumbnail" alt="' . $item->title . '">
-                             </div>
-                         </div>';
+                            <div class="thumb">
+                                <img src="' . Storage::url($item->image) . '" alt="" width="300px" height="300px" 
+                                class="img-fluid img-thumbnail" alt="' . $item->title . '">
+                            </div>
+                        </div>';
             $title = "<p>" . Str::limit(strip_tags($item->title), 50) . "</p>";
 
             $item['action'] = $action;

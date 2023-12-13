@@ -16,6 +16,21 @@ class PublicInformationController extends Controller
         return view("pages.admin.public-information.index", compact("title"));
     }
 
+
+    // HOME 
+
+    public function homeInformation($seo)
+    {
+        $information = PublicInformation::where("seo", $seo)->first();
+        if (!$information) {
+            return redirect()->route('information-and-formulir');
+        }
+
+        $title = $information['title'];
+        return view("pages.front.information.index", compact('title', 'information'));
+    }
+
+
     // HANDLER API
     public function dataTable(Request $request)
     {
@@ -105,6 +120,7 @@ class PublicInformationController extends Controller
                 ], 400);
             }
 
+            $data["seo"] = Str::slug($data["title"]);
             PublicInformation::create($data);
             return response()->json([
                 "status" => "success",
@@ -147,6 +163,10 @@ class PublicInformationController extends Controller
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
+            }
+
+            if ($data["title"]) {
+                $data["seo"] = Str::slug($data["title"]);
             }
 
             $item->update($data);

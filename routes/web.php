@@ -57,7 +57,14 @@ Route::get('/gallery/video', [VideoController::class, 'homeVideo'])->name('home-
 Route::get('/contact', [ContactController::class, 'homeContact'])->name('home-contact');
 Route::post('/contact/create', [ContactController::class, 'create'])->name('create-contact');
 Route::get('/polling', [PollingController::class, 'homePolling'])->name('home-polling');
-
+Route::get('/information-and-formulir', [HomeController::class, 'informationAndFormulir'])->name('information-and-formulir');
+Route::get('/information/{seo}', [PublicInformationController::class, 'homeInformation'])->name("information");
+Route::prefix('form')->namespace('form')->group(function(){
+    Route::get('/request', [FormInformationController::class, 'homeRequest'])->name('form-request');
+    Route::get('/objection', [FormInformationController::class, 'homeObjection'])->name('form-objection');
+    Route::get('/complaint', [FormInformationController::class, 'homeComplaint'])->name('form-complaint');
+    Route::get('/satisfaction', [FormInformationController::class, 'homeSatisfaction'])->name('form-satisfaction');
+});
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // AUTH
 Route::group(["middleware" => "guest"], function () {

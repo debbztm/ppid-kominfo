@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PublicInformation extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','description'];
+    protected $fillable = ['title', 'seo', 'description'];
     protected $table = "public_information";
 
     public function publicInformationNews()
