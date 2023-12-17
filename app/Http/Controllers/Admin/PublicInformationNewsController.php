@@ -20,6 +20,20 @@ class PublicInformationNewsController extends Controller
         return view("pages.admin.public-information.news", compact("title", "public_informations"));
     }
 
+    // HOME 
+    public function homeInformationNew($seo)
+    {
+        $news = PublicInformationNew::where("seo", $seo)->first();
+        if (!$news) {
+            return redirect()->route('information-and-formulir');
+        }
+
+        $data["views"] = $news->views + 1;
+        $news->update($data);
+        $title = $news['title'];
+        return view("pages.front.information.detail", compact('title', 'news'));
+    }
+
     // HANDLE API
     public function dataTable(Request $request)
     {
@@ -61,7 +75,7 @@ class PublicInformationNewsController extends Controller
                             <span class="slider"></span>
                         </div>
                     </div>' :
-            '
+                '
                     <div class="text-center">
                         <span class="label-switch">Draft</span>
                     </div>
@@ -98,9 +112,9 @@ class PublicInformationNewsController extends Controller
     public function getDetail($id)
     {
         try {
-            $post = PublicInformationNew::find($id);
+            $publicInformation = PublicInformationNew::find($id);
 
-            if (!$post) {
+            if (!$publicInformation) {
                 return response()->json([
                     "status" => "error",
                     "message" => "Data tidak ditemukan",
@@ -109,7 +123,7 @@ class PublicInformationNewsController extends Controller
 
             return response()->json([
                 "status" => "success",
-                "data" => $post
+                "data" => $publicInformation
             ]);
         } catch (\Exception $err) {
             return response()->json([
@@ -328,5 +342,54 @@ class PublicInformationNewsController extends Controller
                 "message" => $err->getMessage()
             ], 500);
         }
+    }
+
+    // API FRONTEND
+    public function homeDataTable(Request $request, $seo)
+    {
+        $publicInformation = PublicInformation::where("seo", $seo)->first();
+
+        if (!$publicInformation) {
+            return response()->json([
+                'draw' => $request->query('draw'),
+                'recordsFiltered' => 0,
+                'recordsTotal' => 0,
+                'data' => [],
+            ]);
+        }
+
+        $query = PublicInformationNew::query();
+
+        if ($request->query("search")) {
+            $searchValue = $request->query("search")['value'];
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('title', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        $query->where('public_information_id', $publicInformation->id);
+        $query->where('is_publish', 'Y');
+        $recordsFiltered = $query->count();
+
+        $data = $query->orderBy('created_at', 'desc')
+            ->skip($request->query('start'))
+            ->limit($request->query('length'))
+            ->get();
+
+        $output = $data->map(function ($item, $index) {
+            $item['no'] = $index + 1;
+            $item['title'] = "<p>" . Str::limit(strip_tags($item->title), 50) . "</p>";
+            $item['description'] = "<p>" . Str::limit(strip_tags($item->description), 100) . "</p>";
+            $item['detail'] = '<a class="badge badge-primary" href="' . route('information-news', $item->seo) . '">Detail</a>';
+            return $item;
+        });
+
+        $total = PublicInformationNew::count();
+        return response()->json([
+            'draw' => $request->query('draw'),
+            'recordsFiltered' => $recordsFiltered,
+            'recordsTotal' => $total,
+            'data' => $output,
+        ]);
     }
 }

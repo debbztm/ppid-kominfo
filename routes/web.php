@@ -59,6 +59,7 @@ Route::post('/contact/create', [ContactController::class, 'create'])->name('crea
 Route::get('/polling', [PollingController::class, 'homePolling'])->name('home-polling');
 Route::get('/information-and-formulir', [HomeController::class, 'informationAndFormulir'])->name('information-and-formulir');
 Route::get('/information/{seo}', [PublicInformationController::class, 'homeInformation'])->name("information");
+Route::get('/information/news/{seo}', [PublicInformationNewsController::class, 'homeInformationNew'])->name("information-news");
 Route::prefix('form')->namespace('form')->group(function(){
     Route::get('/request', [FormInformationController::class, 'homeRequest'])->name('form-request');
     Route::get('/objection', [FormInformationController::class, 'homeObjection'])->name('form-objection');

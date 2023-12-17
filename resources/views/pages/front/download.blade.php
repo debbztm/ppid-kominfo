@@ -79,7 +79,6 @@
             <tbody>
             </tbody>
         </table>
-
     </section>
 @endsection
 @push('scripts')

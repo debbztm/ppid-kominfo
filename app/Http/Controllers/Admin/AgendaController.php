@@ -22,8 +22,7 @@ class AgendaController extends Controller
     public function homeAgenda()
     {
         $title = "Agenda - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
-        $agenda = MaAgenda::orderBy('time', 'desc')->get();
-        return view('pages.front.agenda', compact("title", "agenda"));
+        return view('pages.front.agenda', compact("title"));
     }
 
     // HANDLER API

@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\PublicInformationFile;
 use App\Models\PublicInformationNew;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class PublicInformationFilesController extends Controller
 {
@@ -253,5 +255,54 @@ class PublicInformationFilesController extends Controller
                 "message" => $err->getMessage()
             ], 500);
         }
+    }
+
+
+    // API FRONTEND
+    public function homeDataTable(Request $request, $seo)
+    {
+        $news = PublicInformationNew::where("seo", $seo)->first();
+
+        if (!$news) {
+            return response()->json([
+                'draw' => $request->query('draw'),
+                'recordsFiltered' => 0,
+                'recordsTotal' => 0,
+                'data' => [],
+            ]);
+        }
+
+        $query = PublicInformationFile::query();
+
+        if ($request->query("search")) {
+            $searchValue = $request->query("search")['value'];
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('title', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        $query->where('public_information_news_id', $news->id);
+        $recordsFiltered = $query->count();
+
+        $data = $query->orderBy('created_at', 'desc')
+            ->skip($request->query('start'))
+            ->limit($request->query('length'))
+            ->get();
+
+        $output = $data->map(function ($item, $index) {
+            $item['no'] = $index + 1;
+            $item['title'] = "<p>" . Str::limit(strip_tags($item->title), 50) . "</p>";
+            $item['description'] = "<p>" . Str::limit(strip_tags($item->description), 100) . "</p>";
+            $item['download'] = '<a class="badge badge-primary" href="' . Storage::url($item->file) . '" download="' . $item->title . '" target="_blank">Download</a>';
+            return $item;
+        });
+
+        $total = PublicInformationFile::count();
+        return response()->json([
+            'draw' => $request->query('draw'),
+            'recordsFiltered' => $recordsFiltered,
+            'recordsTotal' => $total,
+            'data' => $output,
+        ]);
     }
 }

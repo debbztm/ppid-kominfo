@@ -18,7 +18,6 @@ class PublicInformationController extends Controller
 
 
     // HOME 
-
     public function homeInformation($seo)
     {
         $information = PublicInformation::where("seo", $seo)->first();

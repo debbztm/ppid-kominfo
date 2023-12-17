@@ -54,6 +54,8 @@ Route::get("/download/datatable", [DownloadController::class, "homeDataTable"]);
 Route::get("/regulation/datatable", [RegulationController::class, "homeDataTable"]);
 Route::get("/news", [PostController::class, 'search']);
 Route::post('/polling/update', [PollingController::class, 'update']);
+Route::get('/public-information-news/datatable/{seo}', [PublicInformationNewsController::class, 'homeDataTable']);
+Route::get('/public-information-file/datatable/{seo}', [PublicInformationFilesController::class, 'homeDataTable']);
 
 // AUTH
 Route::group(["middleware" => "guest"], function () {

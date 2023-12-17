@@ -88,7 +88,6 @@
     <script src="{{ asset('frontend/js/featherlight.js') }}"></script>
     <script>
         function playVideo(url) {
-            console.log("sini : ", url)
             var modal = document.getElementById("videoModal");
             var frame = document.getElementById("videoFrame");
             modal.style.display = "block";
