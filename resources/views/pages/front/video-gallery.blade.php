@@ -61,7 +61,7 @@
             <div class="row mt-50">
                 <div class="video-gallery">
                     @foreach ($videos as $video)
-                        <div class="col-md-3 mt-10">
+                        <div class="col-md-4 mt-10">
                             <a href="javascript:void(0);"
                                 onclick="playVideo('https://www.youtube.com/embed/{{ $video->link }}')">
                                 <img src="https://i.ytimg.com/vi/{{ $video->link }}/hqdefault.jpg"

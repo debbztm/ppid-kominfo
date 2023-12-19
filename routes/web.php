@@ -53,6 +53,7 @@ Route::get('/regulation', [RegulationController::class, 'homeListRegulation'])->
 Route::get('/download', [DownloadController::class, 'homeDownload'])->name('home-download');
 Route::get('/agenda', [AgendaController::class, 'homeAgenda'])->name("home-agenda");
 Route::get('/gallery/photo', [GalleryController::class, 'homeGallery'])->name('home-img-gallery');
+Route::get('/gallery/photo/{seo}', [ImageGalleryController::class, 'homeListImageGallery'])->name('home-list-img-gallery');
 Route::get('/gallery/video', [VideoController::class, 'homeVideo'])->name('home-video-gallery');
 Route::get('/contact', [ContactController::class, 'homeContact'])->name('home-contact');
 Route::post('/contact/create', [ContactController::class, 'create'])->name('create-contact');

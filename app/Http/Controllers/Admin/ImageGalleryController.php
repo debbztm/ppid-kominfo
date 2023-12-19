@@ -17,6 +17,18 @@ class ImageGalleryController extends Controller
         return view("pages.admin.image-gallery", compact("title"));
     }
 
+    public function homeListImageGallery($seo)
+    {
+        $title = "Gallery Photo - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $gallery = MaGallery::where('seo', $seo)->first();
+        if (!$gallery) {
+            return redirect()->route("home-img-gallery");
+        }
+
+        $images = MaImageGallery::where("ma_gallery_id", $gallery->id)->paginate(8);
+        return view("pages.front.image-gallery-list", compact("title", "images", "gallery"));
+    }
+
     // HANDLER API
     public function list($gallery_id)
     {
@@ -90,7 +102,7 @@ class ImageGalleryController extends Controller
             MaImageGallery::create($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil dibuat"
+                "message" => "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
             if ($request->file("image")) {

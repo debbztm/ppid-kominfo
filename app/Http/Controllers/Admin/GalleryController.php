@@ -20,8 +20,7 @@ class GalleryController extends Controller
     public function homeGallery()
     {
         $title = "Gallery Photo - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
-        $galleries = MaGallery::with('maImageGalleries')->paginate(1);
-        return view("pages.front.image-gallery", compact("title", "galleries"));
+        return view("pages.front.image-gallery", compact("title"));
     }
 
 
@@ -115,7 +114,7 @@ class GalleryController extends Controller
             MaGallery::create($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil dibuat"
+                "message" => "Data berhasil dibuat"
             ]);
         } catch (\Exception $err) {
             return response()->json([
@@ -163,7 +162,7 @@ class GalleryController extends Controller
             $gallery->update($data);
             return response()->json([
                 "status" => "success",
-                "message" =>  "Data berhasil diperbarui"
+                "message" => "Data berhasil diperbarui"
             ]);
         } catch (\Exception $err) {
             return response()->json([
@@ -207,5 +206,39 @@ class GalleryController extends Controller
                 "message" => $err->getMessage()
             ], 500);
         }
+    }
+
+    // API FRONTEND
+    public function homeDataTable(Request $request)
+    {
+        $query = MaGallery::query();
+
+        if ($request->query("search")) {
+            $searchValue = $request->query("search")['value'];
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('title', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        $recordsFiltered = $query->count();
+
+        $data = $query->orderBy('created_at', 'desc')
+            ->skip($request->query('start'))
+            ->limit($request->query('length'))
+            ->get();
+
+        $output = $data->map(function ($item, $index) {
+            $item['no'] = $index + 1;
+            $item['detail'] = '<a class="badge badge-primary" href="' . route('home-list-img-gallery', $item->seo) . '">Detail</a>';
+            return $item;
+        });
+
+        $total = MaGallery::count();
+        return response()->json([
+            'draw' => $request->query('draw'),
+            'recordsFiltered' => $recordsFiltered,
+            'recordsTotal' => $total,
+            'data' => $output,
+        ]);
     }
 }
