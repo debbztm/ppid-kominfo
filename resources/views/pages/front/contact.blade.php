@@ -82,10 +82,19 @@
                                 <span class="ubuntu fz-14 gray-777 lh-22">{{ $setting->web_email }}</span>
                             @endif
                         </div>
-                        <div class="contact-icon pull-right position-r">
-                            <img src="{{ asset('frontend/img/mail.png') }}" alt="">
-                            <img src="{{ asset('frontend/img/mail-hover.png') }}" alt="">
-                        </div>
+                        @if ($setting)
+                            <a href="mailto:?body={{ $setting->web_email }}" target="_blank">
+                                <div class="contact-icon pull-right position-r">
+                                    <img src="{{ asset('frontend/img/mail.png') }}" alt="">
+                                    <img src="{{ asset('frontend/img/mail-hover.png') }}" alt="">
+                                </div>
+                            </a>
+                        @else
+                            <div class="contact-icon pull-right position-r">
+                                <img src="{{ asset('frontend/img/mail.png') }}" alt="">
+                                <img src="{{ asset('frontend/img/mail-hover.png') }}" alt="">
+                            </div>
+                        @endif
                         <div class="clearfix"></div>
                         <hr class="c-border">
                     </div>
