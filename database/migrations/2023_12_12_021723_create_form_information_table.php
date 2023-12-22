@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string("howtocopy_information")->nullable();
 
             // FOR OBJECTION TYPE
-            $table->string("description")->nullable();
+            $table->longText("description")->nullable();
             $table->string("reason")->nullable();
 
             // FOR COMPLAINT TYPE

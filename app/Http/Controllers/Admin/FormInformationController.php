@@ -49,7 +49,7 @@ class FormInformationController extends Controller
 
     public function homeObjection()
     {
-        $title = "Formulir Bekeratan - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $title = "Formulir Keberatan - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
         return view("pages.front.form-information.objection", compact("title"));
     }
 
@@ -102,7 +102,10 @@ class FormInformationController extends Controller
                                         " . Str::limit(strip_tags($item->information), 50) . "
                                     </p>";
             $item["purpose"] = "<p>
-                                        " . Str::limit(strip_tags($item->purpose), 50) . "
+                                    " . Str::limit(strip_tags($item->purpose), 50) . "
+                                </p>";
+            $item["description"] = "<p>
+                                        " . Str::limit(strip_tags($item->description), 50) . "
                                     </p>";
             return $item;
         });

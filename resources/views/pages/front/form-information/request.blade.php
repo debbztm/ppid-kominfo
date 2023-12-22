@@ -68,11 +68,11 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 mt-30">
                                         <label for="information">Informasi Yang Dibutuhkan</label>
-                                        <textarea id="information" rows="5" name="message" class="form-control mt-10" placeholder=""required></textarea>
+                                        <textarea id="information" rows="5" name="information" class="form-control mt-10" placeholder=""required></textarea>
                                     </div>
                                     <div class="form-group col-md-6 mt-30">
                                         <label for="purpose">Tujuan Memperoleh Informasi</label>
-                                        <textarea id="purpose" rows="5" name="message" class="form-control mt-10" placeholder=""required></textarea>
+                                        <textarea id="purpose" rows="5" name="information" class="form-control mt-10" placeholder=""required></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -133,8 +133,8 @@
             formData.append("image", document.getElementById("image").files[0]);
             formData.append("information", $("#information").val());
             formData.append("purpose", $("#purpose").val());
-            formData.append("howtoget_information", $("input[name='howtoget_information']:checked").val())
-            formData.append("howtocopy_information", $("input[name='howtocopy_information']:checked").val())
+            formData.append("howtoget_information", $("input[name='howtoget_information']:checked").val());
+            formData.append("howtocopy_information", $("input[name='howtocopy_information']:checked").val());
             formData.append("type", "request")
 
             saveData(formData)

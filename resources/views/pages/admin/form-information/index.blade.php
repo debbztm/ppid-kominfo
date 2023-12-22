@@ -46,7 +46,8 @@
         </div>
     </div>
     <!-- Modal Detail Request -->
-    <div class="modal fade bd-example-modal-lg" id="requestModal" tabindex="-1" aria-labelledby="requestModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="requestModal" tabindex="-1" aria-labelledby="requestModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg   ">
             <div class="modal-content">
                 <div class="modal-header">
@@ -57,17 +58,48 @@
                 </div>
                 <div class="modal-body">
                     <p><strong>Nama :</strong> <span class="text-muted" id="reqName"></span></p>
-                    <p><strong>Telpon :</strong> <span class="text-muted"  id="reqPhone"></span></p>
-                    <p><strong>Pekerjaan :</strong> <span class="text-muted"  id="reqJob"></span></p>
-                    <p><strong>Email :</strong> <span class="text-muted"  id="reqEmail"></span></p>
-                    <p><strong>Alamat :</strong> <span class="text-muted"  id="reqAddress"></span></p>
-                    <p><strong>Identitas :  </strong></p>
-                    <img id="reqImage" src="" alt="identitas" class="img img-responsive img-tumbnail" style="max-width: 400px !important; object-fit: cover;">
+                    <p><strong>Telpon :</strong> <span class="text-muted" id="reqPhone"></span></p>
+                    <p><strong>Pekerjaan :</strong> <span class="text-muted" id="reqJob"></span></p>
+                    <p><strong>Email :</strong> <span class="text-muted" id="reqEmail"></span></p>
+                    <p><strong>Alamat :</strong> <span class="text-muted" id="reqAddress"></span></p>
+                    <p><strong>Identitas : </strong></p>
+                    <img id="reqImage" src="" alt="identitas" class="img img-responsive img-tumbnail"
+                        style="max-width: 400px !important; object-fit: cover;">
                     <hr>
-                    <p><strong>Informasi Dibutuhkan :</strong> <span class="text-muted"  id="reqInformation"></span></p>
-                    <p><strong>Tujuan :</strong> <span class="text-muted"  id="reqPurpose"></span></p>
-                    <p><strong>Cara Memperoleh :</strong> <span class="text-muted"  id="reqHowToGet"></span></p>
-                    <p><strong>Cara Menyalin :</strong> <span class="text-muted"  id="reqHotToCopy"></span></p>
+                    <p><strong>Informasi Dibutuhkan :</strong> <span class="text-muted" id="reqInformation"></span></p>
+                    <p><strong>Tujuan :</strong> <span class="text-muted" id="reqPurpose"></span></p>
+                    <p><strong>Cara Memperoleh :</strong> <span class="text-muted" id="reqHowToGet"></span></p>
+                    <p><strong>Cara Menyalin :</strong> <span class="text-muted" id="reqHotToCopy"></span></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detail Objection -->
+    <div class="modal fade bd-example-modal-lg" id="objectionModal" tabindex="-1" aria-labelledby="objectionModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg   ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="objectionModalLabel">Detail Keberatan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Nama :</strong> <span class="text-muted" id="objName"></span></p>
+                    <p><strong>Telpon :</strong> <span class="text-muted" id="objPhone"></span></p>
+                    <p><strong>Pekerjaan :</strong> <span class="text-muted" id="objJob"></span></p>
+                    <p><strong>Email :</strong> <span class="text-muted" id="objEmail"></span></p>
+                    <p><strong>Alamat :</strong> <span class="text-muted" id="objAddress"></span></p>
+                    <p><strong>Identitas : </strong></p>
+                    <img id="objImage" src="" alt="identitas" class="img img-responsive img-tumbnail"
+                        style="max-width: 400px !important; object-fit: cover;">
+                    <hr>
+                    <p><strong>Informasi Yang Diminta :</strong> <span class="text-muted" id="objInformation"></span></p>
+                    <p><strong>Keterangan Keberatan :</strong> <span class="text-muted" id="objDescription"></span></p>
+                    <p><strong>Alasan Keberatan :</strong> <span class="text-muted" id="objReason"></span></p>
 
                 </div>
             </div>
@@ -173,7 +205,16 @@
         }
 
         function showObjectionModal(data) {
-            $("#exampleModal").modal('show');
+            $("#objName").html(data.name);
+            $("#objPhone").html(data.phone);
+            $("#objJob").html(data.job);
+            $("#objEmail").html(data.email);
+            $("#objAddress").html(data.address);
+            $("#objImage").attr("src", data.image)
+            $("#objInformation").html(data.information);
+            $("#objDescription").html(data.description);
+            $("#objReason").html(data.reason);
+            $("#objectionModal").modal('show');
         }
 
         function showComplaintModal(data) {
