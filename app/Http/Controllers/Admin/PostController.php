@@ -112,7 +112,7 @@ class PostController extends Controller
                                 class="img-fluid img-thumbnail" alt="' . $item->title . '">
                             </div>
                         </div>';
-            $title = " <p>
+            $title =    "<p>
                             " . Str::limit(strip_tags($item->title), 100) . "
                         </p>";
             $item['action'] = $action;

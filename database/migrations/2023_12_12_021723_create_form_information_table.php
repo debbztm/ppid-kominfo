@@ -24,7 +24,7 @@ return new class extends Migration
             $table->enum("type", ["request", "objection", "complaint", "satisfaction"]);
 
             // FOR REQUEST TYPE
-            $table->string("purpose")->nullable();
+            $table->longText("purpose")->nullable();
             $table->string("howtoget_information")->nullable();
             $table->string("howtocopy_information")->nullable();
 

@@ -57,6 +57,7 @@ Route::get("/news", [PostController::class, 'search']);
 Route::post('/polling/update', [PollingController::class, 'update']);
 Route::get('/public-information-news/datatable/{seo}', [PublicInformationNewsController::class, 'homeDataTable']);
 Route::get('/public-information-file/datatable/{seo}', [PublicInformationFilesController::class, 'homeDataTable']);
+Route::post("/form-information", [FormInformationController::class, "create"]);
 
 // AUTH
 Route::group(["middleware" => "guest"], function () {
@@ -294,7 +295,6 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
     Route::group(["prefix" => "form"], function () {
         Route::get("{type}/datatable", [FormInformationController::class, "dataTable"]);
         Route::get("{id}/detail", [FormInformationController::class, "getDetail"]);
-        Route::post("/create", [FormInformationController::class, "create"]);
         // Route::post("/update", [FormInformationController::class, "update"]);
         Route::delete("/", [FormInformationController::class, "destroy"]);
     });

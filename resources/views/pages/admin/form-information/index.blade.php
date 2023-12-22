@@ -45,20 +45,30 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Modal Detail Request -->
+    <div class="modal fade bd-example-modal-lg" id="requestModal" tabindex="-1" aria-labelledby="requestModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg   ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detail</h5>
+                    <h5 class="modal-title" id="requestModalLabel">Detail Permintaan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <strong id="info"></strong>
-                    <br>
-                    <small id="message"></small>
+                    <p><strong>Nama :</strong> <span class="text-muted" id="reqName"></span></p>
+                    <p><strong>Telpon :</strong> <span class="text-muted"  id="reqPhone"></span></p>
+                    <p><strong>Pekerjaan :</strong> <span class="text-muted"  id="reqJob"></span></p>
+                    <p><strong>Email :</strong> <span class="text-muted"  id="reqEmail"></span></p>
+                    <p><strong>Alamat :</strong> <span class="text-muted"  id="reqAddress"></span></p>
+                    <p><strong>Identitas :  </strong></p>
+                    <img id="reqImage" src="" alt="identitas" class="img img-responsive img-tumbnail" style="max-width: 400px !important; object-fit: cover;">
+                    <hr>
+                    <p><strong>Informasi Dibutuhkan :</strong> <span class="text-muted"  id="reqInformation"></span></p>
+                    <p><strong>Tujuan :</strong> <span class="text-muted"  id="reqPurpose"></span></p>
+                    <p><strong>Cara Memperoleh :</strong> <span class="text-muted"  id="reqHowToGet"></span></p>
+                    <p><strong>Cara Menyalin :</strong> <span class="text-muted"  id="reqHotToCopy"></span></p>
+
                 </div>
             </div>
         </div>
@@ -122,22 +132,23 @@
                 dataType: "json",
                 success: function(res) {
                     let d = res.data
-                    if(d.type == "request"){
+                    if (d.type == "request") {
+                        console.log('data :', d)
                         showRequestModal(d)
                     }
 
-                    if(d.type == "objection"){
+                    if (d.type == "objection") {
                         showObjectionModal(d)
                     }
 
-                    if(d.type == "complaint"){
+                    if (d.type == "complaint") {
                         complaintDataTable(d)
                     }
 
-                    if(d.type == "satisfaction"){
+                    if (d.type == "satisfaction") {
                         showSatisfactionModal(d)
                     }
-                    
+
                 },
                 error: function(err) {
                     console.log("error :", err);
@@ -147,19 +158,29 @@
             })
         }
 
-        function showRequestModal(data){
+        function showRequestModal(data) {
+            $("#reqName").html(data.name);
+            $("#reqPhone").html(data.phone);
+            $("#reqJob").html(data.job);
+            $("#reqEmail").html(data.email);
+            $("#reqAddress").html(data.address);
+            $("#reqImage").attr("src", data.image)
+            $("#reqInformation").html(data.information);
+            $("#reqPurpose").html(data.purpose);
+            $("#reqHowToGet").html(data.howtoget_information);
+            $("#reqHotToCopy").html(data.howtocopy_information);
+            $("#requestModal").modal('show');
+        }
+
+        function showObjectionModal(data) {
             $("#exampleModal").modal('show');
         }
 
-        function showObjectionModal(data){
+        function showComplaintModal(data) {
             $("#exampleModal").modal('show');
         }
 
-        function showComplaintModal(data){
-            $("#exampleModal").modal('show');
-        }
-
-        function showSatisfactionModal(data){
+        function showSatisfactionModal(data) {
             $("#exampleModal").modal('show');
         }
 
@@ -294,7 +315,7 @@
             });
         }
 
-        function removeData(id) {
+        function removeData(id, type) {
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");
             if (c) {
                 $.ajax({
@@ -307,7 +328,7 @@
                         console.log("Loading...")
                     },
                     success: function(res) {
-                        refreshData();
+                        refreshData(type);
                         showMessage("success", "flaticon-alarm-1", "Sukses", res.message);
                     },
                     error: function(err) {

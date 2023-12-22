@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\FormInformation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 use function PHPSTORM_META\map;
 
@@ -39,24 +41,28 @@ class FormInformationController extends Controller
 
 
     // HOME PAGE
-    public function ohomeRequest()
+    public function homeRequest()
     {
-        return view("pages.front.form-information.request");
+        $title = "Formulir Permohonan - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        return view("pages.front.form-information.request", compact("title"));
     }
 
     public function homeObjection()
     {
-        return view("pages.front.form-information.objection");
+        $title = "Formulir Bekeratan - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        return view("pages.front.form-information.objection", compact("title"));
     }
 
     public function homeComplaint()
     {
-        return view("pages.front.form-information.complaint");
+        $title = "Formulir Pengaduan - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        return view("pages.front.form-information.complaint", compact("title"));
     }
 
     public function homeSatisfaction()
     {
-        return view("pages.front.form-information.satisfaction");
+        $title = "Formulir Index Kepuasan - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        return view("pages.front.form-information.satisfaction", compact("title"));
     }
 
     // HANDLER API
@@ -81,17 +87,23 @@ class FormInformationController extends Controller
             ->limit($request->query('length'))
             ->get();
 
-        $output = $data->map(function ($item) {
+        $output = $data->map(function ($item) use ($type) {
             $action = "<div class='dropdown-primary dropdown open'>
                                 <button class='btn btn-sm btn-primary dropdown-toggle waves-effect waves-light' id='dropdown-{$item->id}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
                                     Aksi
                                 </button>
                                 <div class='dropdown-menu' aria-labelledby='dropdown-{$item->id}' data-dropdown-out='fadeOut'>
                                     <a class='dropdown-item' onclick='return getData(\"{$item->id}\");' href='javascript:void(0);' title='Lihat'>Lihat</a>
-                                    <a class='dropdown-item' onclick='return removeData(\"{$item->id}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
+                                    <a class='dropdown-item' onclick='return removeData(\"{$item->id}\", \"{$type}\");' href='javascript:void(0)' title='Hapus'>Hapus</a>
                                 </div>
                             </div>";
             $item["action"] = $action;
+            $item["information"] = "<p>
+                                        " . Str::limit(strip_tags($item->information), 50) . "
+                                    </p>";
+            $item["purpose"] = "<p>
+                                        " . Str::limit(strip_tags($item->purpose), 50) . "
+                                    </p>";
             return $item;
         });
 
@@ -109,10 +121,10 @@ class FormInformationController extends Controller
         try {
             $data = $request->all();
             $rules = [
-                "name" => "reqired|string",
+                "name" => "required|string",
                 "phone" => "required|string",
                 "email" => "required|string",
-                "type" => "required|enum|im:request,objection,complaint,satisfaction"
+                "type" => "required|in:request,objection,complaint,satisfaction"
             ];
 
             $messages = [
@@ -128,7 +140,7 @@ class FormInformationController extends Controller
                     "job" => "required|string",
                     "address" => "required|string",
                     "image" => "required|image|max:5120|mimes:giv,svg,jpeg,png,jpg",
-                    "inforrmation" => "required|string",
+                    "information" => "required|string",
                     "purpose" => "required|string",
                     "howtoget_information" => "required|string",
                     "howtocopy_information" => "required|string",
@@ -137,7 +149,7 @@ class FormInformationController extends Controller
                     "job.required" => "Pekerjaan harus diisi",
                     "address.required" => "Alamat harus diisi",
                     "image.required" => "Identitas harus diisi",
-                    "image.image" => "Identitas yang di upload tidak valid",
+                    "image.image" => "Identitas yang di upload tidak valid. Identitas harus berupa gambar",
                     "image.max" => "Ukuran gambar maximal 5MB",
                     "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg",
                     "information.required" => "Informasi yang dibutuhkan harus diisi",
@@ -146,14 +158,14 @@ class FormInformationController extends Controller
                     "howtocopy_information.required" => "Cara mendapatkan salinan informasi harus diisi"
                 ];
 
-                array_merge($rules, $addRules);
-                array_merge($messages, $addMessages);
+                $rules = array_merge($rules, $addRules);
+                $messages = array_merge($messages, $addMessages);
             } else if ($data['type'] == "objection") {
                 $addRules = [
                     "job" => "required|string",
                     "address" => "required|string",
                     "image" => "required|image|max:5120|mimes:giv,svg,jpeg,png,jpg",
-                    "inforrmation" => "required|string",
+                    "information" => "required|string",
                     "description" => "required|string",
                     "reason" => "required|string",
                 ];
@@ -161,7 +173,7 @@ class FormInformationController extends Controller
                     "job.required" => "Pekerjaan harus diisi",
                     "address.required" => "Alamat harus diisi",
                     "image.required" => "Identitas harus diisi",
-                    "image.image" => "Identitas yang di upload tidak valid",
+                    "image.image" => "Identitas yang di upload tidak valid. Identitas harus berupa gambar",
                     "image.max" => "Ukuran gambar maximal 5MB",
                     "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg",
                     "information.required" => "Informasi yang diminta harus diisi",
@@ -169,21 +181,21 @@ class FormInformationController extends Controller
                     "reason.required" => "Alasan keberatan harus diisi",
                 ];
 
-                array_merge($rules, $addRules);
-                array_merge($messages, $addMessages);
+                $rules = array_merge($rules, $addRules);
+                $messages = array_merge($messages, $addMessages);
             } else if ($data["type"] == "complaint") {
                 $addRules = [
                     "address" => "required|string",
                     "image" => "required|image|max:5120|mimes:giv,svg,jpeg,png,jpg",
                     "nameof_reported" => "required|string",
-                    "inforrmation" => "required|string",
+                    "information" => "required|string",
                     "reported_identity" => "required|string",
                     "witness" => "required|string|in:Y,N",
                 ];
                 $addMessages = [
                     "address.required" => "Alamat harus diisi",
                     "image.required" => "Identitas harus diisi",
-                    "image.image" => "Identitas yang di upload tidak valid",
+                    "image.image" => "Identitas yang di upload tidak valid. Identitas harus berupa gambar",
                     "image.max" => "Ukuran gambar maximal 5MB",
                     "image.mimes" => "Format gambar harus giv/svg/jpeg/png/jpg",
                     "nameof_reported.required" => "Nama terlapor harus diisi",
@@ -193,8 +205,8 @@ class FormInformationController extends Controller
                     "witness.in" => "Saksian tidak valid"
                 ];
 
-                array_merge($rules, $addRules);
-                array_merge($messages, $addMessages);
+                $rules = array_merge($rules, $addRules);
+                $messages = array_merge($messages, $addMessages);
             } else if ($data["type"] == "satisfaction") {
                 $addRules = [
                     "date" => "required",
@@ -211,8 +223,8 @@ class FormInformationController extends Controller
                     "suggestion.required" => "Saran harus diisi",
                 ];
 
-                array_merge($rules, $addRules);
-                array_merge($messages, $addMessages);
+                $rules = array_merge($rules, $addRules);
+                $messages = array_merge($messages, $addMessages);
             }
 
             $validator = Validator::make($data, $rules, $messages);
@@ -230,7 +242,9 @@ class FormInformationController extends Controller
             FormInformation::create($data);
             return response()->json([
                 "status" => "success",
-                "message" => "Formulir berhasil dikirim"
+                "message" => "Formulir berhasil dikirim",
+                "rules" => $rules,
+                "type" => $data['type']
             ]);
         } catch (\Throwable $err) {
             if ($request->file("image")) {
@@ -254,6 +268,9 @@ class FormInformationController extends Controller
                 ], 404);
             }
 
+            if ($data->image) {
+                $data["image"] = Storage::url($data->image);
+            }
             return response()->json([
                 "status" => "success",
                 "data" => $data
@@ -288,6 +305,9 @@ class FormInformationController extends Controller
                     "status" => "error",
                     "message" => "Data tidak ditemukan"
                 ], 404);
+            }
+            if ($data->image) {
+                unlink(public_path('storage/' . $data->image));
             }
             $data->delete();
             return response()->json([

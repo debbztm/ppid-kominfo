@@ -9,3 +9,5 @@
 <script src="{{ asset('frontend/js/Chart.min.js') }}"></script>
 <script src="{{ asset('frontend/js/custom-chart.js') }}"></script>
 <script src="{{ asset('frontend/js/main.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    

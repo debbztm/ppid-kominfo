@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="{{ asset('frontend/css/main.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
 <script src="{{ asset('frontend/js/modernizr-2.8.3.min.js') }}"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <style>
     /* ul.nav.navbar-nav li .main-menu {
         color: #fee50f !important;
