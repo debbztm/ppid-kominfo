@@ -63,8 +63,7 @@
                     <p><strong>Email :</strong> <span class="text-muted" id="reqEmail"></span></p>
                     <p><strong>Alamat :</strong> <span class="text-muted" id="reqAddress"></span></p>
                     <p><strong>Identitas : </strong></p>
-                    <img id="reqImage" src="" alt="identitas" class="img img-responsive img-tumbnail"
-                        style="max-width: 400px !important; object-fit: cover;">
+                    <img id="reqImage" src="" alt="identitas" class="img img-responsive img-fluid max-width: 100%">
                     <hr>
                     <p><strong>Informasi Dibutuhkan :</strong> <span class="text-muted" id="reqInformation"></span></p>
                     <p><strong>Tujuan :</strong> <span class="text-muted" id="reqPurpose"></span></p>
@@ -94,12 +93,43 @@
                     <p><strong>Email :</strong> <span class="text-muted" id="objEmail"></span></p>
                     <p><strong>Alamat :</strong> <span class="text-muted" id="objAddress"></span></p>
                     <p><strong>Identitas : </strong></p>
-                    <img id="objImage" src="" alt="identitas" class="img img-responsive img-tumbnail"
-                        style="max-width: 400px !important; object-fit: cover;">
+                    <img id="objImage" src="" alt="identitas"
+                        class="img img-responsive img-fluid max-width: 100%">
                     <hr>
                     <p><strong>Informasi Yang Diminta :</strong> <span class="text-muted" id="objInformation"></span></p>
                     <p><strong>Keterangan Keberatan :</strong> <span class="text-muted" id="objDescription"></span></p>
                     <p><strong>Alasan Keberatan :</strong> <span class="text-muted" id="objReason"></span></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detail Complaint -->
+    <div class="modal fade bd-example-modal-lg" id="complaintModal" tabindex="-1" aria-labelledby="complaintModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg   ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="complaintModalLabel">Detail Keberatan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Nama Pelapor :</strong> <span class="text-muted" id="compName"></span></p>
+                    <p><strong>Telpon Pelapor :</strong> <span class="text-muted" id="compPhone"></span></p>
+                    <p><strong>Email Pelapor :</strong> <span class="text-muted" id="compEmail"></span></p>
+                    <p><strong>Alamat Pelapor:</strong> <span class="text-muted" id="compAddress"></span></p>
+                    <p><strong>Ada Saksi:</strong> <span class="text-muted" id="compWitness"></span></p>
+                    <p><strong>Identitas Pelapor : </strong></p>
+                    <img id="compImage" src="" alt="identitas"
+                        class="img img-responsive img-fluid max-width: 100%">
+                    <hr>
+                    <p><strong>Nama Terlapor :</strong> <span class="text-muted" id="compNameOfReported"></span></p>
+                    <p><strong>Identitas Terlapor :</strong> <span class="text-muted" id="compReportedIdentity"></span>
+                    </p>
+                    <p><strong>Kejadian/Kesaksian :</strong> <span class="text-muted" id="compInformation"></span></p>
 
                 </div>
             </div>
@@ -135,7 +165,6 @@
 
             $("#tabRequest").click(function() {
                 showTab("request")
-                // requestDataTable()
             })
 
             $("#tabObjection").click(function() {
@@ -165,7 +194,6 @@
                 success: function(res) {
                     let d = res.data
                     if (d.type == "request") {
-                        console.log('data :', d)
                         showRequestModal(d)
                     }
 
@@ -174,7 +202,7 @@
                     }
 
                     if (d.type == "complaint") {
-                        complaintDataTable(d)
+                        showComplaintModal(d)
                     }
 
                     if (d.type == "satisfaction") {
@@ -218,7 +246,16 @@
         }
 
         function showComplaintModal(data) {
-            $("#exampleModal").modal('show');
+            $("#compName").html(data.name);
+            $("#compPhone").html(data.phone);
+            $("#compEmail").html(data.email);
+            $("#compAddress").html(data.address);
+            $("#compWitness").html(data.witness == "Y" ? "Ada Saksi" : "Tidak ada saksi");
+            $("#compImage").attr("src", data.image)
+            $("#compNameOfReported").html(data.nameof_reported);
+            $("#compReportedIdentity").html(data.reported_identity);
+            $("#compInformation").html(data.information);
+            $("#complaintModal").modal('show');
         }
 
         function showSatisfactionModal(data) {

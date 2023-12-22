@@ -110,7 +110,7 @@ class FormInformationController extends Controller
             return $item;
         });
 
-        $total = FormInformation::count();
+        $total = FormInformation::where("type", $type)->count();
         return response()->json([
             'draw' => $request->query('draw'),
             'recordsFiltered' => $recordsFiltered,

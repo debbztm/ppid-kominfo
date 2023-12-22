@@ -14,8 +14,8 @@
                     <tr>
                         <th class="all">#</th>
                         <th class="all">Nama Pelapor</th>
-                        <th class="all">Phone</th>
-                        <th class="all">Email</th>
+                        <th class="all">Phone Pelapor</th>
+                        <th class="all">Email Pelapor</th>
                         <th class="all">Nama Terlapor</th>
                         <th class="all">Kejadian</th>
                     </tr>

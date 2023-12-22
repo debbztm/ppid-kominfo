@@ -33,51 +33,51 @@
                             <form id="request" class="mt-20 checkout-form">
                                 <div class="row">
                                     <div class="form-group col-md-4 mt-30">
-                                        <label for="name">Nama </label>
+                                        <label for="name">Nama *</label>
                                         <input id="name" type="text" name="name" class="form-control mt-10"
                                             placeholder="nama" required>
                                     </div>
                                     <div class="form-group col-md-4 mt-30">
-                                        <label for="phone">No Telpon / HP</label>
+                                        <label for="phone">No Telpon / HP *</label>
                                         <input id="phone" type="text" name="phone" class="form-control mt-10"
                                             placeholder="no telpon / hp" required>
                                     </div>
                                     <div class="form-group col-md-4 mt-30">
-                                        <label for="job">Pekerjaan</label>
+                                        <label for="job">Pekerjaan *</label>
                                         <input id="job" type="text" name="job" class="form-control mt-10"
                                             placeholder="pekerjaan" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-4 mt-30">
-                                        <label for="address">Alamat</label>
+                                        <label for="address">Alamat *</label>
                                         <input id="address" type="text" name="address" class="form-control mt-10"
                                             placeholder="alamat" required>
                                     </div>
                                     <div class="form-group col-md-4 mt-30">
-                                        <label for="email">Email</label>
+                                        <label for="email">Email *</label>
                                         <input id="email" type="email" name="email" class="form-control mt-10"
                                             placeholder="email" required>
                                     </div>
                                     <div class="form-group col-md-4 mt-30">
-                                        <label for="image">Identitas Pemohon</label>
+                                        <label for="image">Identitas Pemohon *</label>
                                         <input id="image" type="file" name="image" class="form-control mt-10"
                                             placeholder="identitas" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-6 mt-30">
-                                        <label for="information">Informasi Yang Dibutuhkan</label>
+                                        <label for="information">Informasi Yang Dibutuhkan *</label>
                                         <textarea id="information" rows="5" name="information" class="form-control mt-10" placeholder=""required></textarea>
                                     </div>
                                     <div class="form-group col-md-6 mt-30">
-                                        <label for="purpose">Tujuan Memperoleh Informasi</label>
-                                        <textarea id="purpose" rows="5" name="information" class="form-control mt-10" placeholder=""required></textarea>
+                                        <label for="purpose">Tujuan Memperoleh Informasi *</label>
+                                        <textarea id="purpose" rows="5" name="purpose" class="form-control mt-10" placeholder=""required></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-check col-md-6 mt-30">
-                                        <label for="howtoget_information">Cara Memperoleh Informasi</label>
+                                        <label for="howtoget_information">Cara Memperoleh Informasi *</label>
                                         <div class="text-muted mt-10">
                                             <input type="radio" name="howtoget_information" id="howtoget_information"
                                                 class="form-check-input mt-10" value="Melihat/Membaca/Mendengarkan/Mencatat"
@@ -108,8 +108,8 @@
                                     </div>
                                 </div>
                                 <div class="mt-50 submit text-right ">
-                                    <input type="reset" id="reset" class="martel text-extra-bold text-uppercase fz-14 input-reset"
-                                        value="Reset">
+                                    <input type="reset" id="reset"
+                                        class="martel text-extra-bold text-uppercase fz-14 input-reset" value="Reset">
                                     <input type="submit" class="martel text-extra-bold text-uppercase fz-14"
                                         value="Kirim">
                                 </div>
@@ -154,7 +154,7 @@
                     console.log("Loading...")
                 },
                 success: function(res) {
-                    $("#reset").click();    
+                    $("#reset").click();
                     Swal.fire({
                         title: 'Selamat',
                         text: res.message,
