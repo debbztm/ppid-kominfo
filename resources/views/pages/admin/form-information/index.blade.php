@@ -57,18 +57,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Nama :</strong> <span class="text-muted" id="reqName"></span></p>
-                    <p><strong>Telpon :</strong> <span class="text-muted" id="reqPhone"></span></p>
-                    <p><strong>Pekerjaan :</strong> <span class="text-muted" id="reqJob"></span></p>
-                    <p><strong>Email :</strong> <span class="text-muted" id="reqEmail"></span></p>
-                    <p><strong>Alamat :</strong> <span class="text-muted" id="reqAddress"></span></p>
+                    <p><strong>Nama : </strong> <span class="text-muted" id="reqName"></span></p>
+                    <p><strong>Telpon : </strong> <span class="text-muted" id="reqPhone"></span></p>
+                    <p><strong>Pekerjaan : </strong> <span class="text-muted" id="reqJob"></span></p>
+                    <p><strong>Email : </strong> <span class="text-muted" id="reqEmail"></span></p>
+                    <p><strong>Alamat : </strong> <span class="text-muted" id="reqAddress"></span></p>
                     <p><strong>Identitas : </strong></p>
                     <img id="reqImage" src="" alt="identitas" class="img img-responsive img-fluid max-width: 100%">
                     <hr>
-                    <p><strong>Informasi Dibutuhkan :</strong> <span class="text-muted" id="reqInformation"></span></p>
-                    <p><strong>Tujuan :</strong> <span class="text-muted" id="reqPurpose"></span></p>
-                    <p><strong>Cara Memperoleh :</strong> <span class="text-muted" id="reqHowToGet"></span></p>
-                    <p><strong>Cara Menyalin :</strong> <span class="text-muted" id="reqHotToCopy"></span></p>
+                    <p><strong>Informasi Dibutuhkan : </strong> <span class="text-muted" id="reqInformation"></span></p>
+                    <p><strong>Tujuan : </strong> <span class="text-muted" id="reqPurpose"></span></p>
+                    <p><strong>Cara Memperoleh : </strong> <span class="text-muted" id="reqHowToGet"></span></p>
+                    <p><strong>Cara Menyalin : </strong> <span class="text-muted" id="reqHotToCopy"></span></p>
 
                 </div>
             </div>
@@ -87,18 +87,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Nama :</strong> <span class="text-muted" id="objName"></span></p>
-                    <p><strong>Telpon :</strong> <span class="text-muted" id="objPhone"></span></p>
-                    <p><strong>Pekerjaan :</strong> <span class="text-muted" id="objJob"></span></p>
-                    <p><strong>Email :</strong> <span class="text-muted" id="objEmail"></span></p>
-                    <p><strong>Alamat :</strong> <span class="text-muted" id="objAddress"></span></p>
+                    <p><strong>Nama : </strong> <span class="text-muted" id="objName"></span></p>
+                    <p><strong>Telpon : </strong> <span class="text-muted" id="objPhone"></span></p>
+                    <p><strong>Pekerjaan : </strong> <span class="text-muted" id="objJob"></span></p>
+                    <p><strong>Email : </strong> <span class="text-muted" id="objEmail"></span></p>
+                    <p><strong>Alamat : </strong> <span class="text-muted" id="objAddress"></span></p>
                     <p><strong>Identitas : </strong></p>
                     <img id="objImage" src="" alt="identitas"
                         class="img img-responsive img-fluid max-width: 100%">
                     <hr>
-                    <p><strong>Informasi Yang Diminta :</strong> <span class="text-muted" id="objInformation"></span></p>
-                    <p><strong>Keterangan Keberatan :</strong> <span class="text-muted" id="objDescription"></span></p>
-                    <p><strong>Alasan Keberatan :</strong> <span class="text-muted" id="objReason"></span></p>
+                    <p><strong>Informasi Yang Diminta : </strong> <span class="text-muted" id="objInformation"></span></p>
+                    <p><strong>Keterangan Keberatan : </strong> <span class="text-muted" id="objDescription"></span></p>
+                    <p><strong>Alasan Keberatan : </strong> <span class="text-muted" id="objReason"></span></p>
 
                 </div>
             </div>
@@ -117,19 +117,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><strong>Nama Pelapor :</strong> <span class="text-muted" id="compName"></span></p>
-                    <p><strong>Telpon Pelapor :</strong> <span class="text-muted" id="compPhone"></span></p>
-                    <p><strong>Email Pelapor :</strong> <span class="text-muted" id="compEmail"></span></p>
-                    <p><strong>Alamat Pelapor:</strong> <span class="text-muted" id="compAddress"></span></p>
-                    <p><strong>Ada Saksi:</strong> <span class="text-muted" id="compWitness"></span></p>
+                    <p><strong>Nama Pelapor : </strong> <span class="text-muted" id="compName"></span></p>
+                    <p><strong>Telpon Pelapor : </strong> <span class="text-muted" id="compPhone"></span></p>
+                    <p><strong>Email Pelapor : </strong> <span class="text-muted" id="compEmail"></span></p>
+                    <p><strong>Alamat Pelapor: </strong> <span class="text-muted" id="compAddress"></span></p>
+                    <p><strong>Saksi: </strong> <span class="text-muted" id="compWitness"></span></p>
                     <p><strong>Identitas Pelapor : </strong></p>
                     <img id="compImage" src="" alt="identitas"
                         class="img img-responsive img-fluid max-width: 100%">
                     <hr>
-                    <p><strong>Nama Terlapor :</strong> <span class="text-muted" id="compNameOfReported"></span></p>
-                    <p><strong>Identitas Terlapor :</strong> <span class="text-muted" id="compReportedIdentity"></span>
+                    <p><strong>Nama Terlapor : </strong> <span class="text-muted" id="compNameOfReported"></span></p>
+                    <p>
+                        <strong>Identitas Terlapor : </strong> <span class="text-muted" id="compReportedIdentity"></span>
                     </p>
-                    <p><strong>Kejadian/Kesaksian :</strong> <span class="text-muted" id="compInformation"></span></p>
+                    <p><strong>Kejadian/Kesaksian : </strong> <span class="text-muted" id="compInformation"></span></p>
 
                 </div>
             </div>
