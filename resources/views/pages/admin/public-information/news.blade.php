@@ -30,6 +30,7 @@
                                     <th class="all">#</th>
                                     <th class="all">Judul</th>
                                     <th class="all">Status</th>
+                                    <th class="all">Views</th>
                                     <th class="all">Gambar</th>
                                 </tr>
                             </thead>
@@ -141,6 +142,8 @@
                     data: "title"
                 }, {
                     data: "is_publish"
+                },{
+                    data: "views"
                 }, {
                     data: "image"
                 }],

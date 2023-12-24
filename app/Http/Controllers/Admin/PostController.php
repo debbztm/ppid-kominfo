@@ -43,9 +43,13 @@ class PostController extends Controller
     {
         $title = "Berita - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
         $news = MaPost::where('id', $id)->where('seo', $seo)->first();
-        if ($news) {
-            $title = $news->title;
+        if (!$news) {
+            return redirect()->route("home");
         }
+        $title = $news->title;
+        $data["views"] = $news->views + 1;
+        $news->update($data);
+
         return view("pages.front.news-detail", compact("title", "news"));
     }
 
@@ -112,7 +116,7 @@ class PostController extends Controller
                                 class="img-fluid img-thumbnail" alt="' . $item->title . '">
                             </div>
                         </div>';
-            $title =    "<p>
+            $title = "<p>
                             " . Str::limit(strip_tags($item->title), 100) . "
                         </p>";
             $item['action'] = $action;

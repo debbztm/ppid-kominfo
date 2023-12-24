@@ -16,10 +16,10 @@
                         href="#complaint" role="tab">Pengaduan</a>
                     <div class="slide"></div>
                 </li>
-                <li class="nav-item"><a class="nav-link text-uppercase" id="tabSatisfaction" data-toggle="tab"
+                {{-- <li class="nav-item"><a class="nav-link text-uppercase" id="tabSatisfaction" data-toggle="tab"
                         href="#satisfaction" role="tab">Kepuasan</a>
                     <div class="slide"></div>
-                </li>
+                </li> --}}
             </ul>
             <div class="tab-content card-block" style="padding: 0px; padding-top: 1.25em">
                 <div class="tab-pane active" id="request" role="tabpanel">
@@ -37,11 +37,11 @@
                         <h5>Loading .... </h5>
                     </center>
                 </div>
-                <div class="tab-pane" id="satisfaction">
+                {{-- <div class="tab-pane" id="satisfaction">
                     <center>
                         <h5>Loading .... </h5>
                     </center>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -156,9 +156,9 @@
             $("#complaint").load("/admin/form/complaint", function() {
                 complaintDataTable()
             })
-            $("#satisfaction").load("/admin/form/satisfaction", function() {
-                satisfactionDataTable()
-            })
+            // $("#satisfaction").load("/admin/form/satisfaction", function() {
+            //     satisfactionDataTable()
+            // })
 
             $(".tab-pane").hide()
             $("#request").show()
@@ -176,9 +176,9 @@
                 showTab("complaint")
             })
 
-            $("#tabSatisfaction").click(function() {
-                showTab("satisfaction")
-            })
+            // $("#tabSatisfaction").click(function() {
+            //     showTab("satisfaction")
+            // })
         })
 
 
@@ -206,9 +206,9 @@
                         showComplaintModal(d)
                     }
 
-                    if (d.type == "satisfaction") {
-                        showSatisfactionModal(d)
-                    }
+                    // if (d.type == "satisfaction") {
+                    //     showSatisfactionModal(d)
+                    // }
 
                 },
                 error: function(err) {
@@ -259,9 +259,9 @@
             $("#complaintModal").modal('show');
         }
 
-        function showSatisfactionModal(data) {
-            $("#exampleModal").modal('show');
-        }
+        // function showSatisfactionModal(data) {
+        //     $("#exampleModal").modal('show');
+        // }
 
         function refreshData(tableName) {
             if (tableName == "request") {
@@ -270,9 +270,10 @@
                 objTable.ajax.reload(null, false);
             } else if (tableName == "complaint") {
                 comTable.ajax.reload(null, false);
-            } else if (tableName == "satisfaction") {
-                satTable.ajax.reload(null, false);
             }
+            //  else if (tableName == "satisfaction") {
+            //     satTable.ajax.reload(null, false);
+            // }
         }
 
         function requestDataTable() {
@@ -366,33 +367,33 @@
             });
         }
 
-        function satisfactionDataTable() {
-            const url = "/api/admin/form/satisfaction/datatable";
-            satTable = $("#satisfactiontDataTable").DataTable({
-                searching: true,
-                orderng: true,
-                lengthChange: true,
-                responsive: true,
-                processing: true,
-                serverSide: true,
-                searchDelay: 1000,
-                paging: true,
-                lengthMenu: [5, 10, 25, 50, 100],
-                ajax: url,
-                columns: [{
-                    data: "action"
-                }, {
-                    data: "name"
-                }, {
-                    data: "date"
-                }, {
-                    data: "email"
-                }, {
-                    data: "typeof_service"
-                }],
-                pageLength: 25,
-            });
-        }
+        // function satisfactionDataTable() {
+        //     const url = "/api/admin/form/satisfaction/datatable";
+        //     satTable = $("#satisfactiontDataTable").DataTable({
+        //         searching: true,
+        //         orderng: true,
+        //         lengthChange: true,
+        //         responsive: true,
+        //         processing: true,
+        //         serverSide: true,
+        //         searchDelay: 1000,
+        //         paging: true,
+        //         lengthMenu: [5, 10, 25, 50, 100],
+        //         ajax: url,
+        //         columns: [{
+        //             data: "action"
+        //         }, {
+        //             data: "name"
+        //         }, {
+        //             data: "date"
+        //         }, {
+        //             data: "email"
+        //         }, {
+        //             data: "typeof_service"
+        //         }],
+        //         pageLength: 25,
+        //     });
+        // }
 
         function removeData(id, type) {
             let c = confirm("Apakah anda yakin untuk menghapus data ini ?");

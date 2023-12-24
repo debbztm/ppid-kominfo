@@ -32,7 +32,7 @@
                         <h5 class="black-23 mt-20">
                             {{ Illuminate\Support\Str::limit(strip_tags($new->title), 100) }}
                         </h5>
-                        <h6 class="ubuntu fz-13 gray-777 mt-20">Dibuat oleh {{ $new->username }}</h6>
+                        <h6 class="ubuntu fz-13 gray-777 mt-20">Dibuat oleh {{ $new->username }} <span class="sep-space">  /</span> {{ $new->views }} Pengunjung</h6>
                         <p class="mt-20 lh-28">
                             {{ Illuminate\Support\Str::limit(strip_tags($new->description), 200) }}
                         </p>

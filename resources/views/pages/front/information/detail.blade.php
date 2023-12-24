@@ -71,11 +71,14 @@
             <div class="col-md-12 mt-50">
                 @if ($news)
                     <div class="blog-post-details">
-                        <div class="blog-post-img">
-                            <img class="img-responsive" src="{{ Storage::url($news->image) }}" alt="">
-                            <div class="blog-post-date"><img src="{{ asset('frontend/img/blog-c.png') }}" alt=""><span
-                                    class="white martel fz-13 text-uppercase">{!! (new \App\Helpers\Helper())->tgl_indo($news->created_at) !!}</span></div>
-                        </div>
+                        @if ($news->image)
+                            <div class="blog-post-img">
+                                <img class="img-responsive" src="{{ Storage::url($news->image) }}" alt="">
+                                <div class="blog-post-date"><img src="{{ asset('frontend/img/blog-c.png') }}"
+                                        alt=""><span
+                                        class="white martel fz-13 text-uppercase">{!! (new \App\Helpers\Helper())->tgl_indo($news->created_at) !!}</span></div>
+                            </div>
+                        @endif
                         <h4 class="black-23 mt-40">{{ $news->title }}</h4>
                         <h6 class="ubuntu fz-13 gray-777 mt-20 mb-20">Pengunjung {{ $news->views }}</h6>
                         {!! $news->description !!}

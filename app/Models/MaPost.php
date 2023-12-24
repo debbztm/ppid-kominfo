@@ -24,7 +24,8 @@ class MaPost extends Model
         'username',
         'phone',
         'is_publish',
-        'type'
+        'type',
+        'views'
     ];
 
     public function hall()

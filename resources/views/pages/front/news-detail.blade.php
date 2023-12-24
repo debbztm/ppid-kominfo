@@ -14,7 +14,9 @@
                                     class="white martel fz-13 text-uppercase">{!! (new \App\Helpers\Helper())->tgl_indo($news->date) !!}</span></div>
                         </div>
                         <h4 class="black-23 mt-40">{{ $news->title }}</h4>
-                        <h6 class="ubuntu fz-13 gray-777 mt-20 mb-20">Dibuat oleh {{ $news->username }}</h6>
+                        <h6 class="ubuntu fz-13 gray-777 mt-20 mb-20">Dibuat oleh {{ $news->username }} <span
+                                class="sep-space"> /</span> {{ $news->views }} Pengunjung</h6>
+
                         {!! $news->description !!}
                     </div>
                     <div class="blog-single-share clearfix mt-50">

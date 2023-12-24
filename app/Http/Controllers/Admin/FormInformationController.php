@@ -34,10 +34,10 @@ class FormInformationController extends Controller
         return view("pages.admin.form-information.complaint");
     }
 
-    public function satisfaction()
-    {
-        return view("pages.admin.form-information.satisfaction");
-    }
+    // public function satisfaction()
+    // {
+    //     return view("pages.admin.form-information.satisfaction");
+    // }
 
 
     // HOME PAGE
@@ -210,25 +210,26 @@ class FormInformationController extends Controller
 
                 $rules = array_merge($rules, $addRules);
                 $messages = array_merge($messages, $addMessages);
-            } else if ($data["type"] == "satisfaction") {
-                $addRules = [
-                    "date" => "required",
-                    "job" => "required|string",
-                    "address" => "required|string",
-                    "typeof_service" => "required|string",
-                    "suggestion" => "required|string",
-                ];
-                $addMessages = [
-                    "date.required" => "Tanggal harus diisi",
-                    "job.required" => "Pekerjaan harus diisi",
-                    "address.required" => "Alamat harus diisi",
-                    "typeof_service" => "Jenis pelayanan harus diisi",
-                    "suggestion.required" => "Saran harus diisi",
-                ];
+            } 
+            // else if ($data["type"] == "satisfaction") {
+            //     $addRules = [
+            //         "date" => "required",
+            //         "job" => "required|string",
+            //         "address" => "required|string",
+            //         "typeof_service" => "required|string",
+            //         "suggestion" => "required|string",
+            //     ];
+            //     $addMessages = [
+            //         "date.required" => "Tanggal harus diisi",
+            //         "job.required" => "Pekerjaan harus diisi",
+            //         "address.required" => "Alamat harus diisi",
+            //         "typeof_service" => "Jenis pelayanan harus diisi",
+            //         "suggestion.required" => "Saran harus diisi",
+            //     ];
 
-                $rules = array_merge($rules, $addRules);
-                $messages = array_merge($messages, $addMessages);
-            }
+            //     $rules = array_merge($rules, $addRules);
+            //     $messages = array_merge($messages, $addMessages);
+            // }
 
             $validator = Validator::make($data, $rules, $messages);
             if ($validator->fails()) {
