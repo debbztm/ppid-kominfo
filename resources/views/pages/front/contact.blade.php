@@ -98,6 +98,14 @@
                         <div class="clearfix"></div>
                         <hr class="c-border">
                     </div>
+                    <div class="contact-info clearfix mt-20">
+                        @if ($setting)
+                            <iframe src="{{ $setting->maps_location }}" allowfullscreen class='w-100'
+                                height='300'></iframe>
+                            <div class="clearfix"></div>
+                        @endif
+
+                    </div>
                 </div>
             </div>
         </div>

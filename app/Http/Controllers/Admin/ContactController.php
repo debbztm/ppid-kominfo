@@ -51,7 +51,7 @@ class ContactController extends Controller
     // FRONT END
     public function homeContact()
     {
-        $title = "Hubingi Kami - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        $title = "Hubungi Kami - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
         $setting = MaSetting::first();
         return view('pages.front.contact', compact('title', 'setting'));
     }
