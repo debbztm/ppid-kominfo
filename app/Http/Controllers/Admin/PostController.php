@@ -74,7 +74,7 @@ class PostController extends Controller
 
         $recordsFiltered = $query->count();
 
-        $data = $query->orderBy('date', 'desc')
+        $data = $query->orderBy('id', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
             ->get();
