@@ -100,6 +100,8 @@
                                             style="width:450px!important; margin: 0 auto; image-fit:cover !important;">
                                     </div>
                                 @endif
+                            @else
+                                <h1 class="text-center">DATA KOSONG</h1>
                             @endif
                         </div>
                         <div id="conteudo_news" class="conteudo">
@@ -140,6 +142,8 @@
                                         {{ $news->links() }}
                                     </div>
                                 </div>
+                            @else
+                                <h1 class="text-center">DATA KOSONG</h1>
                             @endif
 
                         </div>
@@ -155,7 +159,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($agenda as $key => $ag)
+                                    @forelse ($agenda as $key => $ag)
                                         <tr>
                                             <td width="5%">{{ $key + 1 }}</td>
                                             <td width="40%">{!! $ag->title !!}</td>
@@ -164,7 +168,11 @@
                                             <td width="10%">{{ $ag->hour }}</td>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center">DATA KOSONG</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
