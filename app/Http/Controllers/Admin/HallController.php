@@ -40,12 +40,13 @@ class HallController extends Controller
     {
         $title = "Balai/UPT - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
         $hall = Hall::where('id', $id)->where('seo', $seo)->first();
-        $news = false;
-        $user = false;
-        if ($hall) {
-            $news =  MaPost::where('hall_id', $hall->id)->orderBy('id', 'desc')->paginate(9);
-            $user = User::where('hall_id', $hall->id)->first();
+ 
+        if (!$hall) {
+            return abort(404);
         }
+        $news =  MaPost::where('hall_id', $hall->id)->orderBy('id', 'desc')->paginate(9);
+        $user = User::where('hall_id', $hall->id)->first();
+        
         $agenda = [];
         if ($user) {
             $agenda = MaAgenda::where("username", $user->username)->orderBy('time', 'desc')->get();

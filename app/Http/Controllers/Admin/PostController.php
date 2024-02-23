@@ -44,7 +44,7 @@ class PostController extends Controller
         $title = "Berita - Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
         $news = MaPost::where('id', $id)->where('seo', $seo)->first();
         if (!$news) {
-            return redirect()->route("home");
+            return abort(404);
         }
         $title = $news->title;
         $data["views"] = $news->views + 1;
