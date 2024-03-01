@@ -35,7 +35,7 @@ class PostController extends Controller
                     ->orWhere('description', 'LIKE', '%' . $s . '%')
                     ->get();
             }
-        })->orderBy('id', 'desc')->paginate(12);
+        })->orderBy('date', 'desc')->paginate(12);
         return view('pages.front.news', compact('title', 'news'));
     }
 
@@ -74,7 +74,7 @@ class PostController extends Controller
 
         $recordsFiltered = $query->count();
 
-        $data = $query->orderBy('id', 'desc')
+        $data = $query->orderBy('date', 'desc')
             ->skip($request->query('start'))
             ->limit($request->query('length'))
             ->get();
