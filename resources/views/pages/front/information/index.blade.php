@@ -63,6 +63,10 @@
             float: right;
             margin: 0;
         }
+
+        .col-12 p {
+            color: white !important;
+        }
     </style>
 @endpush
 @section('content')
