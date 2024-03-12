@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\PublicInformationFilesController;
 use App\Http\Controllers\Admin\RegulationController;
 use App\Http\Controllers\Admin\RegulationFileController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\RunningTextsController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UserController;
@@ -58,6 +59,7 @@ Route::post('/polling/update', [PollingController::class, 'update']);
 Route::get('/public-information-news/datatable/{seo}', [PublicInformationNewsController::class, 'homeDataTable']);
 Route::get('/public-information-file/datatable/{seo}', [PublicInformationFilesController::class, 'homeDataTable']);
 Route::post("/form-information", [FormInformationController::class, "create"]);
+Route::get("/running-text", [RunningTextsController::class, "homeRunningText"]);
 
 // AUTH
 Route::group(["middleware" => "guest"], function () {
@@ -85,6 +87,15 @@ Route::prefix("admin")->namespace("admin")->middleware("check.auth")->group(func
         Route::post("/update", [SlideController::class, "update"]);
         Route::post("/update-status", [SlideController::class, "updateStatus"]);
         Route::delete("/", [SlideController::class, "destroy"]);
+    });
+
+    // RUNNING TEXT
+    Route::group(["prefix" => "running-text"], function () {
+        Route::get("datatable", [RunningTextsController::class, "dataTable"]);
+        Route::get("{id}/detail", [RunningTextsController::class, "getDetail"]);
+        Route::post("/create", [RunningTextsController::class, "create"]);
+        Route::post("/update", [RunningTextsController::class, "update"]);
+        Route::delete("/", [RunningTextsController::class, "destroy"]);
     });
 
     // POST/NEWS

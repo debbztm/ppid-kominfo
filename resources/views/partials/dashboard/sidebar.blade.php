@@ -52,6 +52,12 @@
                             <p>Slide</p>
                         </a>
                     </li>
+                    <li class="nav-item ml-3 {{ $routename == 'running-text' ? 'active' : '' }}">
+                        <a href="{{ route('running-text') }}">
+                            <i class="fas fa-text-width"></i>
+                            <p>Running Text</p>
+                        </a>
+                    </li>
                 @endif
 
                 {{-- PUBLIC --}}

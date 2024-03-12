@@ -9,7 +9,8 @@
                         <li><a class="text-uppercase" href="{{ route('home-agenda') }}">Agenda</a>|</li>
                         <li><a class="text-uppercase" href="{{ route('home-list-regulation') }}">Regulasi</a>|</li>
                         <li><a class="text-uppercase" href="{{ route('home-download') }}">Unduh</a>|</li>
-                        <li><a class="text-uppercase" href="{{ route('information-and-formulir') }}">Informasi & Formulir</a>|</li>
+                        <li><a class="text-uppercase" href="{{ route('information-and-formulir') }}">Informasi &
+                                Formulir</a>|</li>
                     </ul>
                 </div>
                 <div class="col-md-3 top-social">
@@ -147,8 +148,8 @@
             <div class="ticker-caption">
                 <p style="color:white">Breaking News</p>
             </div>
-            <ul>
-                <div class="finished not-active" style="transition: all 0.25s ease-in-out 0s;">
+            <ul id="breaking-news">
+                {{-- <div class="finished not-active" style="transition: all 0.25s ease-in-out 0s;">
                     <li style="width: 1750px;"><span>PEMBUKAAN PENDAFTARAN PENGANGKATAN DAN PENGAMBILAN
                             SUMPH AT JANJI ADVOKAT DI PENGADILAN TINGGI JAWA TENGAH </span></li>
                 </div>
@@ -167,7 +168,7 @@
                 <div class="finished not-active" style="transition: all 0.25s ease-in-out 0s;">
                     <li style="width: 1750px;"><span>Pengambilan Kartu Tanda Advokat PERADI Periode
                             2015-2018</span></li>
-                </div>
+                </div> --}}
             </ul>
         </div>
     </div>

@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\PublicInformationFilesController;
 use App\Http\Controllers\Admin\RegulationController;
 use App\Http\Controllers\Admin\RegulationFileController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\RunningTextsController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\UserController;
@@ -79,6 +80,7 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     // MASTER
     Route::get('hall', [HallController::class, 'index'])->name('hall'); // balai
     Route::get('slide', [SlideController::class, 'index'])->name('slide'); // slide
+    Route::get('running-text', [RunningTextsController::class, 'index'])->name('running-text'); // running text
     Route::get('news', [PostController::class, 'index'])->name('news'); // berita
     Route::get('public-information-file/{public_information_news_id}/detail', [PublicInformationFilesController::class, 'index'])->name('regulation-file'); // file informasi publik
     Route::get('pages', [PageController::class, 'index'])->name('pages'); // home anggaran
