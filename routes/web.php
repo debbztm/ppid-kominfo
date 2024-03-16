@@ -44,29 +44,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name("home");
-Route::get("/profile/{seo}", [ProfileController::class, 'homeProfile'])->name('home-profile');
-Route::get('/hall/{id}/{seo}', [HallController::class, 'homeHall'])->name('home-hall');
-Route::get("/news", [PostController::class, 'homePost'])->name('home-news');
+Route::get("/profil/{seo}", [ProfileController::class, 'homeProfile'])->name('home-profile');
+Route::get('/balai/{id}/{seo}', [HallController::class, 'homeHall'])->name('home-hall');
+Route::get("/berita", [PostController::class, 'homePost'])->name('home-news');
 // Rout::post('/news/search', [PostController::class, 'homePostSearch'])->name('home-news-search');
-Route::get("/news/read/{id}/{seo}", [PostController::class, 'homePostDetail'])->name('read-news');
-Route::get('/regulation/{seo}', [RegulationController::class, 'homeRegulation'])->name('home-regulation');
-Route::get('/regulation', [RegulationController::class, 'homeListRegulation'])->name('home-list-regulation');
-Route::get('/download', [DownloadController::class, 'homeDownload'])->name('home-download');
+Route::get("/berita/read/{id}/{seo}", [PostController::class, 'homePostDetail'])->name('read-news');
+Route::get('/regulasi/{seo}', [RegulationController::class, 'homeRegulation'])->name('home-regulation');
+Route::get('/regulasi', [RegulationController::class, 'homeListRegulation'])->name('home-list-regulation');
+Route::get('/unduh', [DownloadController::class, 'homeDownload'])->name('home-download');
 Route::get('/agenda', [AgendaController::class, 'homeAgenda'])->name("home-agenda");
 Route::get('/gallery/photo', [GalleryController::class, 'homeGallery'])->name('home-img-gallery');
 Route::get('/gallery/photo/{seo}', [ImageGalleryController::class, 'homeListImageGallery'])->name('home-list-img-gallery');
 Route::get('/gallery/video', [VideoController::class, 'homeVideo'])->name('home-video-gallery');
-Route::get('/contact', [ContactController::class, 'homeContact'])->name('home-contact');
-Route::post('/contact/create', [ContactController::class, 'create'])->name('create-contact');
+Route::get('/hubungi-kami', [ContactController::class, 'homeContact'])->name('home-contact');
+Route::post('/hubungi-kami/add', [ContactController::class, 'create'])->name('create-contact');
 Route::get('/polling', [PollingController::class, 'homePolling'])->name('home-polling');
-Route::get('/information-and-formulir', [HomeController::class, 'informationAndFormulir'])->name('information-and-formulir');
-Route::get('/information/{seo}', [PublicInformationController::class, 'homeInformation'])->name("information");
-Route::get('/information/news/{seo}', [PublicInformationNewsController::class, 'homeInformationNew'])->name("information-news");
-Route::prefix('form')->namespace('form')->group(function(){
-    Route::get('/request', [FormInformationController::class, 'homeRequest'])->name('form-request');
-    Route::get('/objection', [FormInformationController::class, 'homeObjection'])->name('form-objection');
-    Route::get('/complaint', [FormInformationController::class, 'homeComplaint'])->name('form-complaint');
-    Route::get('/satisfaction', [FormInformationController::class, 'homeSatisfaction'])->name('form-satisfaction');
+Route::get('/informasi-dan-formulir', [HomeController::class, 'informationAndFormulir'])->name('information-and-formulir');
+Route::get('/informasi/{seo}', [PublicInformationController::class, 'homeInformation'])->name("information");
+Route::get('/informasi/news/{seo}', [PublicInformationNewsController::class, 'homeInformationNew'])->name("information-news");
+Route::prefix('formulir')->namespace('form')->group(function () {
+    Route::get('/permohonan', [FormInformationController::class, 'homeRequest'])->name('form-request');
+    Route::get('/keberatan', [FormInformationController::class, 'homeObjection'])->name('form-objection');
+    Route::get('/pengaduan', [FormInformationController::class, 'homeComplaint'])->name('form-complaint');
+    Route::get('/kepuasan', [FormInformationController::class, 'homeSatisfaction'])->name('form-satisfaction');
 });
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // AUTH
@@ -114,7 +114,7 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     Route::get('form/objection', [FormInformationController::class, 'objection'])->name('form.objection');
     Route::get('form/complaint', [FormInformationController::class, 'complaint'])->name('form.complaint');
     Route::get('form/satisfaction', [FormInformationController::class, 'satisfaction'])->name('form.satisfaction');
-    
+
     // MANAGEMENT
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('profile/history', [ProfileController::class, 'history'])->name('history');
@@ -126,6 +126,5 @@ Route::prefix('admin')->namespace('admin')->middleware(['auth'])->group(function
     //FOR ROLE USER
     Route::get('hall-profile', [HallController::class, 'hallProfile'])->name('hall-profile'); // profile balai
     Route::get('hall-contact', [HallController::class, 'hallContact'])->name('hall-contact'); // kotak balai
-
 
 });

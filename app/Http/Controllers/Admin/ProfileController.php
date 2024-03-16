@@ -50,6 +50,12 @@ class ProfileController extends Controller
     public function homeProfile($seo)
     {
         $title = "Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah";
+        
+        // bypass ager seo url berupa struktur-organisasi karena di db seo nya
+        // hanya organisasi
+        if($seo == "struktur-organisasi") {
+            $seo = "organisasi";
+        }
         $option = MaOption::where("seo", $seo)->first();
         if ($option) {
             $title = $option->title;

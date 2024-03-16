@@ -77,12 +77,12 @@
                                     role="button" aria-haspopup="true" aria-expanded="false">Profil <span
                                         class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/profile/profil-dinas">Profil Dinas</a></li>
-                                    <li><a href="/profile/sejarah-dinas">Sejarah Dinas</a></li>
-                                    <li><a href="/profile/visi-misi">Visi Misi</a></li>
-                                    <li><a href="/profile/tupoksi">Tupoksi</a></li>
-                                    <li><a href="/profile/organisasi">Struktur Organisasi</a></li>
-                                    <li><a href="/profile/profil-pejabat">Profil Pejabat</a></li>
+                                    <li><a href="/profil/profil-dinas">Profil Dinas</a></li>
+                                    <li><a href="/profil/sejarah-dinas">Sejarah Dinas</a></li>
+                                    <li><a href="/profil/visi-misi">Visi Misi</a></li>
+                                    <li><a href="/profil/tupoksi">Tupoksi</a></li>
+                                    <li><a href="/profil/struktur-organisasi">Struktur Organisasi</a></li>
+                                    <li><a href="/profil/profil-pejabat">Profil Pejabat</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown" onmouseover="showDropdown(this)" onmouseout="hideDropdown(this)">
