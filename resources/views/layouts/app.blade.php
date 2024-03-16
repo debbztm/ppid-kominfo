@@ -32,9 +32,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body"> 
-                    <input type="text" id="searchInputModal" class="form-control" style="background-color: #ffe6ab;"
-                        placeholder="Masukan pencarian..." />
+                <div class="modal-body">
+                    <input type="text" id="searchInputModal" class="form-control"
+                        style="background-color: #ffe6ab;" placeholder="Masukan pencarian..." />
                     <ul id="searchResults" class="search-results" style="margin-top: -5px"></ul>
                 </div>
             </div>
@@ -43,6 +43,43 @@
     @include('partials.front.footer')
     @include('partials.front.scripts')
     @stack('scripts')
+    <script>
+        var url = 'https://wati-integration-prod-service.clare.ai/v2/watiWidget.js?57881';
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = url;
+        var options = {
+        "enabled":true,
+        "chatButtonSetting":{
+            "backgroundColor":"#00e785",
+            "ctaText":"Kirim Pesan",
+            "borderRadius":"25",
+            "marginLeft": "0",
+            "marginRight": "20",
+            "marginBottom": "20",
+            "ctaIconWATI":false,
+            "position":"left"
+        },
+        "brandSetting":{
+            "brandName":"Wati",
+            "brandSubTitle":"ESDM JAWA TENGAH",
+            "brandImg":"https://www.wati.io/wp-content/uploads/2023/04/Wati-logo.svg",
+            "welcomeText":"Halo!\n Apa yang bisa kami bantu?",
+            "messageText":"Halo, silahkan sampaikan keluhan anda terkait dengan halaman ini https://esdm.jatengprov.go.id/",
+            "backgroundColor":"#00e785",
+            "ctaText":"Kirim Pesan",
+            "borderRadius":"25",
+            "autoShow":true,
+            "phoneNumber":"628112681126"
+        }
+        };
+        s.onload = function() {
+            CreateWhatsappChatWidget(options);
+        };
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+    </script>
     <script>
         var speed = 5000;
         canTick = true;
@@ -292,6 +329,19 @@
                 searchNews(query);
             });
         });
+
+        // // whatsapp widget
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     // Menangkap elemen yang ingin digunakan untuk toggle
+        //     var waWidgetSendButton = document.querySelector('.wa-widget-send-button');
+
+        //     // Menambahkan event listener untuk menghandle klik pada elemen tersebut
+        //     waWidgetSendButton.addEventListener('click', function() {
+        //         console.log("di klik")
+        //         // Toggle class 'wa-chat-box-visible'
+        //         this.classList.toggle('wa-chat-box-visible');
+        //     });
+        // });
     </script>
 
 </body>
