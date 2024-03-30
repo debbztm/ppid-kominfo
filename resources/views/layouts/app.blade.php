@@ -13,8 +13,16 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="icon" type="image/png" href="{{ asset('frontend/img/icon.png') }}">
     <title>@yield('title') </title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="title" content="{{ $meta->web_name }}" />
+    <meta name="description" content="{{ strip_tags($meta->about) }}" />
+    <meta name="keywords" content="ESDM Jateng" />
+    <meta name="keywords" content="Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah" />
+    <meta property="og:image" content="{{ asset('frontend/img/icon.png') }}" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta property="og:url" content="{{ request()->url() }}">
+    <meta property="og:site_name" content="Dinas Energi dan Sumber Daya Mineral Provinsi Jawa Tengah">
+    @stack('metadata')
     @include('partials.front.styles')
     @stack('styles')
 </head>
@@ -33,8 +41,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" id="searchInputModal" class="form-control"
-                        style="background-color: #ffe6ab;" placeholder="Masukan pencarian..." />
+                    <input type="text" id="searchInputModal" class="form-control" style="background-color: #ffe6ab;"
+                        placeholder="Masukan pencarian..." />
                     <ul id="searchResults" class="search-results" style="margin-top: -5px"></ul>
                 </div>
             </div>
@@ -50,29 +58,29 @@
         s.async = true;
         s.src = url;
         var options = {
-        "enabled":true,
-        "chatButtonSetting":{
-            "backgroundColor":"#00e785",
-            "ctaText":"Kirim Pesan",
-            "borderRadius":"25",
-            "marginLeft": "0",
-            "marginRight": "20",
-            "marginBottom": "20",
-            "ctaIconWATI":false,
-            "position":"left"
-        },
-        "brandSetting":{
-            "brandName":"Wati",
-            "brandSubTitle":"ESDM JAWA TENGAH",
-            "brandImg":"https://www.wati.io/wp-content/uploads/2023/04/Wati-logo.svg",
-            "welcomeText":"Halo!\n Apa yang bisa kami bantu?",
-            "messageText":"Halo, silahkan sampaikan keluhan anda terkait dengan halaman ini https://esdm.jatengprov.go.id/",
-            "backgroundColor":"#00e785",
-            "ctaText":"Kirim Pesan",
-            "borderRadius":"25",
-            "autoShow":true,
-            "phoneNumber":"628112681126"
-        }
+            "enabled": true,
+            "chatButtonSetting": {
+                "backgroundColor": "#00e785",
+                "ctaText": "Kirim Pesan",
+                "borderRadius": "25",
+                "marginLeft": "0",
+                "marginRight": "20",
+                "marginBottom": "20",
+                "ctaIconWATI": false,
+                "position": "left"
+            },
+            "brandSetting": {
+                "brandName": "Wati",
+                "brandSubTitle": "ESDM JAWA TENGAH",
+                "brandImg": "https://www.wati.io/wp-content/uploads/2023/04/Wati-logo.svg",
+                "welcomeText": "Halo!\n Apa yang bisa kami bantu?",
+                "messageText": "Halo, silahkan sampaikan keluhan anda terkait dengan halaman ini https://esdm.jatengprov.go.id/",
+                "backgroundColor": "#00e785",
+                "ctaText": "Kirim Pesan",
+                "borderRadius": "25",
+                "autoShow": true,
+                "phoneNumber": "628112681126"
+            }
         };
         s.onload = function() {
             CreateWhatsappChatWidget(options);

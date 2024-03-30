@@ -1,4 +1,4 @@
-<link rel="apple-touch-icon" href="{{ asset('frontend/img/apple-touch-icon.png') }}">
+<link rel="apple-touch-icon" href="{{ asset('frontend/img/icon.png') }}">
 <!-- Place favicon.ico in the root directory -->
 <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}">

@@ -1,6 +1,14 @@
 @extends('layouts.app')
 @section('title', $title)
-@push('styles')
+@push('metadata')
+    @if ($news)
+        <meta property="og:image" content="{{ Storage::url($news->image) }}" />
+        <meta property="og:title" content="{{ $news->title }}" />
+        <meta property="og:keywords" content="{{ $news->title }}" />
+        <meta name="keywords" content="{{ $news->title }}" />
+        <meta property="og:description" content="{{ Illuminate\Support\Str::limit(strip_tags($news->description), 200) }}" />
+        <meta name="description" content="{{ Illuminate\Support\Str::limit(strip_tags($news->description), 200) }}" />
+    @endif
 @endpush
 @section('content')
     <div class="container">
@@ -10,7 +18,8 @@
                     <div class="blog-post-details">
                         <div class="blog-post-img">
                             <img class="img-responsive" src="{{ Storage::url($news->image) }}" alt="">
-                            <div class="blog-post-date"><img src="{{ asset('frontend/img/blog-c.png') }}" alt=""><span
+                            <div class="blog-post-date"><img src="{{ asset('frontend/img/blog-c.png') }}"
+                                    alt=""><span
                                     class="white martel fz-13 text-uppercase">{!! (new \App\Helpers\Helper())->tgl_indo($news->date) !!}</span></div>
                         </div>
                         <h4 class="black-23 mt-40">{{ $news->title }}</h4>
