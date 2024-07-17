@@ -389,7 +389,9 @@ class PostController extends Controller
 
         $data = $query->orderBy('date', 'desc')
             ->where('is_publish', 'Y')
+            ->limit(50)
             ->get();
+
         $output = $data->map(function ($item) {
             $image = '<img src="' . Storage::url($item->image) . '" alt="" style="width:100px!important; height:75px!important object-fit: cover!important; margin-right:10px" 
                                     class="" alt="' . $item->title . '">';
